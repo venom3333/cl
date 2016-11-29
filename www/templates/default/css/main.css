@@ -1,8 +1,13 @@
 /* debug */
 /** {*/
-    /*border: 1px solid red;*/
+/*border: 1px solid red;*/
 /*}*/
 /* /debug */
+
+.clear {
+    clear: both;
+}
+
 body {
     padding: 0;
     display: block;
@@ -17,33 +22,43 @@ body {
     text-align: center;
 }
 
-#leftColumn{
+#leftColumn {
     width: 200px;
     float: left;
 }
 
-#leftMenu ul{
+#leftMenu ul {
     list-style-type: none;
     padding: 5px;
 }
 
 #leftMenu,
 #loginBox,
-#registerBox{
+#registerBox {
     padding-bottom: 20px;
 }
 
-#centerColumn{
-    width: 600px;
+#centerColumn {
+    width: auto;
     float: left;
     padding-left: 90px;
 }
 
-#footer{
+#item {
+    float: left;
+    margin: 20px;
+}
+
+.list p {
+    float: left;
+    margin: 0 5px;
+}
+
+#footer {
     clear: both;
 }
 
-.menuCaption{
+.menuCaption {
     padding: 3px;
     font-weight: bold;
 }
