@@ -1,0 +1,12 @@
+INSERT INTO `custom_light`.`category` (`id`, `name`) VALUES (NULL, 'прямого освещения'),
+  (NULL, 'отраженного освещения'),
+  (NULL, 'диффузные'),
+  (NULL, 'асимметричные'),
+  (NULL, 'бытовые'), (NULL, 'декоративные'),
+  (NULL, 'потолочные'), (NULL, 'настенные');
+
+INSERT INTO `custom_light`.`color` (`id`, `name`) VALUES (NULL, 'красный'),
+  (NULL, 'зеленый'),
+  (NULL, 'синий');
+
+INSERT INTO `custom_light`.`image` (`id`, `path`) VALUES (NULL, 'http://placehold.it/350x150');

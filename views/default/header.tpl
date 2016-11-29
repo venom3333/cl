@@ -12,7 +12,4 @@
 
 {include file="leftcolumn.tpl"}
 
-{* центральный столбец *}
-<div id="centerColumn">
 
-    centerColumn

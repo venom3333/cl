@@ -1,7 +1,13 @@
 <?php
+// 1. Общие настройки
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
-include_once '../config/config.php';            // Инициализация настроек
-include_once '../library/mainFunctions.php';    // Основные функции
+// 2. Подключение файлов
+define('ROOT', dirname(__FILE__));
+include_once ROOT .'/../config/config.php';            // Инициализация настроек
+include_once ROOT .'/../components/venom/Db.php';      // Подключение к базе данных PDO
+include_once ROOT .'/../library/mainFunctions.php';    // Основные функции
 
 // определяем с каким контроллером будем работать
 $controllerName = isset( $_GET['controller'] ) ? ucfirst( $_GET['controller'] ) : 'Index';

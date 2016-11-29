@@ -1,11 +1,18 @@
 {* левый столбец *}
 <div id="leftColumn">
     <nav id="leftMenu">
-        <div class="menuCaption">Меню:</div>
+        <div class="menuCaption">Категории:</div>
         <ul>
-            <li>пункт 1</li>
-            <li>пункт 2</li>
-            <li>пункт 3</li>
+            {foreach $categories as $category}
+                <li><a href="#">{$category['name']}</a></li>
+                {*{if isset($category['children'])}*}
+                    {*<ul>*}
+                        {*{foreach $category['children'] as $child}*}
+                            {*<li><a href="#">{$child['name']}</a></li>*}
+                        {*{/foreach}*}
+                    {*</ul>*}
+                {*{/if}*}
+            {/foreach}
         </ul>
     </nav>
 </div> {*/leftColumn*}
