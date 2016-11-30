@@ -1,0 +1,24 @@
+/* debug */
+/** {*/
+/*border: 1px solid red;*/
+/*}*/
+/* /debug */
+
+.clear {
+    clear: both;
+}
+
+.enum p {
+    float: left;
+    margin: 0 5px;
+}
+
+.enum p:after {
+    content: ",";
+}
+
+.enum p:last-child:after,
+.enum p:first-child:after
+{
+    content: "";
+}

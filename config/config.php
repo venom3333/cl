@@ -9,7 +9,8 @@ define( 'PathPostfix', 'Controller.php' );
 //<
 
 //> Используемый шаблон
-$template = 'default';
+//$template = 'default';
+$template = 'light';
 
 // пути к файлам шаблонов (*.tpl)
 define( 'TemplatePrefix', "../views/$template/" );
@@ -18,6 +19,7 @@ define( 'TemplatePostfix', ".tpl" );
 // пути к файлам шаблонов в вебпространстве
 define( 'TemplateWebPath', "/templates/$template/" );
 //<
+
 
 //> Инициализация шаблонизатора Smarty
 // put full path to Smarty.class.php

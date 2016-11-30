@@ -62,6 +62,36 @@ function getMainCats (){
 }
 
 /**
+ * Получить товары для индекс страницы
+ *
+ * @return array массив товаров для индекс страницы
+ */
+function getIndexOfItems (){
+	$db = Db::getConnection();
+	$result = $db->query('
+		SELECT * FROM `custom_light`.item
+	');
+
+	$result->setFetchMode( PDO::FETCH_ASSOC );
+	$items = $result->fetchAll();
+
+	foreach ( $items as &$item ) {
+		$colors = getItemColors( $item['id'] );
+		if ( $colors ) {
+			$item['colors'] = $colors;
+		}
+		$categories = getItemCategories( $item['id'] );
+		if ( $categories ) {
+			$item['categories'] = $categories;
+		}
+	}
+	unset( $item );
+
+	$db = null; // закрыть соединение
+	return $items;
+}
+
+/**
  * Получить все товары
  *
  * @return array массив всех товаров

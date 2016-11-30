@@ -17,16 +17,13 @@ function testAction () {
  */
 function indexAction(Smarty $smarty){
 	$rsCategories = getMainCats();
+	$rsItems = getIndexOfItems();
 
-	$rsItems = getAllItems();
-
-	$smarty->assign('pageTitle', 'Главная страница сайта');
+	$smarty->assign('pageTitle', 'Custom Light. Нестандартное освещение');
 	$smarty->assign('categories', $rsCategories);
 	$smarty->assign('items', $rsItems);
 
 	//d($rsItems);
 
-	loadTemplate($smarty, 'header');
 	loadTemplate($smarty, 'index');
-	loadTemplate($smarty, 'footer');
 }

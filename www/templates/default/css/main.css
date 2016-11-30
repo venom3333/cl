@@ -49,9 +49,19 @@ body {
     margin: 20px;
 }
 
-.list p {
+.enum p {
     float: left;
     margin: 0 5px;
+}
+
+.enum p:after {
+    content: ",";
+}
+
+.enum p:last-child:after,
+.enum p:first-child:after
+{
+    content: "";
 }
 
 #footer {
