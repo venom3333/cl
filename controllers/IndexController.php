@@ -18,9 +18,11 @@ function testAction () {
 function indexAction(Smarty $smarty){
 	$rsCategories = getMainCats();
 	$rsItems = getIndexOfItems();
+	$rsBrands = getBrands();
 
 	$smarty->assign('pageTitle', 'Custom Light. Нестандартное освещение');
 	$smarty->assign('categories', $rsCategories);
+	$smarty->assign('brands', $rsBrands);
 	$smarty->assign('items', $rsItems);
 
 	//d($rsItems);

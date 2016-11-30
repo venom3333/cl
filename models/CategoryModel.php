@@ -62,6 +62,24 @@ function getMainCats (){
 }
 
 /**
+ * Получить главные категории
+ *
+ * @return array массив брендов
+ */
+function getBrands (){
+	$db     = Db::getConnection();
+	$result = $db->query( '
+			SELECT DISTINCT `brand`
+			FROM `custom_light`.item
+		 ' );
+	$result->setFetchMode( PDO::FETCH_ASSOC );
+	$rs = $result->fetchAll();
+
+	$db = null; // закрыть соединение
+	return $rs;
+}
+
+/**
  * Получить товары для индекс страницы
  *
  * @return array массив товаров для индекс страницы

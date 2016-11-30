@@ -1,8 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 /* debug */
 /** {*/
 /*border: 1px solid red;*/
 /*}*/
 /* /debug */
+body * {
+    font-family: 'Roboto', sans-serif;
+}
 
 .clear {
     clear: both;
@@ -18,7 +23,28 @@
 }
 
 .enum p:last-child:after,
-.enum p:first-child:after
-{
+.enum p:first-child:after {
     content: "";
+}
+
+.slider {
+    color: whitesmoke;
+    text-align: center;
+}
+
+.me-one ul li a {
+    text-transform: capitalize;
+}
+
+.mepanel .row .col1 {
+    width: 48%;
+}
+
+.icon-image {
+    height: 200px;
+    width: auto;
+}
+
+.top-nav {
+    width: 55%;
 }

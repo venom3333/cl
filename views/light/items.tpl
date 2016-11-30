@@ -3,7 +3,7 @@
         <div class="items-sec">
             {foreach $items as $item}
                 <div class="col-md-3 feature-grid">
-                    <a href="product.html"><img src="{$item['icon']}" alt="Изображение товара">
+                    <a href="product.html"><img src="{$item['icon']}" alt="Изображение товара" class="icon-image">
                         <div class="arrival-info">
                             <h4>{$item['name']}</h4>
                             <p>{$item['brand']}</p>

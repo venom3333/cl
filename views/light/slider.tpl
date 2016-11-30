@@ -3,7 +3,11 @@
 
 <div class="slider">
     <ul>
-        <li style="background:url({$templateWebPath}images/bnr.jpg) no-repeat 0 0; background-size:cover; min-height:200px;">This is my slider.</li>
-        <li style="background:url({$templateWebPath}images/bnr2.jpg) no-repeat 0 0; background-size:cover; min-height:200px;">Pretty cool, huh?</li>
+        <li style="background:url({$templateWebPath}images/bnr.jpg) no-repeat 0 0; background-size:cover; min-height:300px;">
+            <h1>Пробный слайд 1</h1>
+        </li>
+        <li style="background:url({$templateWebPath}images/bnr2.jpg) no-repeat 0 0; background-size:cover; min-height:300px;">
+            <h1>Пробный слайд 2</h1>
+        </li>
     </ul>
 </div>
