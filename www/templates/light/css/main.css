@@ -5,6 +5,8 @@
 /*border: 1px solid red;*/
 /*}*/
 /* /debug */
+
+/*Общие*/
 body * {
     font-family: 'Roboto', sans-serif;
 }
@@ -13,38 +15,65 @@ body * {
     clear: both;
 }
 
-.enum p {
-    float: left;
-    margin: 0 5px;
-}
-
-.enum p:after {
-    content: ",";
-}
-
-.enum p:last-child:after,
-.enum p:first-child:after {
-    content: "";
-}
-
-.slider {
-    color: whitesmoke;
-    text-align: center;
-}
-
-.me-one ul li a {
-    text-transform: capitalize;
-}
-
-.mepanel .row .col1 {
-    width: 48%;
-}
-
 .icon-image {
     height: 200px;
     width: auto;
 }
 
+/*/Общие*/
+
+/*Главная*/
+@media (min-width: 1600px) {
+    .container {
+        width: 1570px;
+    }
+
+    .product-grid {
+        width: 22%;
+    }
+}
+
+/*/Главная*/
+
+/*Слайдер*/
+.slider {
+    color: whitesmoke;
+    text-align: center;
+}
+
+/*/Слайдер*/
+
+/*Верхнее меню*/
+.me-one ul li a {
+    text-transform: capitalize;
+}
+
+.mepanel .row .col1 {
+    width: auto;
+}
+
+.memenu>li>.mepanel {
+    width: auto;
+}
+
+/*/Верхнее меню*/
+
 .top-nav {
     width: 55%;
 }
+
+/*Внутри категории*/
+.product-grid h4 {
+    text-align: center;
+}
+
+.product-grid p {
+    text-align: justify;
+}
+
+/*Левое меню*/
+.rsidebar {
+    width: 14%;
+}
+/*/Левое меню*/
+/*/Внутри категории*/

@@ -4,10 +4,10 @@
             <h1><a href="/">Custom Light</a></h1>
         </div>
         <!---->
-        {include file="topnav.tpl"}
+        {include file="blocks/topnav.tpl"}
         <!---->
         <div class="cart box_1">
-            <a href="checkout.html">
+            <a href="../checkout.html">
                 <div class="total">
                     <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span>)</div>
                 <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>

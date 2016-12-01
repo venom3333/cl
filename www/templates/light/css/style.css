@@ -598,7 +598,7 @@ background-position:-167px -36px;
     padding:4em 0 3em;
 }
 .product-model-sec {
-    margin: 4em 0 0 0;
+    margin: 1em 0 0 0;
     float: right;
 }
 .rsidebar {
@@ -688,7 +688,7 @@ background-position:-167px -36px;
 }
 .product-grid {
 	width: 30%;
-	margin: 0 3% 4% 0;
+	margin: 2% 3% 4% 0;
 	float: left;	
 	position: relative;
 	transition: 0.5s all;
@@ -767,16 +767,16 @@ background-position:-167px -36px;
 	padding: 0.545em;
 }
 .product-info-cust h4{
-	color: #caccce;
+	color: #373838;
     font-size: 0.95em;
-    font-family: 'Dosis-Bold';
     text-transform: uppercase;
+	text-align: center;
 }
 .product-info-cust p{
 	 margin:5px 0;
 	 letter-spacing:1px;
 	 font-size:0.85em;
-	 color:#C7C7C7;
+	 color:#373838;
 }
 span.item_price{
 	color: #000;
@@ -1268,7 +1268,7 @@ h3.ghj {
 	padding: 2em 0;
 }
 .breadcrumb {
-	margin:3em 0 2em!important;
+	margin: .5em 0!important;
 }
 .table {
 	margin-bottom: 0;

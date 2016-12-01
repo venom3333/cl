@@ -55,28 +55,10 @@ function getMainCats (){
 			FROM `custom_light`.category
 		 ' );
 	$result->setFetchMode( PDO::FETCH_ASSOC );
-	$rs = $result->fetchAll();
+	$cats = $result->fetchAll();
 
 	$db = null; // закрыть соединение
-	return $rs;
-}
-
-/**
- * Получить главные категории
- *
- * @return array массив брендов
- */
-function getBrands (){
-	$db     = Db::getConnection();
-	$result = $db->query( '
-			SELECT DISTINCT `brand`
-			FROM `custom_light`.item
-		 ' );
-	$result->setFetchMode( PDO::FETCH_ASSOC );
-	$rs = $result->fetchAll();
-
-	$db = null; // закрыть соединение
-	return $rs;
+	return $cats;
 }
 
 /**
@@ -210,4 +192,26 @@ function getItemImages ($itemId){
 
 	$db = null; // закрыть соединение
 	return $images;
+}
+
+/**
+ * Получить все цвета, относящиеся к товару
+ *
+ * @param integer $categoryId ID категории
+ *
+ * @return array наименование категории
+ *
+ */
+function getCategoryHeader ($categoryId){
+	$db = Db::getConnection();
+	$result = $db->query('
+		SELECT name, short_description
+		FROM `custom_light`.category
+		WHERE id =' . $categoryId);
+
+	$result->setFetchMode( PDO::FETCH_ASSOC );
+	$categoryHeader = $result->fetch();
+
+	$db = null; // закрыть соединение
+	return $categoryHeader;
 }

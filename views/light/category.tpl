@@ -8,7 +8,7 @@
     {include file="blocks/header.tpl"}
 </header>
 <section id="mainSection">
-    {include file="blocks/main.tpl"}
+    {include file="blocks/category_main.tpl"}
 </section>
 <footer id="footer">
     {include file="blocks/footer.tpl"}

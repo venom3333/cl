@@ -25,6 +25,7 @@ function loadTemplate( Smarty $smarty, $templateName ) {
 	$smarty->display( $templateName . TemplatePostfix );
 }
 
+// Дебаг функция
 function d( $value = null, $die = 1 ) {
 	echo 'Debug: <br><pre>';
 	print_r( $value );

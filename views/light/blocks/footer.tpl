@@ -18,9 +18,9 @@
             <div class="col-md-3 ftr-grid">
                 <h3>More Info</h3>
                 <ul class="nav-bottom">
-                    <li><a href="login.html">Login</a></li>
+                    <li><a href="../login.html">Login</a></li>
                     <li><a href="#">FAQ</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
                     <li><a href="#">Shipping</a></li>
                     <li><a href="#">Membership</a></li>
                 </ul>
