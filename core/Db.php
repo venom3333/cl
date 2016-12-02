@@ -1,6 +1,9 @@
 <?php
 
 class Db {
+	/**
+	 * @return PDO
+	 */
 	public static function getConnection()
 	{
 		include_once (ROOT . '/../config/db.php');

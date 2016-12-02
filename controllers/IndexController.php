@@ -4,50 +4,53 @@
  */
 
 // подключаем модели
-include_once '../models/CategoryModel.php';
-include_once '../models/ProductModel.php';
+require_once '../models/CategoryModel.php';
+require_once '../models/ProductModel.php';
 
-function testAction () {
-	echo 'IndexController.php > testAction';
-}
+class IndexController {
 
-/**
- * Формирование главной страницы сайта
- *
- * @param Smarty $smarty шаблонизатор
- */
-function indexAction(Smarty $smarty){
-	$categories = getMainCats();
+	public static function testAction() {
+		echo 'IndexController.php > testAction';
+	}
 
-	$smarty->assign('pageTitle', 'Custom Light. Нестандартное освещение');
-	$smarty->assign('categories', $categories);
+	/**
+	 * Формирование главной страницы сайта
+	 *
+	 * @param Smarty $smarty шаблонизатор
+	 */
+	public static function indexAction( Smarty $smarty ) {
+		$categories = CategoryModel::getMainCats();
 
-	//d($rsItems);
+		$smarty->assign( 'pageTitle', 'Custom Light. Нестандартное освещение' );
+		$smarty->assign( 'categories', $categories );
 
-	loadTemplate($smarty, 'index');
-}
+		//d($rsItems);
 
-/**
- * Формирование главной страницы сайта
- *
- * @param Smarty $smarty шаблонизатор
- * @param integer $categoryId ID категории продуктов
- */
-function categoryAction(Smarty $smarty, $categoryId = 8){
-	$categories = getMainCats();
+		Venom::loadTemplate( $smarty, 'index' );
+	}
 
-	$categoryHeader = getCategoryHeader($categoryId);
+	/**
+	 * Формирование главной страницы сайта
+	 *
+	 * @param Smarty $smarty шаблонизатор
+	 * @param integer $categoryId ID категории продуктов
+	 */
+	public static function categoryAction( Smarty $smarty, $categoryId = 8 ) {
+		$categories = CategoryModel::getMainCats();
 
-	$products = getIndexOfProducts($categoryId);
+		$categoryHeader = CategoryModel::getCategoryHeader( $categoryId );
 
-	//d($products);
+		$products = ProductModel::getIndexOfProducts( $categoryId );
 
-	$smarty->assign('pageTitle', 'Custom Light. Категория 1');
-	$smarty->assign('categories', $categories);
-	$smarty->assign('products', $products);
-	$smarty->assign('categoryHeader', $categoryHeader);
+		//d($products);
 
-	//d($rsItems);
+		$smarty->assign( 'pageTitle', 'Custom Light. Категория 1' );
+		$smarty->assign( 'categories', $categories );
+		$smarty->assign( 'products', $products );
+		$smarty->assign( 'categoryHeader', $categoryHeader );
 
-	loadTemplate($smarty, 'category');
+		//d($rsItems);
+
+		Venom::loadTemplate( $smarty, 'category' );
+	}
 }

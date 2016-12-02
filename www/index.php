@@ -5,14 +5,11 @@ error_reporting( E_ALL );
 
 // 2. Подключение файлов
 define( 'ROOT', dirname( __FILE__ ) );
-include_once ROOT . '/../config/config.php';            // Инициализация настроек
-include_once ROOT . '/../components/venom/Db.php';      // Подключение к базе данных PDO
-include_once ROOT . '/../library/mainFunctions.php';    // Основные функции
+include_once ROOT . '/../config/config.php';           // Инициализация настроек
+include_once ROOT . '/../core/core.php';               // Подключение компонентов фреймворка (PDO, роутер)
+include_once ROOT . '/../library/mainFunctions.php';   // Основные функции
 
-// определяем с каким контроллером будем работать
-$controllerName = isset( $_GET['controller'] ) ? ucfirst( $_GET['controller'] ) : 'Index';
+$router = new Router;
+$router->run();
+//d($router);
 
-// определяем с каким экшеном будем работать
-$actionName = isset( $_GET['action'] ) ? $_GET['action'] : 'index';
-
-loadPage( $smarty, $controllerName, $actionName );
