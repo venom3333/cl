@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class Router маршрутизатор
  */
@@ -63,7 +64,7 @@ class Router {
 	 * @param string $query строка запроса браузера
 	 * @param Smarty $smarty шаблонизатор
 	 */
-	public function dispatch( Smarty $smarty, $query) {
+	public function dispatch( Smarty $smarty, $query ) {
 		if ( $this->matchRoute( $query ) ) {
 
 		} else {
@@ -77,6 +78,7 @@ class Router {
 	 *  Запуск роутера
 	 */
 	public function run() {
+		// умолчания
 		$controllerName = 'Index';
 		$actionName     = 'index';
 		$params         = 'null';
