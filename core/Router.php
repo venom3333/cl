@@ -59,22 +59,6 @@ class Router {
 	}
 
 	/**
-	 * проверяет на совпадение таблицу маршрутов и присваивает $route если есть
-	 *
-	 * @param string $query строка запроса браузера
-	 * @param Smarty $smarty шаблонизатор
-	 */
-	public function dispatch( Smarty $smarty, $query ) {
-		if ( $this->matchRoute( $query ) ) {
-
-		} else {
-			echo 'Даже регулярка не совпала!';
-			include_once PathPrefix . 'Error' . PathPostfix;
-			ErrorController::e404( $smarty );
-		}
-	}
-
-	/**
 	 *  Запуск роутера
 	 */
 	public function run() {
@@ -90,7 +74,8 @@ class Router {
 		// определяем с каким контроллером будем работать
 		if ( isset( $this->matches['controller'] ) ) {
 			if ( $this->matches['controller'] ) {
-				$controllerName = ucfirst( $this->matches['controller'] );
+				$controllerName = $this->matches['controller'];
+				$controllerName = $this->upperCamelCase( $controllerName );
 			}
 		}
 		// определяем с каким экшеном будем работать
@@ -136,5 +121,36 @@ class Router {
 		} else {
 			$function( $smarty );
 		}
+	}
+
+	/**
+	 * проверяет на совпадение таблицу маршрутов и присваивает $route если есть
+	 *
+	 * @param string $query строка запроса браузера
+	 * @param Smarty $smarty шаблонизатор
+	 */
+	public function dispatch( Smarty $smarty, $query ) {
+		if ( $this->matchRoute( $query ) ) {
+
+		} else {
+			echo 'Даже регулярка не совпала!';
+			include_once PathPrefix . 'Error' . PathPostfix;
+			ErrorController::e404( $smarty );
+		}
+	}
+
+	/**
+	 * преобразует строку вида "что-нибудь этакое" в "ЧтоНибудьЭтакое" (в кэмэлКейс
+	 *
+	 * @param string $str строка запроса браузера
+	 *
+	 * @return mixed|string
+	 */
+	protected function upperCamelCase( $str ) {
+		$str = str_replace( '-', ' ', $str );
+		$str = ucwords( $str );
+		$str = str_replace( ' ', '', $str );
+
+		return $str;
 	}
 }
