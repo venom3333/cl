@@ -40,7 +40,6 @@ body * {
     color: whitesmoke;
     text-align: center;
 }
-
 /*/Слайдер*/
 
 /*Верхнее меню*/
@@ -62,6 +61,12 @@ body * {
     width: 55%;
 }
 
+/*Левое меню*/
+.rsidebar {
+    width: 14%;
+}
+/*/Левое меню*/
+
 /*Внутри категории*/
 .product-grid h4 {
     text-align: center;
@@ -70,10 +75,11 @@ body * {
 .product-grid p {
     text-align: justify;
 }
-
-/*Левое меню*/
-.rsidebar {
-    width: 14%;
-}
-/*/Левое меню*/
 /*/Внутри категории*/
+
+/* Внутри продукта */
+.productGallerySlider{
+    width: 50%;
+    float: left;
+}
+/* /Внутри продукта */

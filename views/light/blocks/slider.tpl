@@ -1,5 +1,5 @@
 <script src="{$templateWebPath}js/unslider-min.js"></script>
-<script src="{$templateWebPath}js/myslider.js"></script>
+<script src="{$templateWebPath}js/main_slider.js"></script>
 
 <div class="slider">
     <ul>

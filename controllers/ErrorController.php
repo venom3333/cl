@@ -1,12 +1,13 @@
 <?php
+/**
+ * Class ErrorController контроллер обработки ошибок
+ */
+
 // подключаем модели
 require_once '../models/CategoryModel.php';
 require_once '../models/ProductModel.php';
 require_once '../models/ProjectModel.php';
 
-/**
- * Class ErrorController контроллер обработки ошибок
- */
 class ErrorController {
 
 	/**

@@ -5,8 +5,8 @@
 
 // подключаем модели
 require_once '../models/CategoryModel.php';
-require_once '../models/ProductModel.php';
-require_once '../models/ProjectModel.php';
+//require_once '../models/ProductModel.php';
+//require_once '../models/ProjectModel.php';
 
 class IndexController {
 

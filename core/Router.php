@@ -61,12 +61,15 @@ class Router {
 	 * проверяет на совпадение таблицу маршрутов и присваивает $route если есть
 	 *
 	 * @param string $query строка запроса браузера
+	 * @param Smarty $smarty шаблонизатор
 	 */
-	public function dispatch( $query ) {
+	public function dispatch( Smarty $smarty, $query) {
 		if ( $this->matchRoute( $query ) ) {
 
 		} else {
 			echo 'Даже регулярка не совпала!';
+			include_once PathPrefix . 'Error' . PathPostfix;
+			ErrorController::e404( $smarty );
 		}
 	}
 
@@ -78,7 +81,9 @@ class Router {
 		$actionName     = 'index';
 		$params         = 'null';
 
-		$this->dispatch( $this->query );
+		$smarty = getSmarty(); // запуск и конфигурация шаблонизатора Smarty
+
+		$this->dispatch( $smarty, $this->query );
 
 		// определяем с каким контроллером будем работать
 		if ( isset( $this->matches['controller'] ) ) {
@@ -99,8 +104,6 @@ class Router {
 				$params = $this->matches['params'];
 			}
 		}
-
-		$smarty = getSmarty(); // запуск и конфигурация шаблонизатора Smarty
 
 		self::loadPage( $smarty, $controllerName, $actionName, $params );
 	}

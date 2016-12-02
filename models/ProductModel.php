@@ -28,6 +28,39 @@ class ProductModel {
 	}
 
 	/**
+	 * Получить определенный товар
+	 *
+	 * @param integer $productId ID продукта
+	 *
+	 * @return array массив с данными определенного товара
+	 */
+	public static function getProduct( $productId ) {
+		$db     = Db::getConnection();
+		$result = $db->query( '
+		SELECT *
+		FROM `custom_light`.product
+		WHERE id =' . $productId );
+
+		$result->setFetchMode( PDO::FETCH_ASSOC );
+		$product = $result->fetch();
+
+		// добавляем изображения
+		$images = self::getProductImages( $productId );
+		if ( $images ) {
+			$product['images'] = $images;
+		}
+
+		// добавляем спецификации
+		$specifications = self::getProductSpecifications( $productId );
+		if ( $specifications ) {
+			$product['specifications'] = $specifications;
+		}
+
+		$db = null; // закрыть соединение
+		return $product;
+	}
+
+	/**
 	 * Получить изображения определенного товара
 	 *
 	 * @param integer $productId ID продукта
