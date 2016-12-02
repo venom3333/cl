@@ -2,6 +2,7 @@
     <div class="col-md-12 product-model-sec">
         {foreach $categories as $category}
             <div class="product-grid">
+                <a href="/category/{$category['id']}">
                 <h4>{$category['name']}</h4>
                 <div class="product-img b-link-stripe b-animate-go  thickbox">
                     <img src="{$category['icon']}" class="img-responsive" alt="">
@@ -18,6 +19,7 @@
                         <div class="clearfix"></div>
                     </div>
                 </div>
+                </a>
             </div>
         {/foreach}
     </div>

@@ -7,7 +7,7 @@
                     <div class="col1 me-one">
                         <ul>
                             {foreach $categories as $category}
-                                <li><a href="../product.html">{$category['name']}</a></li>
+                                <li><a href="/category/{$category['id']}">{$category['name']}</a></li>
                             {/foreach}
                         </ul>
                     </div>

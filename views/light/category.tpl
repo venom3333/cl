@@ -1,3 +1,4 @@
+{* Страница категории *}
 <!doctype html>
 <html lang="ru">
 <head>
