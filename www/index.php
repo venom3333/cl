@@ -9,7 +9,6 @@ include_once ROOT . '/../config/config.php';           // Инициализац
 include_once ROOT . '/../core/core.php';               // Подключение компонентов фреймворка (PDO, роутер)
 include_once ROOT . '/../library/mainFunctions.php';   // Основные функции
 
+// 3. Запуск роутера
 $router = new Router;
 $router->run();
-//d($router);
-
