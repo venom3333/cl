@@ -18,10 +18,14 @@ class ErrorController {
 	public static function e404( Smarty $smarty ) {
 		$categories = CategoryModel::getMainCats();
 
+		$mainSection = "blocks/404_main.tpl";
+
 		$smarty->assign( 'pageTitle', 'Custom Light. 404 Не найдено.' );
 		$smarty->assign( 'categories', $categories );
+		$smarty->assign( 'mainSection', $mainSection );
+
 		http_response_code( 404 );
-		Venom::loadTemplate( $smarty, '404' );
+		Venom::loadTemplate( $smarty, 'general' );
 
 		die;
 	}
