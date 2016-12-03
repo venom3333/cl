@@ -1430,11 +1430,11 @@ class Smarty extends Smarty_Internal_TemplateBase
     }
 
     /**
-     * Error Handler to mute expected messages
+     * ErrorController Handler to mute expected messages
      *
      * @link http://php.net/set_error_handler
      *
-     * @param  integer $errno Error level
+     * @param  integer $errno ErrorController level
      * @param          $errstr
      * @param          $errfile
      * @param          $errline
