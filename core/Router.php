@@ -72,7 +72,7 @@ class Router {
 
 		$this->dispatch( $smarty, $this->query );
 
-		$this->loadPage( $smarty, $this->controllerName, $this->actionName, $this->params );
+		$this->loadPage( $smarty );
 	}
 
 	/**
@@ -83,21 +83,24 @@ class Router {
 	 * @param string $actionName название функции обработки страницы
 	 * @param string $params опциональные параметры
 	 */
-	function loadPage( Smarty $smarty, $controllerName = 'Index', $actionName = 'index', $params = null ) {
+	function loadPage( Smarty $smarty ) {
 
-		if ( file_exists( PathPrefix . $controllerName . PathPostfix ) ) {  // проверка есть ли файл контроллера
-			include_once PathPrefix . $controllerName . PathPostfix;
+		if ( file_exists( PathPrefix . $this->controllerName . PathPostfix ) ) {  // проверка есть ли файл контроллера
+			include_once PathPrefix . $this->controllerName . PathPostfix;
 		} else {
-			include_once PathPrefix . 'Error' . PathPostfix;
-			ErrorController::e404( $smarty );
+			ErrorController::e404( $smarty, 'Не найден файл Контроллера: ' . $this->controllerName . 'Controller' );
 		}
 
-		$actionName .= 'Action';
+		$this->actionName .= 'Action';
 
-		$function = $controllerName . 'Controller::' . $actionName;
+		if ( method_exists( $this->controllerName . 'Controller', $this->actionName ) ) {
+			$function = $this->controllerName . 'Controller::' . $this->actionName;
+		} else {
+			ErrorController::e404( $smarty, 'Не найден метод: ' . $this->controllerName . 'Controller::' . $this->actionName . '()' );
+		}
 
-		if ( $params ) {
-			$function( $smarty, $params );
+		if ( $this->params ) {
+			$function( $smarty, $this->params );
 		} else {
 			$function( $smarty );
 		}
@@ -114,14 +117,13 @@ class Router {
 			// определяем с каким контроллером будем работать
 			if ( isset( $this->matches['controller'] ) ) {
 				if ( $this->matches['controller'] ) {
-					$this->controllerName = $this->matches['controller'];
-					$this->controllerName = $this->upperCamelCase( $this->controllerName );
+					$this->controllerName = $this->upperCamelCase( $this->matches['controller'] );
 				}
 			}
 			// определяем с каким экшеном будем работать
 			if ( isset( $this->matches['action'] ) ) {
 				if ( $this->matches['action'] ) {
-					$this->actionName = $this->matches['action'];
+					$this->actionName = $this->lowerCamelCase( $this->matches['action'] );
 				}
 			}
 
@@ -132,18 +134,16 @@ class Router {
 				}
 			}
 		} else {
-			echo 'Даже регулярка не совпала!';
-			include_once PathPrefix . 'Error' . PathPostfix;
-			ErrorController::e404( $smarty );
+			ErrorController::e404( $smarty, 'Даже регулярка не совпала!' );
 		}
 	}
 
 	/**
-	 * преобразует строку вида "что-нибудь этакое" в "ЧтоНибудьЭтакое" (в кэмэлКейс
+	 * преобразует строку вида "что-нибудь этакое" в "ЧтоНибудьЭтакое" (в КэмэлКейс)
 	 *
 	 * @param string $str строка запроса браузера
 	 *
-	 * @return mixed|string
+	 * @return string
 	 */
 	protected function upperCamelCase( $str ) {
 		$str = str_replace( '-', ' ', $str );
@@ -151,5 +151,16 @@ class Router {
 		$str = str_replace( ' ', '', $str );
 
 		return $str;
+	}
+
+	/**
+	 * преобразует строку вида "что-нибудь этакое" в "чтоНибудьЭтакое" (в кэмэлКейс)
+	 *
+	 * @param string $str строка запроса браузера
+	 *
+	 * @return string
+	 */
+	protected function lowerCamelCase( $str ) {
+		return lcfirst( $this->upperCamelCase( $str ) );
 	}
 }

@@ -304,7 +304,7 @@ class Smarty_Internal_Templatelexer
                     $yymatches = array_filter($yymatches, 'strlen');
                 }
                 if (empty($yymatches)) {
-                    throw new Exception('Error: lexing failed because a rule matched' . ' an empty string.  Input "' .
+                    throw new Exception('ErrorController: lexing failed because a rule matched' . ' an empty string.  Input "' .
                                         substr($this->data, $this->counter, 5) . '... state TEXT');
                 }
                 next($yymatches); // skip global match
@@ -441,7 +441,7 @@ class Smarty_Internal_Templatelexer
                     $yymatches = array_filter($yymatches, 'strlen');
                 }
                 if (empty($yymatches)) {
-                    throw new Exception('Error: lexing failed because a rule matched' . ' an empty string.  Input "' .
+                    throw new Exception('ErrorController: lexing failed because a rule matched' . ' an empty string.  Input "' .
                                         substr($this->data, $this->counter, 5) . '... state TAG');
                 }
                 next($yymatches); // skip global match
@@ -582,7 +582,7 @@ class Smarty_Internal_Templatelexer
                     $yymatches = array_filter($yymatches, 'strlen');
                 }
                 if (empty($yymatches)) {
-                    throw new Exception('Error: lexing failed because a rule matched' . ' an empty string.  Input "' .
+                    throw new Exception('ErrorController: lexing failed because a rule matched' . ' an empty string.  Input "' .
                                         substr($this->data, $this->counter, 5) . '... state TAGBODY');
                 }
                 next($yymatches); // skip global match
@@ -927,7 +927,7 @@ class Smarty_Internal_Templatelexer
                     $yymatches = array_filter($yymatches, 'strlen');
                 }
                 if (empty($yymatches)) {
-                    throw new Exception('Error: lexing failed because a rule matched' . ' an empty string.  Input "' .
+                    throw new Exception('ErrorController: lexing failed because a rule matched' . ' an empty string.  Input "' .
                                         substr($this->data, $this->counter, 5) . '... state LITERAL');
                 }
                 next($yymatches); // skip global match
@@ -1019,7 +1019,7 @@ class Smarty_Internal_Templatelexer
                     $yymatches = array_filter($yymatches, 'strlen');
                 }
                 if (empty($yymatches)) {
-                    throw new Exception('Error: lexing failed because a rule matched' . ' an empty string.  Input "' .
+                    throw new Exception('ErrorController: lexing failed because a rule matched' . ' an empty string.  Input "' .
                                         substr($this->data, $this->counter, 5) . '... state DOUBLEQUOTEDSTRING');
                 }
                 next($yymatches); // skip global match

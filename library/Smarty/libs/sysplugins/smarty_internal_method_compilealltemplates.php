@@ -101,7 +101,7 @@ class Smarty_Internal_Method_CompileAllTemplates
                     }
                 }
                 catch (Exception $e) {
-                    echo "\n<br>        ------>Error: ", $e->getMessage(), "<br><br>\n";
+                    echo "\n<br>        ------>ErrorController: ", $e->getMessage(), "<br><br>\n";
                     $_error_count ++;
                 }
                 // free memory
