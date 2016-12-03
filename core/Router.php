@@ -10,6 +10,11 @@ class Router {
 	protected $query;        // строка запроса
 	protected $matches = []; // массив найденного маршрута с параметрами
 
+	// умолчания
+	protected $controllerName = 'Index';
+	protected $actionName = 'index';
+	protected $params = 'null';
+
 	function __construct() {
 		$this->query = rtrim( $_SERVER['QUERY_STRING'], '/' );    // считываем строку запроса
 		require "../config/routes.php";             // при создании добавляем маршруты
@@ -62,37 +67,12 @@ class Router {
 	 *  Запуск роутера
 	 */
 	public function run() {
-		// умолчания
-		$controllerName = 'Index';
-		$actionName     = 'index';
-		$params         = 'null';
 
 		$smarty = getSmarty(); // запуск и конфигурация шаблонизатора Smarty
 
 		$this->dispatch( $smarty, $this->query );
 
-		// определяем с каким контроллером будем работать
-		if ( isset( $this->matches['controller'] ) ) {
-			if ( $this->matches['controller'] ) {
-				$controllerName = $this->matches['controller'];
-				$controllerName = $this->upperCamelCase( $controllerName );
-			}
-		}
-		// определяем с каким экшеном будем работать
-		if ( isset( $this->matches['action'] ) ) {
-			if ( $this->matches['action'] ) {
-				$actionName = $this->matches['action'];
-			}
-		}
-
-		// определяем есть ли дополнительные параметры
-		if ( isset( $this->matches['params'] ) ) {
-			if ( $this->matches['params'] ) {
-				$params = $this->matches['params'];
-			}
-		}
-
-		self::loadPage( $smarty, $controllerName, $actionName, $params );
+		$this->loadPage( $smarty, $this->controllerName, $this->actionName, $this->params );
 	}
 
 	/**
@@ -131,7 +111,26 @@ class Router {
 	 */
 	public function dispatch( Smarty $smarty, $query ) {
 		if ( $this->matchRoute( $query ) ) {
+			// определяем с каким контроллером будем работать
+			if ( isset( $this->matches['controller'] ) ) {
+				if ( $this->matches['controller'] ) {
+					$this->controllerName = $this->matches['controller'];
+					$this->controllerName = $this->upperCamelCase( $this->controllerName );
+				}
+			}
+			// определяем с каким экшеном будем работать
+			if ( isset( $this->matches['action'] ) ) {
+				if ( $this->matches['action'] ) {
+					$this->actionName = $this->matches['action'];
+				}
+			}
 
+			// определяем есть ли дополнительные параметры
+			if ( isset( $this->matches['params'] ) ) {
+				if ( $this->matches['params'] ) {
+					$this->params = $this->matches['params'];
+				}
+			}
 		} else {
 			echo 'Даже регулярка не совпала!';
 			include_once PathPrefix . 'Error' . PathPostfix;
