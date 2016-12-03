@@ -29,12 +29,15 @@ class ProjectController {
 		$categories = CategoryModel::getMainCats();
 		$project = ProjectModel::getProject( $projectId );
 
+		$mainSection = "blocks/project_main.tpl";
+
 		$smarty->assign( 'pageTitle', 'Custom Light.  ' . $project['name'] );
 		$smarty->assign( 'categories', $categories );
 		$smarty->assign( 'project', $project );
+		$smarty->assign( 'mainSection', $mainSection );
 
 
-		Venom::loadTemplate( $smarty, 'project' );
+		Venom::loadTemplate( $smarty, 'general' );
 	}
 
 }

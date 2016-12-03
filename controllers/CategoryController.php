@@ -21,12 +21,15 @@ class CategoryController {
 		$products = ProductModel::getIndexOfProducts( $categoryId );
 		$projects = ProjectModel::getProjectsByCategory( $categoryId );
 
+		$mainSection = "blocks/category_main.tpl";
+
 		$smarty->assign( 'pageTitle', 'Custom Light. ' . $categoryHeader['name'] );    // тайтл страницы
 		$smarty->assign( 'categories', $categories );
 		$smarty->assign( 'categoryHeader', $categoryHeader );
 		$smarty->assign( 'products', $products );
 		$smarty->assign( 'projects', $projects );
+		$smarty->assign( 'mainSection', $mainSection );
 
-		Venom::loadTemplate( $smarty, 'category' );
+		Venom::loadTemplate( $smarty, 'general' );
 	}
 }

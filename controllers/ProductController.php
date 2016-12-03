@@ -29,13 +29,17 @@ class ProductController {
 		$categories = CategoryModel::getMainCats();
 		$product = ProductModel::getProduct( $productId );
 
+		$mainSection = "blocks/product_main.tpl";
+
 		$smarty->assign( 'pageTitle', 'Custom Light.  ' . $product['name'] );
 		$smarty->assign( 'categories', $categories );
 		$smarty->assign( 'product', $product );
+		$smarty->assign( 'mainSection', $mainSection );
+
 
 		//d($product);
 
-		Venom::loadTemplate( $smarty, 'product' );
+		Venom::loadTemplate( $smarty, 'general' );
 	}
 
 }

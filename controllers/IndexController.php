@@ -22,9 +22,14 @@ class IndexController {
 	public static function indexAction( Smarty $smarty ) {
 		$categories = CategoryModel::getMainCats();
 
+		$mainSection = "blocks/index_main.tpl";
+
 		$smarty->assign( 'pageTitle', 'Custom Light. Нестандартное освещение' );
 		$smarty->assign( 'categories', $categories );
+		$smarty->assign( 'mainSection', $mainSection );
 
-		Venom::loadTemplate( $smarty, 'index' );
+
+
+		Venom::loadTemplate( $smarty, 'general' );
 	}
 }
