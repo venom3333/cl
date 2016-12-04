@@ -3,13 +3,16 @@
 ini_set( 'display_errors', 1 );
 error_reporting( E_ALL );
 
-// 2. Подключение файлов
-define( 'ROOT', dirname( __FILE__ ) );
-include_once ROOT . '/../config/config.php';            // Инициализация настроек
-include_once ROOT . '/../core/ErrorController.php';     // Обработка ошибокinclude_once ROOT . '/../core/ErrorController.php';  // Обработка ошибок
-include_once ROOT . '/../core/core.php';                // Подключение компонентов фреймворка (PDO, роутер)
-include_once ROOT . '/../library/mainFunctions.php';    // Основные функции
+// 2. Константы
+define( 'WWW', dirname( __FILE__ ) );
+define( 'APP', dirname( __DIR__ )  );
+define( 'CONFIG', dirname( __DIR__ ) . '/config/config.php' );
+define( 'CORE', dirname( __DIR__ ) . '/core/core.php' );
 
-// 3. Запуск роутера
+// 2. Подключение файлов
+require_once CONFIG; // Инициализация настроек
+require_once CORE;   // Подключение компонентов фреймворка (PDO, роутер...)
+
+// 3. Запуск роутера (а в нем и шаблонизатора)
 $router = new Router;
 $router->run();
