@@ -2,30 +2,32 @@
 /**
  * Class ProductController контроллер продуктов
  */
-
+namespace app\controllers;
 // подключаем модели
-require_once '../models/CategoryModel.php';
-require_once '../models/ProductModel.php';
+use app\models\CategoryModel;
+use app\models\ProductModel;
+use app\models\ProjectModel;
+use core\Venom;
 
 class ProductController {
 
 	/**
 	 * экшн поумолчанию (для коротких ЧПУ)
 	 *
-	 * @param Smarty $smarty шаблонизатор
+	 * @param \Smarty $smarty шаблонизатор
 	 * @param integer $productId ID продукта
 	 */
-	public static function indexAction( Smarty $smarty, $productId ) {
+	public static function indexAction( \Smarty $smarty, $productId ) {
 		self::showAction( $smarty, $productId);
 	}
 
 	/**
 	 * выводит информацию о продукте
 	 *
-	 * @param Smarty $smarty шаблонизатор
+	 * @param \Smarty $smarty шаблонизатор
 	 * @param integer $productId ID продукта
 	 */
-	public static function showAction( Smarty $smarty, $productId ) {
+	public static function showAction( \Smarty $smarty, $productId ) {
 		//< Для навигационного меню
 		$categories = CategoryModel::getMainCats();
 		$projectNames = ProjectModel::getProjectNames();
@@ -40,9 +42,6 @@ class ProductController {
 		$smarty->assign( 'projectNames', $projectNames );
 		$smarty->assign( 'product', $product );
 		$smarty->assign( 'mainSection', $mainSection );
-
-
-		//d($product);
 
 		Venom::loadTemplate( $smarty, 'general' );
 	}

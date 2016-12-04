@@ -1,12 +1,13 @@
 <?php
-
+namespace core;
+use PDO;
 class Db {
 	/**
 	 * @return PDO
 	 */
 	public static function getConnection()
 	{
-		include_once (APP . '/config/db.php');
+		include_once( APP . '/config/db.php' );
 		$db = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASS);
 		if(!$db) {
 			echo "Ошибка доступа к базе данных";

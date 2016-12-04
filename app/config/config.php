@@ -8,6 +8,7 @@ define( 'PathPrefix', '../controllers/' );
 define( 'PathPostfix', 'Controller.php' );
 
 // Умолчания
+define( 'CONTROLLERS', 'app\controllers\\');
 define( 'DEFAULT_CONTROLLER', 'Index');
 define( 'DEFAULT_ACTION', 'index');
 //<
@@ -17,7 +18,7 @@ define( 'DEFAULT_ACTION', 'index');
 $template = 'light';
 
 // пути к файлам шаблонов (*.tpl)
-define( 'TemplatePrefix', "../views/$template/" );
+define( 'TemplatePrefix', APP . "/views/$template/" );
 define( 'TemplatePostfix', ".tpl" );
 
 // пути к файлам шаблонов в вебпространстве

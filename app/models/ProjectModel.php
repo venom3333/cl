@@ -1,5 +1,6 @@
 <?php
-
+namespace app\models;
+use core\Db;
 /**
  * Модель для таблицы Проектов (category)
  */
@@ -27,7 +28,7 @@ class ProjectModel {
     	ON project.id = category_has_project.project_id
 		WHERE category_has_project.category_id =' . $categoryId );
 		}
-		$result->setFetchMode( PDO::FETCH_ASSOC );
+		$result->setFetchMode( \PDO::FETCH_ASSOC );
 		$projects = $result->fetchAll();
 
 		$db = null; // закрыть соединение
@@ -49,7 +50,7 @@ class ProjectModel {
 		FROM `custom_light`.project
   		' );
 
-		$result->setFetchMode( PDO::FETCH_ASSOC );
+		$result->setFetchMode( \PDO::FETCH_ASSOC );
 		$projectNames = $result->fetchAll();
 
 		$db = null; // закрыть соединение
@@ -70,7 +71,7 @@ class ProjectModel {
 		FROM `custom_light`.project
 		WHERE id =' . $projectId );
 
-		$result->setFetchMode( PDO::FETCH_ASSOC );
+		$result->setFetchMode( \PDO::FETCH_ASSOC );
 		$project = $result->fetch();
 
 		// добавляем изображения
@@ -97,7 +98,7 @@ class ProjectModel {
 		FROM `custom_light`.project_image
 		WHERE project_id =' . $projectId );
 
-		$result->setFetchMode( PDO::FETCH_ASSOC );
+		$result->setFetchMode( \PDO::FETCH_ASSOC );
 		$images = $result->fetchAll();
 
 		$db = null; // закрыть соединение

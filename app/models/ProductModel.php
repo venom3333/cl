@@ -1,5 +1,6 @@
 <?php
-
+namespace app\models;
+use core\Db;
 /**
  * Модель для таблицы Продуктов (category)
  */
@@ -27,7 +28,7 @@ class ProductModel {
     	ON product.id = product_has_category.product_id
 		WHERE product_has_category.category_id =' . $categoryId );
 		}
-		$result->setFetchMode( PDO::FETCH_ASSOC );
+		$result->setFetchMode( \PDO::FETCH_ASSOC );
 		$products = $result->fetchAll();
 
 		$db = null; // закрыть соединение
@@ -48,7 +49,7 @@ class ProductModel {
 		FROM `custom_light`.product
 		WHERE id =' . $productId );
 
-		$result->setFetchMode( PDO::FETCH_ASSOC );
+		$result->setFetchMode( \PDO::FETCH_ASSOC );
 		$product = $result->fetch();
 
 		// добавляем изображения
@@ -81,7 +82,7 @@ class ProductModel {
 		FROM `custom_light`.product_image
 		WHERE product_id =' . $productId );
 
-		$result->setFetchMode( PDO::FETCH_ASSOC );
+		$result->setFetchMode( \PDO::FETCH_ASSOC );
 		$images = $result->fetchAll();
 
 		$db = null; // закрыть соединение
@@ -102,7 +103,7 @@ class ProductModel {
 		FROM `custom_light`.specification
 		WHERE product_id =' . $productId );
 
-		$result->setFetchMode( PDO::FETCH_ASSOC );
+		$result->setFetchMode( \PDO::FETCH_ASSOC );
 		$specifications = $result->fetchAll();
 
 		$db = null; // закрыть соединение

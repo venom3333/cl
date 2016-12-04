@@ -1,5 +1,5 @@
 <?php
-
+namespace core;
 /**
  * Class Router маршрутизатор
  */
@@ -14,23 +14,13 @@ class Router {
 	protected $controllerName = DEFAULT_CONTROLLER;
 	protected $actionName = DEFAULT_ACTION;
 	protected $params = null;
-	protected $smarty = Smarty::class;  // объект шаблонизатора
+	protected $smarty = \Smarty::class;  // объект шаблонизатора
 
-	function __construct() {
-		$this->smarty = getSmarty(); // запуск и конфигурация шаблонизатора Smarty
+	function __construct($smarty) {
+		$this->smarty = $smarty; // запуск и конфигурация шаблонизатора Smarty
 
-		$this->query = rtrim( $_SERVER['QUERY_STRING'], '/' );    // считываем строку запроса
-		require "../config/routes.php";             // при создании добавляем маршруты
-
-		// функция автозагрузки файлов классов контроллеров
-		spl_autoload_register( function ( $class ) {
-			$file = APP . "/controllers/$class.php";
-			if ( is_file( $file ) ) {
-				require_once $file;
-			} else {
-				ErrorController::e404( $this->smarty, "Не найден файл Контроллера: $class.php" );
-			}
-		} );
+		$this->query = rtrim( $_SERVER['QUERY_STRING'], '/' );  // считываем строку запроса
+		require APP . "/config/routes.php";                         // при создании добавляем маршруты
 	}
 
 	/**
@@ -100,18 +90,21 @@ class Router {
 	/**
 	 * Формирование запрашиваемой страницы
 	 *
-	 * @param Smarty $smarty шаблонизатор
+	 * @param \Smarty $smarty шаблонизатор
 	 * @param string $controllerName назване контроллера
 	 * @param string $actionName название функции обработки страницы
 	 * @param string $params опциональные параметры
 	 */
 	function loadPage() {
 
-		if(method_exists( $this->controllerName . 'Controller' , $this->actionName . 'Action')){
-			$function = $this->controllerName . 'Controller::' . $this->actionName . 'Action';
+		$this->controllerName = CONTROLLERS . $this->controllerName . 'Controller';
+		$this->actionName = $this->actionName . 'Action';
+
+		if(method_exists( $this->controllerName, $this->actionName)){
+			$function = $this->controllerName . '::' . $this->actionName;
 		}
 	else {
-			ErrorController::e404( $this->smarty, "Не найден метод: $this->controllerName" . 'Controller::' . $this->actionName . 'Action' );
+			ErrorController::e404( $this->smarty, "Не найден метод: $this->controllerName" . '::' . $this->actionName );
 		}
 
 		if ( $this->params ) {
@@ -125,7 +118,7 @@ class Router {
 	 * проверяет на совпадение таблицу маршрутов и присваивает $route если есть
 	 *
 	 * @param string $query строка запроса браузера
-	 * @param Smarty $smarty шаблонизатор
+	 * @param \Smarty $smarty шаблонизатор
 	 */
 	public function dispatch( $query ) {
 		if ( $this->matchRoute( $query ) ) {
