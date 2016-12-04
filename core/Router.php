@@ -11,13 +11,26 @@ class Router {
 	protected $matches = []; // массив найденного маршрута с параметрами
 
 	// умолчания
-	protected $controllerName = 'Index';
-	protected $actionName = 'index';
-	protected $params = 'null';
+	protected $controllerName = DEFAULT_CONTROLLER;
+	protected $actionName = DEFAULT_ACTION;
+	protected $params = null;
+	protected $smarty = Smarty::class;  // объект шаблонизатора
 
 	function __construct() {
+		$this->smarty = getSmarty(); // запуск и конфигурация шаблонизатора Smarty
+
 		$this->query = rtrim( $_SERVER['QUERY_STRING'], '/' );    // считываем строку запроса
 		require "../config/routes.php";             // при создании добавляем маршруты
+
+		// функция автозагрузки файлов классов контроллеров
+		spl_autoload_register( function ( $class ) {
+			$file = APP . "/controllers/$class.php";
+			if ( is_file( $file ) ) {
+				require_once $file;
+			} else {
+				ErrorController::e404( $this->smarty, "Не найден файл Контроллера: $class.php" );
+			}
+		} );
 	}
 
 	/**
@@ -54,7 +67,18 @@ class Router {
 	public function matchRoute( $query ) {
 		foreach ( $this->routes as $pattern => $route ) {
 			if ( preg_match( "#$pattern#i", $query, $this->matches ) ) {
-				$this->route = $route;
+
+				if ( isset( $route['controller'] ) ) {
+					$this->controllerName = $route['controller'];
+				}
+
+				if ( isset( $route['action'] ) ) {
+					$this->actionName = $route['action'];
+				}
+
+				if ( isset( $route['params'] ) ) {
+					$this->params = $route['params'];
+				}
 
 				return true;
 			}
@@ -68,11 +92,9 @@ class Router {
 	 */
 	public function run() {
 
-		$smarty = getSmarty(); // запуск и конфигурация шаблонизатора Smarty
+		$this->dispatch( $this->query );
 
-		$this->dispatch( $smarty, $this->query );
-
-		$this->loadPage( $smarty );
+		$this->loadPage();
 	}
 
 	/**
@@ -83,26 +105,19 @@ class Router {
 	 * @param string $actionName название функции обработки страницы
 	 * @param string $params опциональные параметры
 	 */
-	function loadPage( Smarty $smarty ) {
+	function loadPage() {
 
-		if ( file_exists( PathPrefix . $this->controllerName . PathPostfix ) ) {  // проверка есть ли файл контроллера
-			include_once PathPrefix . $this->controllerName . PathPostfix;
-		} else {
-			ErrorController::e404( $smarty, 'Не найден файл Контроллера: ' . $this->controllerName . 'Controller' );
+		if(method_exists( $this->controllerName . 'Controller' , $this->actionName . 'Action')){
+			$function = $this->controllerName . 'Controller::' . $this->actionName . 'Action';
 		}
-
-		$this->actionName .= 'Action';
-
-		if ( method_exists( $this->controllerName . 'Controller', $this->actionName ) ) {
-			$function = $this->controllerName . 'Controller::' . $this->actionName;
-		} else {
-			ErrorController::e404( $smarty, 'Не найден метод: ' . $this->controllerName . 'Controller::' . $this->actionName . '()' );
+	else {
+			ErrorController::e404( $this->smarty, "Не найден метод: $this->controllerName" . 'Controller::' . $this->actionName . 'Action' );
 		}
 
 		if ( $this->params ) {
-			$function( $smarty, $this->params );
+			$function( $this->smarty, $this->params );
 		} else {
-			$function( $smarty );
+			$function( $this->smarty );
 		}
 	}
 
@@ -112,18 +127,22 @@ class Router {
 	 * @param string $query строка запроса браузера
 	 * @param Smarty $smarty шаблонизатор
 	 */
-	public function dispatch( Smarty $smarty, $query ) {
+	public function dispatch( $query ) {
 		if ( $this->matchRoute( $query ) ) {
 			// определяем с каким контроллером будем работать
-			if ( isset( $this->matches['controller'] ) ) {
-				if ( $this->matches['controller'] ) {
-					$this->controllerName = $this->upperCamelCase( $this->matches['controller'] );
+			if ( $this->controllerName == DEFAULT_CONTROLLER ) {
+				if ( isset( $this->matches['controller'] ) ) {
+					if ( $this->matches['controller'] ) {
+						$this->controllerName = $this->upperCamelCase( $this->matches['controller'] );
+					}
 				}
 			}
 			// определяем с каким экшеном будем работать
-			if ( isset( $this->matches['action'] ) ) {
-				if ( $this->matches['action'] ) {
-					$this->actionName = $this->lowerCamelCase( $this->matches['action'] );
+			if ( $this->actionName == DEFAULT_ACTION ) {
+				if ( isset( $this->matches['action'] ) ) {
+					if ( $this->matches['action'] ) {
+						$this->actionName = $this->lowerCamelCase( $this->matches['action'] );
+					}
 				}
 			}
 
@@ -134,7 +153,7 @@ class Router {
 				}
 			}
 		} else {
-			ErrorController::e404( $smarty, 'Даже регулярка не совпала!' );
+			ErrorController::e404( $this->smarty, 'Даже регулярка не совпала!' );
 		}
 	}
 

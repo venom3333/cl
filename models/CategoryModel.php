@@ -204,6 +204,13 @@ class CategoryModel {
 	 *
 	 */
 	public static function getCategoryHeader( $categoryId ) {
+
+		if ( !$categoryId ) {
+			$categoryHeader = [ 'name' => 'Все категории', 'short_description' => 'Продукция из всех категорий' ];
+
+			return $categoryHeader;
+		}
+
 		$db     = Db::getConnection();
 		$result = $db->query( '
 		SELECT name, short_description

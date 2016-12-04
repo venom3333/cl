@@ -26,13 +26,17 @@ class ProjectController {
 	 * @param integer $projectId ID проекта
 	 */
 	public static function showAction( Smarty $smarty, $projectId ) {
+		//< Для навигационного меню
 		$categories = CategoryModel::getMainCats();
+		$projectNames = ProjectModel::getProjectNames();
+		//>
 		$project = ProjectModel::getProject( $projectId );
 
 		$mainSection = "blocks/project_main.tpl";
 
 		$smarty->assign( 'pageTitle', 'Custom Light.  ' . $project['name'] );
 		$smarty->assign( 'categories', $categories );
+		$smarty->assign( 'projectNames', $projectNames );
 		$smarty->assign( 'project', $project );
 		$smarty->assign( 'mainSection', $mainSection );
 

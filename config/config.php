@@ -6,6 +6,10 @@
 //> Константы для обращения к контроллерам
 define( 'PathPrefix', '../controllers/' );
 define( 'PathPostfix', 'Controller.php' );
+
+// Умолчания
+define( 'DEFAULT_CONTROLLER', 'Index');
+define( 'DEFAULT_ACTION', 'index');
 //<
 
 //> Используемый шаблон
@@ -21,4 +25,4 @@ define( 'TemplateWebPath', "/templates/$template/" );
 //<
 
 // функция запуска и настроек Smarty
-include_once ROOT . '/../config/smarty.php';
+include_once 'smarty.php';

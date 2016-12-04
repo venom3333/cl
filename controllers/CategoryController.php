@@ -15,8 +15,11 @@ class CategoryController {
 	 * @param Smarty $smarty шаблонизатор
 	 * @param integer $categoryId ID категории продуктов
 	 */
-	public static function indexAction( Smarty $smarty, $categoryId ) {
+	public static function indexAction( Smarty $smarty, $categoryId = null) {
+		//< Для навигационного меню
 		$categories = CategoryModel::getMainCats();
+		$projectNames = ProjectModel::getProjectNames();
+		//>
 		$categoryHeader = CategoryModel::getCategoryHeader( $categoryId );
 		$products = ProductModel::getIndexOfProducts( $categoryId );
 		$projects = ProjectModel::getProjectsByCategory( $categoryId );
@@ -25,6 +28,7 @@ class CategoryController {
 
 		$smarty->assign( 'pageTitle', 'Custom Light. ' . $categoryHeader['name'] );    // тайтл страницы
 		$smarty->assign( 'categories', $categories );
+		$smarty->assign( 'projectNames', $projectNames );
 		$smarty->assign( 'categoryHeader', $categoryHeader );
 		$smarty->assign( 'products', $products );
 		$smarty->assign( 'projects', $projects );
