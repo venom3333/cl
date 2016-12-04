@@ -2,7 +2,7 @@
 //> Инициализация шаблонизатора Smarty
 // put full path to Smarty.class.php
 function getSmarty () {
-	require( '../library/Smarty/libs/Smarty.class.php' );
+	require( '../vendor/Smarty/libs/Smarty.class.php' );
 	$smarty = new Smarty();
 
 	$smarty->setTemplateDir( TemplatePrefix );
