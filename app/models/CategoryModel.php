@@ -1,4 +1,6 @@
 <?php
+namespace app\models;
+use core\Db;
 
 /**
  * Модель для таблицы категорий (category)
@@ -17,7 +19,7 @@ class CategoryModel {
 			SELECT *
 			FROM `custom_light`.category
 			WHERE parent_id =' . $catId );
-		$result->setFetchMode( PDO::FETCH_ASSOC );
+		$result->setFetchMode( \PDO::FETCH_ASSOC );
 		$rs = $result->fetchAll();
 
 		$db = null; // закрыть соединение
@@ -30,10 +32,10 @@ class CategoryModel {
 	 * @return array массив всех категорий
 	 */
 	public static function getAllMainCatsWithChildren() {
-		$rs = getMainCats();
+		$rs = self::getMainCats();
 
 		foreach ( $rs as &$r ) {
-			$rsChildren = getChildrenForCat( $r['id'] );
+			$rsChildren = self::getChildrenForCat( $r['id'] );
 			if ( $rsChildren ) {
 				$r['children'] = $rsChildren;
 			}
@@ -55,7 +57,7 @@ class CategoryModel {
 			SELECT *
 			FROM `custom_light`.category
 		 ' );
-		$result->setFetchMode( PDO::FETCH_ASSOC );
+		$result->setFetchMode( \PDO::FETCH_ASSOC );
 		$cats = $result->fetchAll();
 
 		$db = null; // закрыть соединение
@@ -73,15 +75,15 @@ class CategoryModel {
 		SELECT * FROM `custom_light`.item
 	' );
 
-		$result->setFetchMode( PDO::FETCH_ASSOC );
+		$result->setFetchMode( \PDO::FETCH_ASSOC );
 		$items = $result->fetchAll();
 
 		foreach ( $items as &$item ) {
-			$colors = getItemColors( $item['id'] );
+			$colors = self::getItemColors( $item['id'] );
 			if ( $colors ) {
 				$item['colors'] = $colors;
 			}
-			$categories = getItemCategories( $item['id'] );
+			$categories = self::getItemCategories( $item['id'] );
 			if ( $categories ) {
 				$item['categories'] = $categories;
 			}
@@ -103,19 +105,19 @@ class CategoryModel {
 		SELECT * FROM `custom_light`.item
 	' );
 
-		$result->setFetchMode( PDO::FETCH_ASSOC );
+		$result->setFetchMode( \PDO::FETCH_ASSOC );
 		$items = $result->fetchAll();
 
 		foreach ( $items as &$item ) {
-			$colors = getItemColors( $item['id'] );
+			$colors = self::getItemColors( $item['id'] );
 			if ( $colors ) {
 				$item['colors'] = $colors;
 			}
-			$categories = getItemCategories( $item['id'] );
+			$categories = self::getItemCategories( $item['id'] );
 			if ( $categories ) {
 				$item['categories'] = $categories;
 			}
-			$images = getItemImages( $item['id'] );
+			$images = self::getItemImages( $item['id'] );
 			if ( $images ) {
 				$item['images'] = $images;
 			}
@@ -142,7 +144,7 @@ class CategoryModel {
 		ON color.id = item_has_color.color_id
 		WHERE item_has_color.item_id =' . $itemId );
 
-		$result->setFetchMode( PDO::FETCH_ASSOC );
+		$result->setFetchMode( \PDO::FETCH_ASSOC );
 		$colors = $result->fetchAll();
 
 		$db = null; // закрыть соединение
@@ -165,7 +167,7 @@ class CategoryModel {
 		ON category.id = item_has_category.category_id
 		WHERE item_has_category.item_id =' . $itemId );
 
-		$result->setFetchMode( PDO::FETCH_ASSOC );
+		$result->setFetchMode( \PDO::FETCH_ASSOC );
 		$colors = $result->fetchAll();
 
 		$db = null; // закрыть соединение
@@ -188,7 +190,7 @@ class CategoryModel {
 		ON image.id = item_has_image.image_id
 		WHERE item_has_image.item_id =' . $itemId );
 
-		$result->setFetchMode( PDO::FETCH_ASSOC );
+		$result->setFetchMode( \PDO::FETCH_ASSOC );
 		$images = $result->fetchAll();
 
 		$db = null; // закрыть соединение
@@ -217,7 +219,7 @@ class CategoryModel {
 		FROM `custom_light`.category
 		WHERE id =' . $categoryId );
 
-		$result->setFetchMode( PDO::FETCH_ASSOC );
+		$result->setFetchMode( \PDO::FETCH_ASSOC );
 		$categoryHeader = $result->fetch();
 
 		$db = null; // закрыть соединение

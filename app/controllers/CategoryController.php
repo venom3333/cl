@@ -3,19 +3,22 @@
  *  Контроллер страницы категории
  */
 
+namespace app\controllers;
+
 // подключаем модели
-require_once '../models/CategoryModel.php';
-require_once '../models/ProductModel.php';
-require_once '../models/ProjectModel.php';
+use app\models\CategoryModel;
+use app\models\ProductModel;
+use app\models\ProjectModel;
+use core\Venom;
 
 class CategoryController {
 	/**
 	 * Формирование главной страницы сайта
 	 *
-	 * @param Smarty $smarty шаблонизатор
+	 * @param \Smarty $smarty шаблонизатор
 	 * @param integer $categoryId ID категории продуктов
 	 */
-	public static function indexAction( Smarty $smarty, $categoryId = null) {
+	public static function indexAction( $smarty, $categoryId = null) {
 		//< Для навигационного меню
 		$categories = CategoryModel::getMainCats();
 		$projectNames = ProjectModel::getProjectNames();

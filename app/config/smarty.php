@@ -3,7 +3,7 @@
 // put full path to Smarty.class.php
 function getSmarty () {
 	require( '../vendor/Smarty/libs/Smarty.class.php' );
-	$smarty = new Smarty();
+	$smarty = new \Smarty();
 
 	$smarty->setTemplateDir( TemplatePrefix );
 	$smarty->setCompileDir( '../tmp/smarty/templates_c' );
