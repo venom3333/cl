@@ -26,13 +26,18 @@ class ProductController {
 	 * @param integer $productId ID продукта
 	 */
 	public static function showAction( Smarty $smarty, $productId ) {
+		//< Для навигационного меню
 		$categories = CategoryModel::getMainCats();
+		$projectNames = ProjectModel::getProjectNames();
+		//>
+
 		$product = ProductModel::getProduct( $productId );
 
 		$mainSection = "blocks/product_main.tpl";
 
 		$smarty->assign( 'pageTitle', 'Custom Light.  ' . $product['name'] );
 		$smarty->assign( 'categories', $categories );
+		$smarty->assign( 'projectNames', $projectNames );
 		$smarty->assign( 'product', $product );
 		$smarty->assign( 'mainSection', $mainSection );
 

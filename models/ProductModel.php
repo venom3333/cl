@@ -12,14 +12,21 @@ class ProductModel {
 	 * @return array массив товаров определенной категории
 	 */
 	public static function getIndexOfProducts( $categoryId ) {
-		$db     = Db::getConnection();
-		$result = $db->query( '
+		$db = Db::getConnection();
+
+		if ( ! $categoryId ) {
+			$result = $db->query( '
+		SELECT *
+		FROM `custom_light`.product
+  		LIMIT 16');
+		} else {
+			$result = $db->query( '
 		SELECT *
 		FROM `custom_light`.product
   		JOIN product_has_category
     	ON product.id = product_has_category.product_id
 		WHERE product_has_category.category_id =' . $categoryId );
-
+		}
 		$result->setFetchMode( PDO::FETCH_ASSOC );
 		$products = $result->fetchAll();
 

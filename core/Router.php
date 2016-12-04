@@ -11,9 +11,9 @@ class Router {
 	protected $matches = []; // массив найденного маршрута с параметрами
 
 	// умолчания
-	protected $controllerName = 'Index';
-	protected $actionName = 'index';
-	protected $params = 'null';
+	protected $controllerName = DEFAULT_CONTROLLER;
+	protected $actionName = DEFAULT_ACTION;
+	protected $params = null;
 	protected $smarty = Smarty::class;  // объект шаблонизатора
 
 	function __construct() {
@@ -67,7 +67,18 @@ class Router {
 	public function matchRoute( $query ) {
 		foreach ( $this->routes as $pattern => $route ) {
 			if ( preg_match( "#$pattern#i", $query, $this->matches ) ) {
-				$this->route = $route;
+
+				if ( isset( $route['controller'] ) ) {
+					$this->controllerName = $route['controller'];
+				}
+
+				if ( isset( $route['action'] ) ) {
+					$this->actionName = $route['action'];
+				}
+
+				if ( isset( $route['params'] ) ) {
+					$this->params = $route['params'];
+				}
 
 				return true;
 			}
@@ -96,12 +107,11 @@ class Router {
 	 */
 	function loadPage() {
 
-		$this->actionName .= 'Action';
-
-		if ( method_exists( $this->controllerName . 'Controller', $this->actionName ) ) {
-			$function = $this->controllerName . 'Controller::' . $this->actionName;
-		} else {
-			ErrorController::e404( $this->smarty, 'Не найден метод: ' . $this->controllerName . 'Controller::' . $this->actionName . '()' );
+		if(method_exists( $this->controllerName . 'Controller' , $this->actionName . 'Action')){
+			$function = $this->controllerName . 'Controller::' . $this->actionName . 'Action';
+		}
+	else {
+			ErrorController::e404( $this->smarty, "Не найден метод: $this->controllerName" . 'Controller::' . $this->actionName . 'Action' );
 		}
 
 		if ( $this->params ) {
@@ -120,15 +130,19 @@ class Router {
 	public function dispatch( $query ) {
 		if ( $this->matchRoute( $query ) ) {
 			// определяем с каким контроллером будем работать
-			if ( isset( $this->matches['controller'] ) ) {
-				if ( $this->matches['controller'] ) {
-					$this->controllerName = $this->upperCamelCase( $this->matches['controller'] );
+			if ( $this->controllerName == DEFAULT_CONTROLLER ) {
+				if ( isset( $this->matches['controller'] ) ) {
+					if ( $this->matches['controller'] ) {
+						$this->controllerName = $this->upperCamelCase( $this->matches['controller'] );
+					}
 				}
 			}
 			// определяем с каким экшеном будем работать
-			if ( isset( $this->matches['action'] ) ) {
-				if ( $this->matches['action'] ) {
-					$this->actionName = $this->lowerCamelCase( $this->matches['action'] );
+			if ( $this->actionName == DEFAULT_ACTION ) {
+				if ( isset( $this->matches['action'] ) ) {
+					if ( $this->matches['action'] ) {
+						$this->actionName = $this->lowerCamelCase( $this->matches['action'] );
+					}
 				}
 			}
 

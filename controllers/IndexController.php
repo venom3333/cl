@@ -12,6 +12,7 @@ class IndexController {
 
 	public static function testAction() {
 		echo 'IndexController.php > testAction';
+		die();
 	}
 
 	/**
@@ -20,12 +21,17 @@ class IndexController {
 	 * @param Smarty $smarty шаблонизатор
 	 */
 	public static function indexAction( Smarty $smarty ) {
+
+		//< Для навигационного меню
 		$categories = CategoryModel::getMainCats();
+		$projectNames = ProjectModel::getProjectNames();
+		//>
 
 		$mainSection = "blocks/index_main.tpl";
 
 		$smarty->assign( 'pageTitle', 'Custom Light. Нестандартное освещение' );
 		$smarty->assign( 'categories', $categories );
+		$smarty->assign( 'projectNames', $projectNames );
 		$smarty->assign( 'mainSection', $mainSection );
 
 

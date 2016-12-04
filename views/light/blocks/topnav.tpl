@@ -18,16 +18,11 @@
             <div class="mepanel">
                 <div class="row">
                     <div class="col1 me-one">
-                        <h4>Наши технологии:</h4>
+                        <h4>Наши проекты:</h4>
                         <ul>
-                            <li><a href="../product.html">New Arrivals</a></li>
-                            <li><a href="../product.html">Home</a></li>
-                            <li><a href="../product.html">Decorates</a></li>
-                            <li><a href="../product.html">Accessories</a></li>
-                            <li><a href="../product.html">Kids</a></li>
-                            <li><a href="../product.html">Login</a></li>
-                            <li><a href="../product.html">Brands</a></li>
-                            <li><a href="../product.html">My Shopping Bag</a></li>
+                            {foreach $projectNames as $projectName}
+                                <li><a href="/project/{$projectName['id']}">{$projectName['name']}</a></li>
+                            {/foreach}
                         </ul>
                     </div>
                 </div>
