@@ -5,20 +5,52 @@ namespace core;
  */
 class Router {
 
-	protected $routes = [];  // таблица маршрутов
-	protected $route = [];   // текущий маршрут
-	protected $query;        // строка запроса
-	protected $matches = []; // массив найденного маршрута с параметрами
+	/**
+	 * @var array, таблица маршрутов
+	 */
+	protected $routes = [];
+	/**
+	 * @var array, текущий маршрут
+	 */
+	protected $route = [];
+	/**
+	 * @var string, строка запроса браузера
+	 */
+	protected $query;
+	/**
+	 * @var array, массив найденного маршрута с параметрами
+	 */
+	protected $matches = [];
 
 	// умолчания
+	/**
+	 * @var string, имя контроллера по умолчанию
+	 */
 	protected $controllerName = DEFAULT_CONTROLLER;
+	/**
+	 * @var string, имя метода (экшена) по умолчанию
+	 */
 	protected $actionName = DEFAULT_ACTION;
+	/**
+	 * @var string, строка параметров по умолчанию
+	 */
 	protected $params = null;
-	protected $function = null; // string, название функции вида '$controllerName::$actionName'
-	protected $smarty = \Smarty::class;  // объект шаблонизатора
+	/**
+	 * @var  string, название функции вида '$controllerName::$actionName'
+	 */
+	protected $function = null; //
+	/**
+	 * @var \Smarty, объект шаблонизатора
+	 */
+	protected $smarty = \Smarty::class;
 
+	/**
+	 * Router constructor.
+	 *
+	 * @param $smarty
+	 */
 	function __construct( $smarty ) {
-		$this->smarty = $smarty; // запуск и конфигурация шаблонизатора Smarty
+		$this->smarty = $smarty; // присваиваем объект шаблонизатора
 
 		$this->query = rtrim( $_SERVER['QUERY_STRING'], '/' );  // считываем строку запроса
 		require APP . "/config/routes.php";                         // при создании добавляем маршруты
