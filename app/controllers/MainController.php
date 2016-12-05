@@ -22,16 +22,13 @@ class MainController extends AppController {
 	}
 
 	/**
-	 * Формирование главной страницы сайта
+	 * Формирование главной страницы сайта (список категорий)
 	 *
 	 */
 	public function indexAction() {
-//		$this->layout = 'main';
-//		$this->view = 'test';
-		$name       = 'Вован';
-		$hi         = 'Hellou';
-		$title      = 'ПЕЙДЖ ТАЙТЛ';
-		$categories = Category::getMainCats();
-		$this->set( compact( [ 'title', 'name', 'hi', 'categories' ] ) );
+		$model      = new Category;
+
+		$title = 'Custom Light. Нестандартное освещение';
+		$this->set( compact( 'title' ) );
 	}
 }
