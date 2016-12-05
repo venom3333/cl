@@ -14,9 +14,6 @@ define( 'CORE', dirname( __DIR__ ) . '/core/core.php' );
 require_once CONFIG; // Инициализация настроек
 require_once CORE;   // Подключение компонентов фреймворка (PDO, роутер...)
 
-// 3. Смарти шаблонизатор.
-$smarty = getSmarty();
-
 // 3. Функция автозагрузки классов
 // функция автозагрузки файлов классов
 spl_autoload_register( function ( $class ) {
@@ -25,10 +22,10 @@ spl_autoload_register( function ( $class ) {
 		require_once $file;
 	}
 	else {
-		d("Не найден файл Класса: $class.php" );
+		echo "Не найден файл Класса: $class.php"; die;
 	}
 } );
 
 // 4. Запуск роутера
-$router = new core\Router($smarty);
+$router = new core\Router();
 $router->run();
