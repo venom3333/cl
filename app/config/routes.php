@@ -3,9 +3,11 @@
  * файл конфигурации маршрутов
  */
 
-$this->addRoute( "^(test)/?$", [ 'controller' => 'Index', 'action' => 'test' ] );
+$this->addRoute( "^test/?$", [ 'action' => 'test' ] );
+
+$this->addRoute( "^page/(?P<alias>[a-z-]+)/?$", [ 'controller' => 'Page', 'action' => 'view' ] );
 
 
 // Маршруты по умолчанию (должны быть ниже всех)
-$this->addRoute( '^$', [ 'controller' => 'Index', 'action' => 'index' ] );
+$this->addRoute( '^$', [ 'controller' => DEFAULT_CONTROLLER, 'action' => DEFAULT_ACTION ] );
 $this->addRoute( "^(?P<controller>[a-z-]+)/?(?P<action>[a-z-]+)?/?(?P<params>[0-9-]+)?$" );

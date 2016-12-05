@@ -9,21 +9,19 @@ define( 'PathPostfix', 'Controller.php' );
 
 // Умолчания
 define( 'CONTROLLERS', 'app\controllers\\');
-define( 'DEFAULT_CONTROLLER', 'Index');
+define( 'DEFAULT_CONTROLLER', 'Main');
 define( 'DEFAULT_ACTION', 'index');
 //<
 
 //> Используемый шаблон
-//$template = 'default';
-$template = 'light';
+define( 'TEMPLATE', 'venom');
+define( 'LAYOUT', 'default');
 
-// пути к файлам шаблонов (*.tpl)
-define( 'TemplatePrefix', APP . "/views/$template/" );
-define( 'TemplatePostfix', ".tpl" );
+
+// пути к файлам шаблонов
+define( 'TemplatePrefix', APP . "/views/" . TEMPLATE );
+define( 'TemplatePostfix', ".php" );
 
 // пути к файлам шаблонов в вебпространстве
-define( 'TemplateWebPath', "/templates/$template/" );
+define( 'TemplateWebPath', "/templates/" . TEMPLATE );
 //<
-
-// функция запуска и настроек Smarty
-include_once 'smarty.php';

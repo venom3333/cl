@@ -36,21 +36,16 @@ class Router {
 	 */
 	protected $params = null;
 	/**
-	 * @var  string, название функции вида '$controllerName::$actionName'
+	 * @var string, строка алиасов по умолчанию
 	 */
-	protected $function = null; //
-	/**
-	 * @var \Smarty, объект шаблонизатора
-	 */
-	protected $smarty = \Smarty::class;
+	protected $alias = null;
+
 
 	/**
 	 * Router constructor.
 	 *
-	 * @param $smarty
 	 */
-	function __construct( $smarty ) {
-		$this->smarty = $smarty; // присваиваем объект шаблонизатора
+	function __construct() {
 
 		$this->query = rtrim( $_SERVER['QUERY_STRING'], '/' );  // считываем строку запроса
 		require APP . "/config/routes.php";                         // при создании добавляем маршруты
@@ -104,6 +99,10 @@ class Router {
 					$this->params = $route['params'];
 				}
 
+				if ( isset( $route['alias'] ) ) {
+					$this->alias = $route['alias'];
+				}
+
 				//>
 
 				return true;
@@ -120,26 +119,29 @@ class Router {
 
 		$this->dispatch( $this->query );
 
-		$this->loadPage( $this->function );
+		$this->loadPage();
 	}
 
 	/**
 	 * Формирование запрашиваемой страницы
 	 *
-	 * @param string $function название функции вида '$controllerName::$actionName', напр: 'IndexController::indexAction'
+	 * @param string $function название функции вида '$controllerName::$actionName', напр: 'OldIndexController::indexAction'
 	 *
-	 * @internal param \Smarty $smarty шаблонизатор
 	 * @internal param string $controllerName назване контроллера
 	 * @internal param string $actionName название функции обработки страницы
 	 * @internal param string $params опциональные параметры
 	 */
-	function loadPage( $function ) {
+	function loadPage() {
 
-		if ( $this->params ) {
-			$function( $this->smarty, $this->params );
-		} else {
-			$function( $this->smarty );
+		if ( ! method_exists( $this->controllerName, $this->actionName ) ) {
+			Error::e404( "Не найден метод: $this->controllerName" . '->' . $this->actionName );
 		}
+		$controller = $this->controllerName;
+		$action     = $this->actionName;
+
+		$cObj = new $controller( $this->route );
+		$cObj->$action();
+		$cObj->getView();
 	}
 
 	/**
@@ -148,6 +150,7 @@ class Router {
 	 * @param string $query строка запроса браузера
 	 */
 	public function dispatch( $query ) {
+		$query = $this->removeQueryString( $query );
 		if ( $this->matchRoute( $query ) ) {
 			// определяем с каким контроллером будем работать
 			if ( $this->controllerName == DEFAULT_CONTROLLER ) { // если конкретно в маршруте не указан, т.е. значение по умолчанию
@@ -157,6 +160,8 @@ class Router {
 					}
 				}
 			}
+			$this->route['controller'] = $this->controllerName;
+
 			// определяем с каким экшеном будем работать
 			if ( $this->actionName == DEFAULT_ACTION ) {        // аналогично, см. выше
 				if ( isset( $this->matches['action'] ) ) {
@@ -165,25 +170,34 @@ class Router {
 					}
 				}
 			}
+			$this->route['action'] = $this->actionName;
 
 			// определяем есть ли дополнительные параметры
-			if ( isset( $this->matches['params'] ) ) {          // аналогично, см. выше
-				if ( $this->matches['params'] ) {
-					$this->params = $this->matches['params'];
+			if ( $this->params == null ) {                      // аналогично, см. выше
+				if ( isset( $this->matches['params'] ) ) {
+					if ( $this->matches['params'] ) {
+						$this->params = $this->matches['params'];
+					}
 				}
 			}
+			$this->route['params'] = $this->params;
+
+			// определяем есть ли передан ли алиас
+			if ( $this->alias == null ) {                      // аналогично, см. выше
+				if ( isset( $this->matches['alias'] ) ) {
+					if ( $this->matches['alias'] ) {
+						$this->alias = $this->matches['alias'];
+					}
+				}
+			}
+			$this->route['alias'] = $this->alias;
+
 		} else {
-			ErrorController::e404( $this->smarty, 'Даже регулярка не совпала!' );
+			Error::e404( 'Даже регулярка не совпала!' );
 		}
 
 		$this->controllerName = CONTROLLERS . $this->controllerName . 'Controller';
 		$this->actionName     = $this->actionName . 'Action';
-
-		if ( method_exists( $this->controllerName, $this->actionName ) ) {
-			$this->function = $this->controllerName . '::' . $this->actionName;
-		} else {
-			ErrorController::e404( $this->smarty, "Не найден метод: $this->controllerName" . '::' . $this->actionName );
-		}
 	}
 
 	/**
@@ -211,4 +225,17 @@ class Router {
 	protected function lowerCamelCase( $str ) {
 		return lcfirst( $this->upperCamelCase( $str ) );
 	}
+
+	protected function removeQueryString( $query ) {
+		if ( $query ) {
+			$params = explode( '&', $query, 2 );
+			if ( ! strpos( $params[0], '=' ) ) {
+				return rtrim( $params['0'], '/' );
+			} else {
+				return '';
+			}
+		}
+		return '';
+	}
 }
+
