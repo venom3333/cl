@@ -5,19 +5,52 @@ namespace core;
  */
 class Router {
 
-	protected $routes = [];  // таблица маршрутов
-	protected $route = [];   // текущий маршрут
-	protected $query;        // строка запроса
-	protected $matches = []; // массив найденного маршрута с параметрами
+	/**
+	 * @var array, таблица маршрутов
+	 */
+	protected $routes = [];
+	/**
+	 * @var array, текущий маршрут
+	 */
+	protected $route = [];
+	/**
+	 * @var string, строка запроса браузера
+	 */
+	protected $query;
+	/**
+	 * @var array, массив найденного маршрута с параметрами
+	 */
+	protected $matches = [];
 
 	// умолчания
+	/**
+	 * @var string, имя контроллера по умолчанию
+	 */
 	protected $controllerName = DEFAULT_CONTROLLER;
+	/**
+	 * @var string, имя метода (экшена) по умолчанию
+	 */
 	protected $actionName = DEFAULT_ACTION;
+	/**
+	 * @var string, строка параметров по умолчанию
+	 */
 	protected $params = null;
-	protected $smarty = \Smarty::class;  // объект шаблонизатора
+	/**
+	 * @var  string, название функции вида '$controllerName::$actionName'
+	 */
+	protected $function = null; //
+	/**
+	 * @var \Smarty, объект шаблонизатора
+	 */
+	protected $smarty = \Smarty::class;
 
-	function __construct($smarty) {
-		$this->smarty = $smarty; // запуск и конфигурация шаблонизатора Smarty
+	/**
+	 * Router constructor.
+	 *
+	 * @param $smarty
+	 */
+	function __construct( $smarty ) {
+		$this->smarty = $smarty; // присваиваем объект шаблонизатора
 
 		$this->query = rtrim( $_SERVER['QUERY_STRING'], '/' );  // считываем строку запроса
 		require APP . "/config/routes.php";                         // при создании добавляем маршруты
@@ -58,6 +91,7 @@ class Router {
 		foreach ( $this->routes as $pattern => $route ) {
 			if ( preg_match( "#$pattern#i", $query, $this->matches ) ) {
 
+				//< Если в маршруте присвоены конкретные значения контроллера и/или экшена и/или параметров
 				if ( isset( $route['controller'] ) ) {
 					$this->controllerName = $route['controller'];
 				}
@@ -69,6 +103,8 @@ class Router {
 				if ( isset( $route['params'] ) ) {
 					$this->params = $route['params'];
 				}
+
+				//>
 
 				return true;
 			}
@@ -84,28 +120,20 @@ class Router {
 
 		$this->dispatch( $this->query );
 
-		$this->loadPage();
+		$this->loadPage( $this->function );
 	}
 
 	/**
 	 * Формирование запрашиваемой страницы
 	 *
-	 * @param \Smarty $smarty шаблонизатор
-	 * @param string $controllerName назване контроллера
-	 * @param string $actionName название функции обработки страницы
-	 * @param string $params опциональные параметры
+	 * @param string $function название функции вида '$controllerName::$actionName', напр: 'IndexController::indexAction'
+	 *
+	 * @internal param \Smarty $smarty шаблонизатор
+	 * @internal param string $controllerName назване контроллера
+	 * @internal param string $actionName название функции обработки страницы
+	 * @internal param string $params опциональные параметры
 	 */
-	function loadPage() {
-
-		$this->controllerName = CONTROLLERS . $this->controllerName . 'Controller';
-		$this->actionName = $this->actionName . 'Action';
-
-		if(method_exists( $this->controllerName, $this->actionName)){
-			$function = $this->controllerName . '::' . $this->actionName;
-		}
-	else {
-			ErrorController::e404( $this->smarty, "Не найден метод: $this->controllerName" . '::' . $this->actionName );
-		}
+	function loadPage( $function ) {
 
 		if ( $this->params ) {
 			$function( $this->smarty, $this->params );
@@ -118,20 +146,19 @@ class Router {
 	 * проверяет на совпадение таблицу маршрутов и присваивает $route если есть
 	 *
 	 * @param string $query строка запроса браузера
-	 * @param \Smarty $smarty шаблонизатор
 	 */
 	public function dispatch( $query ) {
 		if ( $this->matchRoute( $query ) ) {
 			// определяем с каким контроллером будем работать
-			if ( $this->controllerName == DEFAULT_CONTROLLER ) {
-				if ( isset( $this->matches['controller'] ) ) {
-					if ( $this->matches['controller'] ) {
+			if ( $this->controllerName == DEFAULT_CONTROLLER ) { // если конкретно в маршруте не указан, т.е. значение по умолчанию
+				if ( isset( $this->matches['controller'] ) ) {   // проверяем массив созданный функцией preg_match() в ф-ции matchRoute()
+					if ( $this->matches['controller'] ) {        // и если там что-то есть... =>
 						$this->controllerName = $this->upperCamelCase( $this->matches['controller'] );
 					}
 				}
 			}
 			// определяем с каким экшеном будем работать
-			if ( $this->actionName == DEFAULT_ACTION ) {
+			if ( $this->actionName == DEFAULT_ACTION ) {        // аналогично, см. выше
 				if ( isset( $this->matches['action'] ) ) {
 					if ( $this->matches['action'] ) {
 						$this->actionName = $this->lowerCamelCase( $this->matches['action'] );
@@ -140,13 +167,22 @@ class Router {
 			}
 
 			// определяем есть ли дополнительные параметры
-			if ( isset( $this->matches['params'] ) ) {
+			if ( isset( $this->matches['params'] ) ) {          // аналогично, см. выше
 				if ( $this->matches['params'] ) {
 					$this->params = $this->matches['params'];
 				}
 			}
 		} else {
 			ErrorController::e404( $this->smarty, 'Даже регулярка не совпала!' );
+		}
+
+		$this->controllerName = CONTROLLERS . $this->controllerName . 'Controller';
+		$this->actionName     = $this->actionName . 'Action';
+
+		if ( method_exists( $this->controllerName, $this->actionName ) ) {
+			$this->function = $this->controllerName . '::' . $this->actionName;
+		} else {
+			ErrorController::e404( $this->smarty, "Не найден метод: $this->controllerName" . '::' . $this->actionName );
 		}
 	}
 
