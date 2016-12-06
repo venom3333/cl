@@ -19,7 +19,7 @@
 </head>
 
 <body>
-<header class="header">
+<header>
 	<? include_once APP . "/views/" . TEMPLATE . "/common/header.php" ?>
 </header>
 
@@ -27,7 +27,7 @@
 	<?= $content ?>
 </section>
 
-<footer class="footer">
+<footer>
 	<? include_once APP . "/views/" . TEMPLATE . "/common/footer.php" ?>
 </footer>
 

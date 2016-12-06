@@ -1,4 +1,4 @@
-<div class="header-top">
+<div class="header header-top">
 	<div class="header-bottom">
 <!--		<div class="logo">-->
 <!--			<h1><a href="/">Custom Light</a></h1>-->
