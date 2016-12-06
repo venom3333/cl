@@ -1,36 +1,39 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: vovan
+ * Date: 06.12.2016
+ * Time: 23:13
+ */
 
 namespace app\controllers;
 
 
 use app\models\Category;
-use app\models\Product;
 use app\models\Project;
 
-class ProductController extends AppController {
+class ProjectController extends AppController {
 
 	public $layout = 'main';
 
 	/**
-	 * Формирование страницы с определенным продуктом
+	 * Формирование страницы с определенным проектом
 	 *
 	 */
 	public function indexAction( $id = null ) {
 
 		$categoryModel = new Category;
 		$projectModel  = new Project;
-		$productModel  = new Product;
 		//< для меню и левой навигации
 		$categoryNames = $categoryModel->findAllNames();
 		$projectNames  = $projectModel->findAllNames();
 		//> для меню и левой навигации
 
-		$product = $productModel->findById( $id );
+		$project = $projectModel->findById( $id );
 
-		$this->view = 'product';
+		$this->view = 'project';
 
-		$title = "Custom Light. {$product['name']}";
-		$this->set( compact( 'title', 'categoryNames', 'projectNames', 'product' ) );
+		$title = "Custom Light. {$project['name']}";
+		$this->set( compact( 'title', 'categoryNames', 'projectNames', 'project' ) );
 	}
-
 }

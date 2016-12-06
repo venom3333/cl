@@ -5,12 +5,12 @@
 
 	<!--Инфо о продукте-->
 	<div class="col-md-10 product-model-sec">
-		<h2><?= $product['name'] ?></h2>
+		<h2><?= $project['name'] ?></h2>
 		<section id="myCarousel" class="carousel slide">
 			<!-- Indicators -->
 			<ol class="carousel-indicators">
 				<? $counter = 0; ?>
-				<? foreach ( $product['images'] as $image ): ?>
+				<? foreach ( $project['images'] as $image ): ?>
 					<li data-target="#myCarousel" data-slide-to="<?= $counter ++; ?>" <? if ( $counter == 1 )
 						echo "class = \"active\"" ?>></li>
 				<? endforeach; ?>
@@ -19,7 +19,7 @@
 			<!-- Wrapper for Slides -->
 			<div class="carousel-inner">
 				<? $counter = 0; ?>
-				<? foreach ( $product['images'] as $image ): ?>
+				<? foreach ( $project['images'] as $image ): ?>
 					<div <? $counter ++;
 					if ( $counter == 1 ) {
 						echo "class = \"item active\"";
@@ -43,34 +43,5 @@
 		</section>
 
 		<!--/Инфо о продукте-->
-		<p><?= $product['description'] ?></p>
-
-		<div class="table-responsive">
-			<table class="table table-bordered table-striped table-hover">
-				<thead>
-				<tr>
-					<th>Диаметр</th>
-					<th>Длина</th>
-					<th>Ширина</th>
-					<th>Высота</th>
-					<th>Мощность</th>
-					<th>Сила света</th>
-					<th>Цена</th>
-				</tr>
-				</thead>
-				<tbody>
-				<? foreach ( $product['specifications'] as $specification ): ?>
-					<tr>
-						<td><?= $specification['diameter'] ?></td>
-						<td><?= $specification['length'] ?></td>
-						<td><?= $specification['width'] ?></td>
-						<td><?= $specification['height'] ?></td>
-						<td><?= $specification['power'] ?></td>
-						<td><?= $specification['light_output'] ?></td>
-						<td><?= $specification['price'] ?></td>
-					</tr>
-				<? endforeach ?>
-				</tbody>
-			</table>
-		</div>
+		<p><?= $project['description'] ?></p>
 	</div>

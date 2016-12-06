@@ -12,9 +12,8 @@ namespace app\controllers;
 use app\models\Category;
 use app\models\Product;
 use app\models\Project;
-use core\base\Controller;
 
-class CategoryController extends Controller {
+class CategoryController extends AppController {
 
 	public $layout = 'main';
 
