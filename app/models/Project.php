@@ -1,10 +1,16 @@
 <?php
 namespace app\models;
+
+use core\base\Model;
 use core\Db;
+
 /**
- * Модель для таблицы Проектов (category)
+ * Модель для таблицы Проектов (project)
  */
-class Project {
+class Project extends Model {
+
+	public $table = 'project';
+
 	/**
 	 * Получить индекс проектов относящихся к определенной категории
 	 *
@@ -12,58 +18,54 @@ class Project {
 	 *
 	 * @return array массив проектов относящихся к определенной категории
 	 */
-	public static function getProjectsByCategory( $categoryId ) {
-		$db = Db::getConnection();
-
-		if ( ! $categoryId ) {
-			$result = $db->query( '
-		SELECT *
-		FROM `custom_light`.project
-  		LIMIT 4' );
-		} else {
-			$result = $db->query( '
-		SELECT *
-		FROM `custom_light`.project
-  		JOIN category_has_project
+	public function findByCategory( $categoryId, $sort = 'name', $order = 'ASC' ) {
+		$sql = "SELECT * FROM {$this->table}
+		JOIN category_has_project
     	ON project.id = category_has_project.project_id
-		WHERE category_has_project.category_id =' . $categoryId );
-		}
-		$result->setFetchMode( \PDO::FETCH_ASSOC );
-		$projects = $result->fetchAll();
+		WHERE category_has_project.category_id = $categoryId
+		ORDER BY $sort $order";
 
-		$db = null; // закрыть соединение
-		return $projects;
-	}
-
-	/**
-	 * Получить индекс проектов относящихся к определенной категории
-	 *
-	 * @param integer $categoryId ID категории продуктов
-	 *
-	 * @return array массив проектов относящихся к определенной категории
-	 */
-	public static function getProjectNames() {
-		$db = Db::getConnection();
-
-			$result = $db->query( '
-		SELECT id, name
-		FROM `custom_light`.project
-  		' );
-
-		$result->setFetchMode( \PDO::FETCH_ASSOC );
-		$projectNames = $result->fetchAll();
-
-		$db = null; // закрыть соединение
-		return $projectNames;
+		return $this->pdo->query( $sql );
 	}
 
 	/**
 	 * Получить определенный проект
 	 *
-	 * @param integer $projectId ID продукта
+	 * @param integer $id ID продукта
 	 *
 	 * @return array массив с данными определенного проекта
 	 */
+	public function findById( $id ) {
+		$project = parent::findById( $id );
+
+		$project = $project[0];
+
+		// добавляем изображения
+		$images = self::getImages( $id );
+		if ( $images ) {
+			$project['images'] = $images;
+		}
+
+		return $project;
+	}
+
+	/**
+	 * Получить изображения определенного проекта
+	 *
+	 * @param integer $id ID продукта
+	 *
+	 * @return array массив изображений определенного проекта
+	 */
+	public function getImages( $id ) {
+		$sql = "
+		SELECT path AS image
+		FROM `custom_light`.project_image
+		WHERE project_id = $id";
+
+		return $this->pdo->query( $sql );
+	}
+
+
 	public static function getProject( $projectId ) {
 		$db     = Db::getConnection();
 		$result = $db->query( '
@@ -85,23 +87,24 @@ class Project {
 	}
 
 	/**
-	 * Получить изображения определенного проекта
+	 * Получить индекс проектов относящихся к определенной категории
 	 *
-	 * @param integer $projectId ID продукта
+	 * @param integer $categoryId ID категории продуктов
 	 *
-	 * @return array массив изображений определенного проекта
+	 * @return array массив проектов относящихся к определенной категории
 	 */
-	public static function getProjectImages( $projectId ) {
-		$db     = Db::getConnection();
+	public static function getProjectNames() {
+		$db = Db::getConnection();
+
 		$result = $db->query( '
-		SELECT path AS image
-		FROM `custom_light`.project_image
-		WHERE project_id =' . $projectId );
+		SELECT id, name
+		FROM `custom_light`.project
+  		' );
 
 		$result->setFetchMode( \PDO::FETCH_ASSOC );
-		$images = $result->fetchAll();
+		$projectNames = $result->fetchAll();
 
 		$db = null; // закрыть соединение
-		return $images;
+		return $projectNames;
 	}
 }

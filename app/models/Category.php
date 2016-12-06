@@ -10,6 +10,12 @@ class Category extends Model {
 
 	public $table = 'category';
 
+	public function findCategoryBrief( $categoryId ) {
+		$sql = "SELECT `name`, `short_description` FROM {$this->table}
+		WHERE id = $categoryId";
+
+		return $this->pdo->query( $sql );
+	}
 
 	/**
 	 * Получить дочерние категории для категории $catId

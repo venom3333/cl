@@ -1,37 +1,18 @@
+@import url(header.css);
+@import url(footer.css);
+
 /* Общие */
 html,
 body {
     height: 100%;
+    background-color: #fffeec;
+}
+
+.container {
+    width: 80%;
 }
 
 /* /Общие */
-
-/* Навбар */
-.navbar {
-    margin: 0;
-    border-radius: 0;
-}
-
-.nav-container {
-    width: 100%;
-    /*height: 75px;*/
-    margin: auto;
-}
-
-.navbar-brand,
-.navbar-nav li a {
-    line-height: 50px;
-}
-
-.navbar-brand {
-    font-size: 3em;
-}
-
-.navbar-nav li a {
-    font-size: 1.5em;
-}
-
-/* /Навбар */
 
 /* Слайдер */
 /* You can change the height of the carousel by changing the height in the class below. It is set to 50% by default, but can be any height! */
@@ -58,22 +39,3 @@ body {
 }
 
 /* /Слайдер */
-
-/* Футер */
-.footer {
-    background-color: #797979;
-}
-
-.footer-container {
-    width: 100%;
-}
-
-.footer-container .logo {
-    text-align: center;
-}
-
-.footer-container div{
-    margin-bottom: 15px;
-}
-
-/* /Футер */

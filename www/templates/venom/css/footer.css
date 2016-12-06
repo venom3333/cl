@@ -1,0 +1,19 @@
+/* Футер */
+.footer {
+    background-color: #dcdcdc;
+    border-top: 2px solid #b9b9b9;
+}
+
+.footer-container {
+    width: 100%;
+}
+
+.footer-container .logo {
+    text-align: center;
+}
+
+.footer-container div{
+    margin-bottom: 15px;
+}
+
+/* /Футер */

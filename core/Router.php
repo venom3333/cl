@@ -140,7 +140,7 @@ class Router {
 		$action     = $this->actionName;
 
 		$cObj = new $controller( $this->route );
-		$cObj->$action();
+		$cObj->$action($this->params);
 		$cObj->getView();
 	}
 
@@ -191,7 +191,6 @@ class Router {
 				}
 			}
 			$this->route['alias'] = $this->alias;
-
 		} else {
 			Error::e404( 'Даже регулярка не совпала!' );
 		}
