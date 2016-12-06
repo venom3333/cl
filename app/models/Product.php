@@ -1,10 +1,14 @@
 <?php
 namespace app\models;
+use core\base\Model;
 use core\Db;
 /**
- * Модель для таблицы Продуктов (category)
+ * Модель для таблицы Продуктов (product)
  */
-class Product {
+class Product extends Model {
+
+	public $table = 'product';
+
 	/**
 	 * Получить индекс товаров определенной категории
 	 *

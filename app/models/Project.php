@@ -1,10 +1,13 @@
 <?php
 namespace app\models;
+use core\base\Model;
 use core\Db;
 /**
- * Модель для таблицы Проектов (category)
+ * Модель для таблицы Проектов (project)
  */
-class Project {
+class Project extends Model {
+
+	public $table = 'project';
 	/**
 	 * Получить индекс проектов относящихся к определенной категории
 	 *

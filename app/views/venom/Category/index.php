@@ -1,1 +1,4 @@
-<code><?php echo __FILE__ ?></code>
+<!--Левое меню-->
+<? include_once APP . "/views/" . TEMPLATE . "/common/nav_left.php" ?>
+<!--/Левое меню-->
+

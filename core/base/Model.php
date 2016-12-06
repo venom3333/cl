@@ -24,10 +24,21 @@ abstract class Model {
 		return $this->pdo->execute( $sql );
 	}
 
-	public function findAll() {
+	public function findAll( $sort = null, $order = 'DESC' ) {
 		$sql = "SELECT * FROM {$this->table}";
+		if ( $sort ) {
+			$sql .= " ORDER BY {$sort} {$order}";
+		}
 
 		return $this->pdo->query( $sql );
 	}
 
+	public function findAllNames( $sort = 'name', $order = 'ASC' ) {
+		$sql = "SELECT `id`, `name` FROM {$this->table}";
+		if ( $sort ) {
+			$sql .= " ORDER BY {$sort} {$order}";
+		}
+
+		return $this->pdo->query( $sql );
+	}
 }
