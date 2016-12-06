@@ -34,10 +34,18 @@ abstract class Model {
 	}
 
 	public function findAllNames( $sort = 'name', $order = 'ASC' ) {
-		$sql = "SELECT `id`, `name` FROM {$this->table}";
+		$sql = "SELECT `id`, `name` FROM $this->table";
 		if ( $sort ) {
 			$sql .= " ORDER BY {$sort} {$order}";
 		}
+
+		return $this->pdo->query( $sql );
+	}
+
+	public function findById( $id ) {
+		$sql = "SELECT *
+ 				FROM $this->table
+				WHERE id = $id";
 
 		return $this->pdo->query( $sql );
 	}

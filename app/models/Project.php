@@ -1,13 +1,16 @@
 <?php
 namespace app\models;
+
 use core\base\Model;
 use core\Db;
+
 /**
  * Модель для таблицы Проектов (project)
  */
 class Project extends Model {
 
 	public $table = 'project';
+
 	/**
 	 * Получить индекс проектов относящихся к определенной категории
 	 *
@@ -15,27 +18,18 @@ class Project extends Model {
 	 *
 	 * @return array массив проектов относящихся к определенной категории
 	 */
-	public static function getProjectsByCategory( $categoryId ) {
-		$db = Db::getConnection();
-
-		if ( ! $categoryId ) {
-			$result = $db->query( '
-		SELECT *
-		FROM `custom_light`.project
-  		LIMIT 4' );
-		} else {
-			$result = $db->query( '
-		SELECT *
-		FROM `custom_light`.project
-  		JOIN category_has_project
+	public function findByCategory( $categoryId, $sort = 'name', $order = 'ASC' ) {
+		$sql = "SELECT * FROM {$this->table}
+		JOIN category_has_project
     	ON project.id = category_has_project.project_id
-		WHERE category_has_project.category_id =' . $categoryId );
-		}
-		$result->setFetchMode( \PDO::FETCH_ASSOC );
-		$projects = $result->fetchAll();
+		WHERE category_has_project.category_id = $categoryId
+		ORDER BY $sort $order";
 
-		$db = null; // закрыть соединение
-		return $projects;
+		return $this->pdo->query( $sql );
+	}
+
+	public function findByProductId( $id ) {
+
 	}
 
 	/**
@@ -48,7 +42,7 @@ class Project extends Model {
 	public static function getProjectNames() {
 		$db = Db::getConnection();
 
-			$result = $db->query( '
+		$result = $db->query( '
 		SELECT id, name
 		FROM `custom_light`.project
   		' );

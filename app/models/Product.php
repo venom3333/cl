@@ -16,27 +16,14 @@ class Product extends Model {
 	 *
 	 * @return array массив товаров определенной категории
 	 */
-	public static function getIndexOfProducts( $categoryId ) {
-		$db = Db::getConnection();
-
-		if ( ! $categoryId ) {
-			$result = $db->query( '
-		SELECT *
-		FROM `custom_light`.product
-  		LIMIT 16');
-		} else {
-			$result = $db->query( '
-		SELECT *
-		FROM `custom_light`.product
-  		JOIN product_has_category
+	public function findByCategory( $categoryId, $sort = 'name', $order = 'ASC' ) {
+		$sql = "SELECT * FROM {$this->table}
+		JOIN product_has_category
     	ON product.id = product_has_category.product_id
-		WHERE product_has_category.category_id =' . $categoryId );
-		}
-		$result->setFetchMode( \PDO::FETCH_ASSOC );
-		$products = $result->fetchAll();
+		WHERE product_has_category.category_id = $categoryId
+		ORDER BY $sort $order";
 
-		$db = null; // закрыть соединение
-		return $products;
+		return $this->pdo->query( $sql );
 	}
 
 	/**

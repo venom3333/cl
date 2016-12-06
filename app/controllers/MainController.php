@@ -29,13 +29,13 @@ class MainController extends AppController {
 		//< для меню и левой навигации
 		$categoryModel = new Category;
 		$projectModel  = new Project;
-		$categoryNames    = $categoryModel->findAllNames();
-		$projectNames      = $projectModel->findAllNames();
+		$categoryNames = $categoryModel->findAllNames();
+		$projectNames  = $projectModel->findAllNames();
 		//> для меню и левой навигации
 
 		$categories = $categoryModel->findAll();
 
 		$title = 'Custom Light. Нестандартное освещение';
-		$this->set( compact( 'title', 'categoryNames', 'projectNames', 'categories') );
+		$this->set( compact( 'title', 'categoryNames', 'projectNames', 'categories' ) );
 	}
 }
