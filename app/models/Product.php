@@ -33,29 +33,23 @@ class Product extends Model {
 	 *
 	 * @return array массив с данными определенного товара
 	 */
-	public static function getProduct( $productId ) {
-		$db     = Db::getConnection();
-		$result = $db->query( '
-		SELECT *
-		FROM `custom_light`.product
-		WHERE id =' . $productId );
+	public function findById( $id ) {
+		$product = parent::findById( $id );
 
-		$result->setFetchMode( \PDO::FETCH_ASSOC );
-		$product = $result->fetch();
+		$product = $product[0];
 
 		// добавляем изображения
-		$images = self::getProductImages( $productId );
+		$images = self::getImages( $id );
 		if ( $images ) {
 			$product['images'] = $images;
 		}
 
 		// добавляем спецификации
-		$specifications = self::getProductSpecifications( $productId );
+		$specifications = self::getSpecifications( $id );
 		if ( $specifications ) {
 			$product['specifications'] = $specifications;
 		}
 
-		$db = null; // закрыть соединение
 		return $product;
 	}
 
@@ -66,18 +60,12 @@ class Product extends Model {
 	 *
 	 * @return array массив изображений определенного товара
 	 */
-	public static function getProductImages( $productId ) {
-		$db     = Db::getConnection();
-		$result = $db->query( '
-		SELECT path AS image
+	protected function getImages( $id ) {
+		$sql = "SELECT path AS image
 		FROM `custom_light`.product_image
-		WHERE product_id =' . $productId );
+		WHERE product_id = $id";
 
-		$result->setFetchMode( \PDO::FETCH_ASSOC );
-		$images = $result->fetchAll();
-
-		$db = null; // закрыть соединение
-		return $images;
+		return $this->pdo->query( $sql );
 	}
 
 	/**
@@ -87,17 +75,12 @@ class Product extends Model {
 	 *
 	 * @return array массив спецификаций определенного товара
 	 */
-	public static function getProductSpecifications( $productId ) {
-		$db     = Db::getConnection();
-		$result = $db->query( '
+	protected function getSpecifications( $productId ) {
+		$sql = "
 		SELECT *
 		FROM `custom_light`.specification
-		WHERE product_id =' . $productId );
+		WHERE product_id = $productId";
 
-		$result->setFetchMode( \PDO::FETCH_ASSOC );
-		$specifications = $result->fetchAll();
-
-		$db = null; // закрыть соединение
-		return $specifications;
+		return $this->pdo->query( $sql );
 	}
 }

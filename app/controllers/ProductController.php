@@ -32,11 +32,12 @@ class ProductController extends Controller {
 		$projectNames  = $projectModel->findAllNames();
 		//> для меню и левой навигации
 
-		$product       = $productModel->findById( $id );
-		$projects      = $projectModel->findByProductId( $id );
+		$product = $productModel->findById( $id );
 
-		$title = "Custom Light. {$product[0]['name']}";
-		$this->set( compact( 'title', 'categoryNames', 'projectNames', 'products', 'categoryHeader', 'projects' ) );
+		$this->view = 'product';
+
+		$title = "Custom Light. {$product['name']}";
+		$this->set( compact( 'title', 'categoryNames', 'projectNames', 'product' ) );
 	}
 
 }

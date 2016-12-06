@@ -28,10 +28,6 @@ class Project extends Model {
 		return $this->pdo->query( $sql );
 	}
 
-	public function findByProductId( $id ) {
-
-	}
-
 	/**
 	 * Получить индекс проектов относящихся к определенной категории
 	 *

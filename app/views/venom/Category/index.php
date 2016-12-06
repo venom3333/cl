@@ -10,7 +10,7 @@
 		<p><?= $categoryHeader[0]['short_description'] ?></p>
 		<hr>
 		<? foreach ( $products as $product ): ?>
-			<div class="product-grid col-md-4">
+			<div class="product-grid col-md-3">
 				<a href="/product/<?= $product['id'] ?>">
 					<h4><?= $product['name'] ?></h4>
 					<div class="product-img">
