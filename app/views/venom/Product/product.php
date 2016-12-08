@@ -1,16 +1,19 @@
 <!--Инфо о продукте-->
 <div class="col-md-10 product-model-sec">
 	<h2><?= $product['name'] ?></h2>
-	<section id="myCarousel" class="carousel slide">
+
+	<!--Галерея-->
+	<section id="myCarousel" class="carousel slide my-carousel">
 		<!-- Indicators -->
-		<ol class="carousel-indicators">
+		<ol class="carousel-indicators image-carousel-indicators">
 			<? $counter = 0; ?>
 			<? foreach ( $product['images'] as $image ): ?>
-				<li data-target="#myCarousel" data-slide-to="<?= $counter ++; ?>" <? if ( $counter == 1 )
-					echo "class = \"active\"" ?>></li>
+				<li data-target="#myCarousel"
+				    data-slide-to="<?= $counter ++; ?>" <? if ( $counter == 1 ) echo "class = \"myCarousel active\""; else echo "class = \"myCarousel\"" ?>>
+					<img src="<?= $image['image'] ?>" alt="">
+				</li>
 			<? endforeach; ?>
 		</ol>
-
 		<!-- Wrapper for Slides -->
 		<div class="carousel-inner">
 			<? $counter = 0; ?>
@@ -36,6 +39,7 @@
 			<span class="icon-next"></span>
 		</a>
 	</section>
+	<!--Галерея-->
 
 
 	<p><?= $product['description'] ?></p>

@@ -45,7 +45,7 @@
 <!--						<input type="text" placeholder="Search" class="search-query span2">-->
 <!--					</form>-->
 <!--				</li>-->
-				<li><a href="#" class="glyphicon glyphicon-shopping-cart"> В корзине:<br>1 товар на 30450 руб.</a></li>
+				<li><a href="/cart" class="glyphicon glyphicon-shopping-cart"> В корзине:<br>4 товара на 48 000 руб.</a></li>
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->
