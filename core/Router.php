@@ -140,7 +140,12 @@ class Router {
 		$action     = $this->actionName;
 
 		$cObj = new $controller( $this->route );
-		$cObj->$action($this->params);
+
+		if ( isset( $this->alias ) ) {
+			$cObj->$action( $this->alias, $this->params );
+		} else {
+			$cObj->$action( $this->params );
+		}
 		$cObj->getView();
 	}
 
@@ -234,6 +239,7 @@ class Router {
 				return '';
 			}
 		}
+
 		return '';
 	}
 }

@@ -35,7 +35,7 @@ class CategoryController extends AppController {
 		$products       = $productModel->findByCategory( $categoryId );
 		$projects       = $projectModel->findByCategory( $categoryId );
 
-		$title = "Custom Light. {$categoryHeader[0]['name']}";
+		$title = "Custom Light. {$categoryHeader['name']}";
 		$this->set( compact( 'title', 'categoryNames', 'projectNames', 'products', 'categoryHeader', 'projects' ) );
 	}
 }

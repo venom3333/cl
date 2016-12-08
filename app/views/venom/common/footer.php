@@ -6,12 +6,15 @@
 				<p>Maecenas nec auctor sem. Vivamus porttitor tincidunt elementum nisi a, euismod rhoncus urna. Curabitur scelerisque vulputate arcu eu pulvinar. Fusce vel neque diam</p>
 			</div>
 			<div class="col-md-3 ftr-grid">
+				<a href="/" class="col-md-6">Главная</a>
+				<a href="#top" class="col-md-6">Наверх</a>
 				<h3>Категории</h3>
 				<ul class="nav-bottom">
 					<? foreach ( $categoryNames as $categoryName ): ?>
-						<li><a href="/category/<?= $categoryName['id'] ?>"><?= $categoryName['name'] ?></a></li>
+						<li class="col-md-6"><a href="/category/<?= $categoryName['id'] ?>"><?= $categoryName['name'] ?></a></li>
 					<? endforeach; ?>
 				</ul>
+
 			</div>
 			<div class="col-md-3 ftr-grid">
 				<h3>Контaкты:</h3>
