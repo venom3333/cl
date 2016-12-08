@@ -12,8 +12,14 @@
     text-align: center;
 }
 
-.footer-container div{
+.footer-container div {
     margin-bottom: 15px;
+}
+
+.nav-bottom {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 /* /Футер */

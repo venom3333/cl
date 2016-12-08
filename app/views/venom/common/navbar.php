@@ -15,7 +15,7 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="#">О компании</a></li>
+				<li class="active"><a href="/page/about">О компании</a></li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Каталог<b class="caret"></b></a>
 					<ul class="dropdown-menu">
@@ -35,17 +35,17 @@
 						<? endforeach; ?>
 					</ul>
 				</li>
-				<li class="active"><a href="#">Архитекторам / Дизайнерам</a></li>
-				<li class="active"><a href="#">Контакты</a></li>
+				<li class="active"><a href="/page/designers">Архитекторам / Дизайнерам</a></li>
+				<li class="active"><a href="/page/contacts">Контакты</a></li>
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">
-				<li>
-					<form action="" class="navbar-search pull-left">
-						<input type="text" placeholder="Search" class="search-query span2">
-					</form>
-				</li>
-				<li><a href="#" class="glyphicon glyphicon-shopping-cart"></a></li>
+<!--				<li>-->
+<!--					<form action="" class="navbar-search pull-left">-->
+<!--						<input type="text" placeholder="Search" class="search-query span2">-->
+<!--					</form>-->
+<!--				</li>-->
+				<li><a href="#" class="glyphicon glyphicon-shopping-cart"> В корзине:<br>1 товар на 30450 руб.</a></li>
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->

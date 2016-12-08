@@ -1,9 +1,4 @@
-<div class="container">
-	<!--Левое меню-->
-	<? include_once APP . "/views/" . TEMPLATE . "/common/nav_left.php" ?>
-	<!--/Левое меню-->
-
-	<!--Инфо о продукте-->
+	<!--Инфо о проекте-->
 	<div class="col-md-10 product-model-sec">
 		<h2><?= $project['name'] ?></h2>
 		<section id="myCarousel" class="carousel slide">
@@ -42,6 +37,6 @@
 			</a>
 		</section>
 
-		<!--/Инфо о продукте-->
+		<!--/Инфо о проекте-->
 		<p><?= $project['description'] ?></p>
 	</div>

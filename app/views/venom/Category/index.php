@@ -1,13 +1,8 @@
-<div class="container">
-	<!--Левое меню-->
-	<? include_once APP . "/views/" . TEMPLATE . "/common/nav_left.php" ?>
-	<!--/Левое меню-->
-
 	<!--Список товаров категории-->
 	<div class="col-md-10 product-model-sec">
-		<h2><?= $categoryHeader[0]['name'] ?></h2>
+		<h2><?= $categoryHeader['name'] ?></h2>
 		<hr>
-		<p><?= $categoryHeader[0]['short_description'] ?></p>
+		<p><?= $categoryHeader['short_description'] ?></p>
 		<hr>
 		<? foreach ( $products as $product ): ?>
 			<div class="product-grid col-md-3">
@@ -50,6 +45,5 @@
 				</a>
 			</div>
 		<? endforeach; ?>
-		<!--	/Список относящихся к категории проектов-->
+		<!--/Список относящихся к категории проектов-->
 	</div>
-</div>

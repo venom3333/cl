@@ -5,7 +5,7 @@
 
 $this->addRoute( "^test/?$", [ 'action' => 'test' ] );
 
-$this->addRoute( "^page/(?P<alias>[a-z-]+)/?$", [ 'controller' => 'Page', 'action' => 'view' ] );
+$this->addRoute( "^page/(?P<alias>[a-z-]+)/?$", [ 'controller' => 'Page' ] );
 
 
 // Маршруты по умолчанию (должны быть ниже всех)

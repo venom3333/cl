@@ -1,7 +1,6 @@
 <?php
 namespace app\models;
 use core\base\Model;
-use core\Db;
 /**
  * Модель для таблицы Продуктов (product)
  */
@@ -14,6 +13,9 @@ class Product extends Model {
 	 *
 	 * @param integer $categoryId ID категории продуктов
 	 *
+	 * @param string $sort критерий сортировки
+	 * @param string $order критерий порядка сортировки
+	 *
 	 * @return array массив товаров определенной категории
 	 */
 	public function findByCategory( $categoryId, $sort = 'name', $order = 'ASC' ) {
@@ -21,6 +23,7 @@ class Product extends Model {
 		JOIN product_has_category
     	ON product.id = product_has_category.product_id
 		WHERE product_has_category.category_id = $categoryId
+		AND product.status = 1
 		ORDER BY $sort $order";
 
 		return $this->pdo->query( $sql );
@@ -29,7 +32,7 @@ class Product extends Model {
 	/**
 	 * Получить определенный товар
 	 *
-	 * @param integer $productId ID продукта
+	 * @param integer $id ID продукта
 	 *
 	 * @return array массив с данными определенного товара
 	 */
@@ -56,7 +59,7 @@ class Product extends Model {
 	/**
 	 * Получить изображения определенного товара
 	 *
-	 * @param integer $productId ID продукта
+	 * @param integer $id продукта
 	 *
 	 * @return array массив изображений определенного товара
 	 */

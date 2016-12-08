@@ -11,7 +11,7 @@ use app\models\Project;
 
 class MainController extends AppController {
 
-	public $layout = 'main';
+	//public $layout = 'main';
 
 	public function testAction() {
 		$model      = new Category;
