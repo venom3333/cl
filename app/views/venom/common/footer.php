@@ -29,7 +29,7 @@
 						<input type="email" class="form-control" id="inputName" placeholder="Ваше имя">
 					</div>
 					<div class="form-group">
-						<label for="inputPhoneNumber">Email address</label>
+						<label for="inputPhoneNumber"></label>
 						<input type="text" class="form-control" id="inputPhoneNumber" placeholder="Ваш телефон">
 					</div>
 					<button type="button" class="btn btn-default">Перезвоните мне</button>
