@@ -90,6 +90,7 @@ class CartController extends AppController {
 			// Вычитаем удаленное количество
 			$_SESSION['cart']['grandQuantity'] -= $_SESSION['cart']['products'][ $cartItemId ]->quantity;
 			// Вычитаем удаленную сумму
+
 			$_SESSION['cart']['grandTotal'] -= $_SESSION['cart']['products'][ $cartItemId ]->quantity * $_SESSION['cart']['products'][ $cartItemId ]->price;
 			unset( $_SESSION['cart']['products'][ $cartItemId ] );
 		}

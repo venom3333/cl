@@ -92,12 +92,3 @@
 </div>
 <!--/Инфо о продукте-->
 <script src="/templates/<?= TEMPLATE ?>/js/cart.js"></script>
-<script src="/templates/<?= TEMPLATE ?>/js/sort_tables.js"></script>
-<script>
-	$(function () {
-		// jQuery methods go here...
-		$("table.sort_table").sort_table({
-			"action": "init"
-		});
-	});
-</script>

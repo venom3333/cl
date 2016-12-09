@@ -65,6 +65,7 @@ function deleteFromCart() {
         if (xhr.status === 200) {
             document.getElementById('content').innerHTML = xhr.responseText; // Перезагружаем корзину
             addEventListenerByClass('cart-delete-button', 'click', deleteFromCart); // Добавляем события на новые кнопки "удалить"
+            //addEventListenerByClass('cart-wipe-button', 'click', wipeCart); // И на "Очистить корзину"
         }
     };
     xhr.send();
