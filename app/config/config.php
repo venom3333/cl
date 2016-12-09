@@ -27,4 +27,4 @@ define( 'TemplateWebPath', "/templates/" . TEMPLATE );
 //<
 
 // Инициализация корзины
-include_once 'cart.php';
+include 'cart.php';

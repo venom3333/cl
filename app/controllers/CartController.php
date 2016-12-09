@@ -56,8 +56,7 @@ class CartController extends AppController {
 			$_SESSION['cart']['products'][ $cartItemId ] = $data;
 		}
 
-		$_SESSION['cart']['grandQuantity'] += $data->quantity;
-		$_SESSION['cart']['grandTotal'] += $data->price * $data->quantity;
+		include APP . "/config/cart.php"; // вычисление кол-ва и общей суммы
 
 		$content = APP . "/views/" . TEMPLATE . "/common/carticon.php";
 		include $content; // обновляем виджет
@@ -69,8 +68,8 @@ class CartController extends AppController {
 	public function wipeAction() {
 		$this->layout                      = false;
 		$_SESSION['cart']['products']      = array();
-		$_SESSION['cart']['grandTotal']    = 0;
-		$_SESSION['cart']['grandQuantity'] = 0;
+
+		include APP . "/config/cart.php"; // вычисление кол-ва и общей суммы
 
 		$content = APP . "/views/" . TEMPLATE . "/Cart/cart.php";
 		include $content; // обновляем вид корзины
@@ -87,13 +86,10 @@ class CartController extends AppController {
 		$this->layout = false;
 
 		if ( isset( $_SESSION['cart']['products'][ $cartItemId ] ) ) {
-			// Вычитаем удаленное количество
-			$_SESSION['cart']['grandQuantity'] -= $_SESSION['cart']['products'][ $cartItemId ]->quantity;
-			// Вычитаем удаленную сумму
-
-			$_SESSION['cart']['grandTotal'] -= $_SESSION['cart']['products'][ $cartItemId ]->quantity * $_SESSION['cart']['products'][ $cartItemId ]->price;
 			unset( $_SESSION['cart']['products'][ $cartItemId ] );
 		}
+
+		include APP . "/config/cart.php"; // вычисление кол-ва и общей суммы
 
 		$content = APP . "/views/" . TEMPLATE . "/Cart/cart.php";
 		include $content; // обновляем вид корзины

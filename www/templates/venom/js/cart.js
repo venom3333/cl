@@ -33,6 +33,8 @@ function addToCart() {
         }
     };
     xhr.send("data=" + JSON.stringify(data));
+
+    updateWidget();
 }
 
 function deleteFromCart() {
