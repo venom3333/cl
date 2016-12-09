@@ -25,3 +25,6 @@ define( 'TemplatePostfix', ".php" );
 // пути к файлам шаблонов в вебпространстве
 define( 'TemplateWebPath', "/templates/" . TEMPLATE );
 //<
+
+// Инициализация корзины
+include_once 'cart.php';

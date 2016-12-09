@@ -1,5 +1,6 @@
 @import url(header.css);
 @import url(footer.css);
+@import url(cart.css);
 
 /* Общие */
 html,
@@ -100,6 +101,5 @@ table th {
     font-size: 150%;
     text-align: right;
 }
-
 
 /* /Корзина */

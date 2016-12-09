@@ -33,111 +33,56 @@
 
 		<!--Товары-->
 		<tbody>
-		<tr>
-			<td>1.</td>
-			<td>Photo</td>
-			<td>Наименование продукта 1</td>
-			<td>
-				<div class="table-responsive">
-					<table class="table table-bordered table-hover">
-						<tbody>
-						<tr>
-							<td class="cart-cell">200</td>
-							<td class="cart-cell"></td>
-							<td class="cart-cell"></td>
-							<td class="cart-cell">150</td>
-							<td class="cart-cell">55</td>
-							<td class="cart-cell">4500</td>
-						</tr>
-						</tbody>
-					</table>
-				</div>
-			</td>
-			<td><input type="number" value='12' min="0" style="width: 3em;"></td>
-			<td>1 000</td>
-			<td>12 000</td>
-			<td>Уд.</td>
-		</tr>
-		<tr>
-			<td>2.</td>
-			<td>Photo</td>
-			<td>Наименование продукта 2</td>
-			<td>
-				<div class="table-responsive">
-					<table class="table table-bordered table-hover">
-						<tbody>
-						<tr>
-							<td class="cart-cell">200</td>
-							<td class="cart-cell"></td>
-							<td class="cart-cell"></td>
-							<td class="cart-cell">150</td>
-							<td class="cart-cell">55</td>
-							<td class="cart-cell">4500</td>
-						</tr>
-						</tbody>
-					</table>
-				</div>
-			</td>
-			<td><input type="number" value='12' min="0" style="width: 3em;"></td>
-			<td>1 000</td>
-			<td>12 000</td>
-			<td>Уд.</td>
-		</tr>
-		<tr>
-			<td>3.</td>
-			<td>Photo</td>
-			<td>Наименование продукта 2</td>
-			<td>
-				<div class="table-responsive">
-					<table class="table table-bordered table-hover">
-						<tbody>
-						<tr>
-							<td class="cart-cell">200</td>
-							<td class="cart-cell"></td>
-							<td class="cart-cell"></td>
-							<td class="cart-cell">150</td>
-							<td class="cart-cell">55</td>
-							<td class="cart-cell">4500</td>
-						</tr>
-						</tbody>
-					</table>
-				</div>
-			</td>
-			<td><input type="number" value='12' min="0" style="width: 3em;"></td>
-			<td>1 000</td>
-			<td>12 000</td>
-			<td>Уд.</td>
-		</tr>
-		<tr>
-			<td>4.</td>
-			<td>Photo</td>
-			<td>Наименование продукта 3</td>
-			<td>
-				<div class="table-responsive">
-					<table class="table table-bordered table-hover">
-						<tbody>
-						<tr>
-							<td class="cart-cell">200</td>
-							<td class="cart-cell"></td>
-							<td class="cart-cell"></td>
-							<td class="cart-cell">150</td>
-							<td class="cart-cell">55</td>
-							<td class="cart-cell">4500</td>
-						</tr>
-						</tbody>
-					</table>
-				</div>
-			</td>
-			<td><input type="number" value='12' min="0" style="width: 3em;"></td>
-			<td>1 000</td>
-			<td>12 000</td>
-			<td>Уд.</td>
-		</tr>
+		<? $counter = 0 ?>
+		<? foreach ( $_SESSION['cart']['products'] as $cartProduct ): ?>
+			<? $counter ++; ?>
+			<tr>
+				<td>
+					<?= $counter ?>
+					<!--Для JS (невидимо)-->
+					<span id="cart<?= $counter ?>productId" style="display: none"><?= $cartProduct->id ?></span>
+					<!--/Для JS (невидимо)-->
+				</td>
+				<td>
+					<a href="/product/<?= $cartProduct->id ?>">
+						<img src="<?= $cartProduct->icon ?>" width="100px" alt="">
+					</a>
+				</td>
+				<td id="cart<?= $counter ?>Name"><?= $cartProduct->name ?></td>
+				<td>
+					<div class="table-responsive">
+						<table class="table table-bordered table-hover">
+							<tbody>
+							<tr>
+								<td class="cart-cell"
+								    id="cart<?= $counter ?>Diameter"><?= $cartProduct->diameter ?></td>
+								<td class="cart-cell" id="cart<?= $counter ?>Length"><?= $cartProduct->length ?></td>
+								<td class="cart-cell" id="cart<?= $counter ?>Width"><?= $cartProduct->width ?></td>
+								<td class="cart-cell" id="cart<?= $counter ?>Height"><?= $cartProduct->height ?></td>
+								<td class="cart-cell" id="cart<?= $counter ?>Power"><?= $cartProduct->power ?></td>
+								<td class="cart-cell"
+								    id="cart<?= $counter ?>LightOutput"><?= $cartProduct->light_output ?></td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</td>
+				<td><input type="number" value='<?= $cartProduct->quantity ?>' min="1" style="width: 3em;"></td>
+				<td><?= $cartProduct->price ?></td>
+				<td><?= $cartProduct->price * $cartProduct->quantity ?></td>
+				<td class="cart-delete-button cart<?= $counter ?>">
+					<div class="glyphicon glyphicon-remove-circle"></div>
+				</td>
+			</tr>
+		<? endforeach; ?>
 		</tbody>
 		<!--Товары-->
 	</table>
 
-	<p class="cart-grand-total">Итого: 48 000 рублей.</p>
+	<p class="cart-grand-total">Итого: <?= $_SESSION['cart']['grandQuantity'] ?> предметов
+		на <?= $_SESSION['cart']['grandTotal'] ?> рублей.</p>
+
+	<input type="button" class="cart-wipe-button" value="Очистить корзину!">
 
 	<h3>Информация по заказу:</h3>
 	<form class="checkout">
@@ -175,3 +120,5 @@
 		<button type="button" class="btn btn-default">Заказать</button>
 	</form>
 </div>
+
+<script src="/templates/<?= TEMPLATE ?>/js/cart.js"></script>

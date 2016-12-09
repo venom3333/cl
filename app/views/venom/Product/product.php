@@ -1,6 +1,11 @@
 <!--Инфо о продукте-->
 <div class="col-md-10 product-model-sec">
-	<h2><?= $product['name'] ?></h2>
+	<h2 id="productName"><?= $product['name'] ?></h2>
+
+	<!--	Не отображается (нужно для корзины)-->
+	<div id="productIcon" style="display: none;"><?= $product['icon'] ?></div>
+	<div id="productId" style="display: none;"><?= $product['id'] ?></div>
+	<!--	/Не отображается (нужно для корзины)-->
 
 	<!--Галерея-->
 	<section id="myCarousel" class="carousel slide my-carousel">
@@ -9,7 +14,9 @@
 			<? $counter = 0; ?>
 			<? foreach ( $product['images'] as $image ): ?>
 				<li data-target="#myCarousel"
-				    data-slide-to="<?= $counter ++; ?>" <? if ( $counter == 1 ) echo "class = \"myCarousel active\""; else echo "class = \"myCarousel\"" ?>>
+				    data-slide-to="<?= $counter ++; ?>" <? if ( $counter == 1 ) {
+					echo "class = \"myCarousel active\"";
+				} else echo "class = \"myCarousel\"" ?>>
 					<img src="<?= $image['image'] ?>" alt="">
 				</li>
 			<? endforeach; ?>
@@ -60,27 +67,31 @@
 			</tr>
 			</thead>
 			<tbody>
+			<? $i = 0; ?>
 			<? foreach ( $product['specifications'] as $specification ): ?>
-				<tr>
-					<td><?= $specification['diameter'] ?></td>
-					<td><?= $specification['length'] ?></td>
-					<td><?= $specification['width'] ?></td>
-					<td><?= $specification['height'] ?></td>
-					<td><?= $specification['power'] ?></td>
-					<td><?= $specification['light_output'] ?></td>
-					<td><?= $specification['price'] ?></td>
+				<tr class="spec<?= $i ?>" id="spec<?= $i ?>">
+					<td class="spec<?= $i ?>" id="spec<?= $i ?>Diameter"><?= $specification['diameter'] ?></td>
+					<td class="spec<?= $i ?>" id="spec<?= $i ?>Length"><?= $specification['length'] ?></td>
+					<td class="spec<?= $i ?>" id="spec<?= $i ?>Width"><?= $specification['width'] ?></td>
+					<td class="spec<?= $i ?>" id="spec<?= $i ?>Height"><?= $specification['height'] ?></td>
+					<td class="spec<?= $i ?>" id="spec<?= $i ?>Power"><?= $specification['power'] ?></td>
+					<td class="spec<?= $i ?>" id="spec<?= $i ?>LightOutput"><?= $specification['light_output'] ?></td>
+					<td class="spec<?= $i ?>" id="spec<?= $i ?>Price"><?= $specification['price'] ?></td>
 					<td>
-						<input type="number" style="width: 3em;">
+						<input type="number" class="spec<?= $i ?>" id="spec<?= $i ?>Quantity" min="1" value="1" style="width: 3em;">
 					</td>
-					<td><div class="glyphicon glyphicon-shopping-cart"></div></td>
+					<td class="cart-button spec<?= $i ?>" id="spec<?= $i ?>CartButton">+
+						<div class="glyphicon glyphicon-shopping-cart"></div>
+					</td>
 				</tr>
+				<? $i ++ ?>
 			<? endforeach ?>
 			</tbody>
 		</table>
 	</div>
 </div>
 <!--/Инфо о продукте-->
-
+<script src="/templates/<?= TEMPLATE ?>/js/cart.js"></script>
 <script src="/templates/<?= TEMPLATE ?>/js/sort_tables.js"></script>
 <script>
 	$(function () {

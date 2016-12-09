@@ -39,14 +39,12 @@
 				<li class="active"><a href="/page/contacts">Контакты</a></li>
 			</ul>
 
-			<ul class="nav navbar-nav navbar-right">
-<!--				<li>-->
-<!--					<form action="" class="navbar-search pull-left">-->
-<!--						<input type="text" placeholder="Search" class="search-query span2">-->
-<!--					</form>-->
-<!--				</li>-->
-				<li><a href="/cart" class="glyphicon glyphicon-shopping-cart"> В корзине:<br>4 товара на 48 000 руб.</a></li>
+			<!--Виджет корзины-->
+			<ul class="nav navbar-nav navbar-right" id="carticon">
+				<? include_once APP . "/views/" . TEMPLATE . "/common/carticon.php" ?>
 			</ul>
+			<!--/Виджет корзины-->
+
 		</div>
 		<!-- /.navbar-collapse -->
 	</div>
