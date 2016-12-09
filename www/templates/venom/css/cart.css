@@ -1,0 +1,14 @@
+/*Все что связано с корзиной*/
+.cart-button:hover,
+.cart-delete-button:hover {
+    transition: all, .2s;
+    cursor: pointer;
+    text-shadow: 0 0 5px black;
+}
+
+.cart-button:active,
+.cart-delete-button:active {
+    cursor: pointer;
+    text-shadow: 0 0 0 black;
+}
+

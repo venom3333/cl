@@ -35,7 +35,9 @@
 		<!--Левое меню-->
 		<? include_once APP . "/views/" . TEMPLATE . "/common/nav_left.php" ?>
 		<!--/Левое меню-->
-		<?= $content ?>
+		<div id="content">
+			<?= $content ?>
+		</div>
 	</div>
 </section>
 

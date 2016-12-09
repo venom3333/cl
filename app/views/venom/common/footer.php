@@ -23,7 +23,7 @@
 					<p>Email: info@custom-light.ru</p>
 			</div>
 			<div class="col-md-3 ftr-grid">
-				<form class="callback">
+				<form class="callback" id="callback">
 					<div class="form-group">
 						<label for="inputName"></label>
 						<input type="email" class="form-control" id="inputName" placeholder="Ваше имя">

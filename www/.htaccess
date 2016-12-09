@@ -6,4 +6,5 @@ RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
+# QSA - добавлять к запросу, а не переписавать его
 RewriteRule (.*) /index.php?$1 [QSA]
