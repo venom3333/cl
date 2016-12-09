@@ -9,7 +9,7 @@
 				<span class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="/">Custom Light</a>
-			<a class="navbar-brand" href="/">8(800)322-22-32</a>
+			<a class="navbar-brand" href="#callback">8(800)322-22-32</a>
 		</div>
 
 		<!-- Collect the nav links, forms, and other content for toggling -->

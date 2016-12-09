@@ -55,6 +55,8 @@
 				<th>Мощность</th>
 				<th>Сила света</th>
 				<th>Цена</th>
+				<th>Кол-во</th>
+				<th></th>
 			</tr>
 			</thead>
 			<tbody>
@@ -67,6 +69,10 @@
 					<td><?= $specification['power'] ?></td>
 					<td><?= $specification['light_output'] ?></td>
 					<td><?= $specification['price'] ?></td>
+					<td>
+						<input type="number" style="width: 3em;">
+					</td>
+					<td><div class="glyphicon glyphicon-shopping-cart"></div></td>
 				</tr>
 			<? endforeach ?>
 			</tbody>
