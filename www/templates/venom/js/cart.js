@@ -66,8 +66,6 @@ function deleteFromCart() {
     xhr.onload = function () {
         if (xhr.status === 200) {
             document.getElementById('content').innerHTML = xhr.responseText; // Перезагружаем корзину
-            addEventListenerByClass('cart-delete-button', 'click', deleteFromCart); // Добавляем события на новые кнопки "удалить"
-            //addEventListenerByClass('cart-wipe-button', 'click', wipeCart); // И на "Очистить корзину"
         }
     };
     xhr.send();
@@ -100,12 +98,59 @@ function updateWidget() {
     xhr.onload = function () {
         if (xhr.status === 200) {
             document.getElementById('carticon').innerHTML = xhr.responseText; // обновляем виджет корзины
+            setTimeout(addListeners, 200); // Добавляем события на кнопки
         }
     };
     xhr.send();
 
 }
 
-addEventListenerByClass('cart-button', 'click', addToCart);
-addEventListenerByClass('cart-delete-button', 'click', deleteFromCart);
-addEventListenerByClass('cart-wipe-button', 'click', wipeCart);
+function updateProductQuantity() {
+
+    var itemClass = this.className;
+    itemClass = itemClass.replace("cart-update-button ", "");
+
+    var data = {};
+    data.id = document.getElementById(itemClass + 'productId').innerHTML;
+    data.diameter = document.getElementById(itemClass + 'Diameter').innerHTML;
+    data.length = document.getElementById(itemClass + 'Length').innerHTML;
+    data.width = document.getElementById(itemClass + 'Width').innerHTML;
+    data.height = document.getElementById(itemClass + 'Height').innerHTML;
+    data.power = document.getElementById(itemClass + 'Power').innerHTML;
+    data.light_output = document.getElementById(itemClass + 'LightOutput').innerHTML;
+
+    data.quantity = document.getElementById(itemClass + 'Quantity').value;
+
+    var url = "/cart/update-quantity/"
+        + data.id
+        + data.diameter
+        + data.length
+        + data.width
+        + data.height
+        + data.power
+        + data.light_output
+        + "/"
+        + data.quantity;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', url);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            document.getElementById('content').innerHTML = xhr.responseText; // Перезагружаем корзину
+        }
+    };
+    xhr.send();
+
+    // И не забудем обновить виджет корзины
+    updateWidget();
+}
+
+function addListeners() {
+    addEventListenerByClass('cart-button', 'click', addToCart);
+    addEventListenerByClass('cart-delete-button', 'click', deleteFromCart);
+    addEventListenerByClass('cart-update-button', 'change', updateProductQuantity);
+    addEventListenerByClass('cart-wipe-button', 'click', wipeCart);
+}
+
+addListeners();
