@@ -67,7 +67,10 @@
 						</table>
 					</div>
 				</td>
-				<td><input type="number" value='<?= $cartProduct->quantity ?>' min="1" style="width: 3em;"></td>
+				<td class="cart-update-button cart<?= $counter ?>">
+					<input type="number" id="cart<?= $counter ?>Quantity" value='<?= $cartProduct->quantity ?>' min="1" style="width: 3em;">
+					<div class="glyphicon glyphicon-repeat"></div>
+				</td>
 				<td><?= $cartProduct->price ?></td>
 				<td><?= $cartProduct->price * $cartProduct->quantity ?></td>
 				<td class="cart-delete-button cart<?= $counter ?>">

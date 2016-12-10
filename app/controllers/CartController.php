@@ -66,8 +66,8 @@ class CartController extends AppController {
 	 *  Очищает всю корзину
 	 */
 	public function wipeAction() {
-		$this->layout                      = false;
-		$_SESSION['cart']['products']      = array();
+		$this->layout                 = false;
+		$_SESSION['cart']['products'] = array();
 
 		include APP . "/config/cart.php"; // вычисление кол-ва и общей суммы
 
@@ -102,6 +102,28 @@ class CartController extends AppController {
 		$this->layout = false;
 
 		$content = APP . "/views/" . TEMPLATE . "/common/carticon.php";
+		include $content; // обновляем виджет
+	}
+
+	/**
+	 *  Обновляет количество продукта в корзине
+	 *
+	 * @param int $cartItemId ID продукта в таблице корзины
+	 * @param int $quantity количество продукта в таблице корзины
+	 */
+	public function updateQuantityAction( $cartItemId, $quantity ) {
+		$this->layout = false;
+
+		if ( isset( $_SESSION['cart']['products'][ $cartItemId ] ) ) {
+			$_SESSION['cart']['products'][ $cartItemId ]->quantity = $quantity;
+		}
+		if ( $_SESSION['cart']['products'][ $cartItemId ]->quantity == 0 ) {
+			unset( $_SESSION['cart']['products'][ $cartItemId ] );
+		}
+
+		include APP . "/config/cart.php"; // вычисление кол-ва и общей суммы
+
+		$content = APP . "/views/" . TEMPLATE . "/Cart/cart.php";
 		include $content; // обновляем виджет
 	}
 
