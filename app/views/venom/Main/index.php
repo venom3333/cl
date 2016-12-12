@@ -5,7 +5,11 @@
 <!--Контент-->
 <div class="container">
 	<div class="col-md-12 product-model-sec">
+		<? $counter = 0 ?>
 		<? foreach ( $categories as $category ): ?>
+			<? if ( $counter ++ % 4 == 0 ): ?>
+				<div class="clear"></div>
+			<? endif; ?>
 			<div class="product-grid col-lg-3 col-md-4 col-sm-6">
 				<a href="/category/<?= $category['id'] ?>">
 					<h4><?= $category['name'] ?></h4>
