@@ -4,7 +4,15 @@
 	<hr>
 	<p><?= $categoryHeader['short_description'] ?></p>
 	<hr>
+	<p><?= $categoryHeader['description'] ?></p>
+	<hr>
+	<? $counter = 0 ?>
 	<? foreach ( $products as $product ): ?>
+		<!--по четыре в ряд-->
+		<? if ( $counter ++ % 4 == 0 ): ?>
+			<div class="clear"></div>
+		<? endif; ?>
+		<!--/по четыре в ряд-->
 		<div class="product-grid col-md-3">
 			<a href="/product/<?= $product['id'] ?>">
 				<h4><?= $product['name'] ?></h4>
@@ -29,7 +37,13 @@
 <div class="col-md-12 product-model-sec">
 	<h3>Проекты с данной категорией</h3>
 	<hr>
+	<? $counter = 0 ?>
 	<? foreach ( $projects as $project ): ?>
+		<!--по три в ряд-->
+		<? if ( $counter ++ % 4 == 0 ): ?>
+			<div class="clear"></div>
+		<? endif; ?>
+		<!--/по три в ряд-->
 		<div class="product-grid col-md-4">
 			<a href="/project/<?= $project['id'] ?>">
 				<h4><?= $project['name'] ?></h4>
