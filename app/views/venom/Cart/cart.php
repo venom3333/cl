@@ -34,50 +34,56 @@
 		<!--Товары-->
 		<tbody>
 		<? $counter = 0 ?>
-		<? foreach ( $_SESSION['cart']['products'] as $cartProduct ): ?>
-			<? $counter ++; ?>
-			<tr>
-				<td>
-					<?= $counter ?>
-					<!--Для JS (невидимо)-->
-					<span id="cart<?= $counter ?>productId" style="display: none"><?= $cartProduct->id ?></span>
-					<!--/Для JS (невидимо)-->
-				</td>
-				<td>
-					<a href="/product/<?= $cartProduct->id ?>">
-						<img src="<?= $cartProduct->icon ?>" width="100px" alt="">
-					</a>
-				</td>
-				<td id="cart<?= $counter ?>Name"><?= $cartProduct->name ?></td>
-				<td>
-					<div class="table-responsive">
-						<table class="table table-bordered table-hover">
-							<tbody>
-							<tr>
-								<td class="cart-cell"
-								    id="cart<?= $counter ?>Diameter"><?= $cartProduct->diameter ?></td>
-								<td class="cart-cell" id="cart<?= $counter ?>Length"><?= $cartProduct->length ?></td>
-								<td class="cart-cell" id="cart<?= $counter ?>Width"><?= $cartProduct->width ?></td>
-								<td class="cart-cell" id="cart<?= $counter ?>Height"><?= $cartProduct->height ?></td>
-								<td class="cart-cell" id="cart<?= $counter ?>Power"><?= $cartProduct->power ?></td>
-								<td class="cart-cell"
-								    id="cart<?= $counter ?>LightOutput"><?= $cartProduct->light_output ?></td>
-							</tr>
-							</tbody>
-						</table>
-					</div>
-				</td>
-				<td class="cart-update-button cart<?= $counter ?>">
-					<input type="number" id="cart<?= $counter ?>Quantity" value='<?= $cartProduct->quantity ?>' min="1" style="width: 3em;">
-					<div class="glyphicon glyphicon-repeat"></div>
-				</td>
-				<td><?= $cartProduct->price ?></td>
-				<td><?= $cartProduct->price * $cartProduct->quantity ?></td>
-				<td class="cart-delete-button cart<?= $counter ?>">
-					<div class="glyphicon glyphicon-remove-circle"></div>
-				</td>
-			</tr>
-		<? endforeach; ?>
+		<? if ( isset( $_SESSION['cart']['products'] ) ): ?>
+			<? foreach ( $_SESSION['cart']['products'] as $cartProduct ): ?>
+				<? $counter ++; ?>
+				<tr>
+					<td>
+						<?= $counter ?>
+						<!--Для JS (невидимо)-->
+						<span id="cart<?= $counter ?>productId" style="display: none"><?= $cartProduct->id ?></span>
+						<!--/Для JS (невидимо)-->
+					</td>
+					<td>
+						<a href="/product/<?= $cartProduct->id ?>">
+							<img src="<?= $cartProduct->icon ?>" width="100px" alt="">
+						</a>
+					</td>
+					<td id="cart<?= $counter ?>Name"><?= $cartProduct->name ?></td>
+					<td>
+						<div class="table-responsive">
+							<table class="table table-bordered table-hover">
+								<tbody>
+								<tr>
+									<td class="cart-cell"
+									    id="cart<?= $counter ?>Diameter"><?= $cartProduct->diameter ?></td>
+									<td class="cart-cell"
+									    id="cart<?= $counter ?>Length"><?= $cartProduct->length ?></td>
+									<td class="cart-cell" id="cart<?= $counter ?>Width"><?= $cartProduct->width ?></td>
+									<td class="cart-cell"
+									    id="cart<?= $counter ?>Height"><?= $cartProduct->height ?></td>
+									<td class="cart-cell" id="cart<?= $counter ?>Power"><?= $cartProduct->power ?></td>
+									<td class="cart-cell"
+									    id="cart<?= $counter ?>LightOutput"><?= $cartProduct->light_output ?></td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</td>
+					<td class="cart-update-button cart<?= $counter ?>">
+						<input type="number" id="cart<?= $counter ?>Quantity" value='<?= $cartProduct->quantity ?>'
+						       min="1"
+						       style="width: 3em;">
+						<div class="glyphicon glyphicon-repeat"></div>
+					</td>
+					<td><?= $cartProduct->price ?></td>
+					<td><?= $cartProduct->price * $cartProduct->quantity ?></td>
+					<td class="cart-delete-button cart<?= $counter ?>">
+						<div class="glyphicon glyphicon-remove-circle"></div>
+					</td>
+				</tr>
+			<? endforeach; ?>
+		<? endif; ?>
 		</tbody>
 		<!--Товары-->
 	</table>
