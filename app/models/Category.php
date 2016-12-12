@@ -11,7 +11,7 @@ class Category extends Model {
 	public $table = 'category';
 
 	public function findCategoryBrief( $categoryId ) {
-		$sql = "SELECT `name`, `short_description` FROM {$this->table}
+		$sql = "SELECT `name`, `short_description`, `description` FROM {$this->table}
 		WHERE id = $categoryId";
 
 		$categoryBrief = $this->pdo->query( $sql )[0];  // т.к. в результате только одна строка
