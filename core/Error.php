@@ -18,7 +18,6 @@ class Error {
 
 		http_response_code( 404 );
 		echo $msg;
-
 		die;
 	}
 

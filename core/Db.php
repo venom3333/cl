@@ -20,7 +20,6 @@ class Db {
 		if ( self::$instance === null ) {
 			self::$instance = new self;
 		}
-
 		return self::$instance;
 	}
 
@@ -40,7 +39,6 @@ class Db {
 		if ( $res !== false ) {
 			return $stmt->fetchAll();
 		}
-
 		return [];
 	}
 }

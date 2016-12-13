@@ -43,5 +43,4 @@ abstract class Controller {
 	public function set( $vars ) {
 		$this->vars = $vars;
 	}
-
 }
