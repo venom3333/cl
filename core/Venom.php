@@ -11,7 +11,6 @@ class Venom {
 	 * @param string $templateName название файла шаблона
 	 */
 	public static function loadTemplate( $templateName ) {
-
 	}
 
 }

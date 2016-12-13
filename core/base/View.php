@@ -8,7 +8,6 @@
 
 namespace core\base;
 
-
 class View {
 	/**
 	 * Текущий маршрут и параметры (controller, action, params, alias)
