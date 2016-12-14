@@ -109,7 +109,10 @@ class AdminController extends AppController {
 
 		$productModel = new Product;
 		$productModel->removeProduct( $productId );
-		$this->productsAction();
+
+		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
+		header('Location: http://custom-light/admin/products');
+		exit();
 	}
 
 }
