@@ -12,6 +12,7 @@ namespace app\controllers;
 use app\models\Category;
 use app\models\Product;
 use app\models\Project;
+use core\Error;
 
 class CategoryController extends AppController {
 
@@ -22,6 +23,8 @@ class CategoryController extends AppController {
 	 *
 	 */
 	public function indexAction( $categoryId = null ) {
+
+		if ($categoryId == null) Error::e404('Категория не задана!');
 
 		$categoryModel = new Category();
 		$projectModel  = new Project;
