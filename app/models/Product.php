@@ -1,6 +1,8 @@
 <?php
 namespace app\models;
+
 use core\base\Model;
+
 /**
  * Модель для таблицы Продуктов (product)
  */
@@ -83,6 +85,69 @@ class Product extends Model {
 		SELECT *
 		FROM `custom_light`.specification
 		WHERE product_id = $productId";
+
+		return $this->pdo->query( $sql );
+	}
+
+	/**
+	 * Получить количество спецификаций определенного товара
+	 *
+	 * @param integer $productId ID продукта
+	 *
+	 * @return integer количество спецификаций определенного товара
+	 */
+	protected function getSpecificationsCount( $productId ) {
+		$sql = "
+		SELECT count(*) as specs
+		FROM `custom_light`.specification
+		WHERE product_id = $productId";
+
+		$specs = $this->pdo->query( $sql );
+		$specs = $specs[0]['specs'];
+
+		return $specs;
+	}
+
+	/**
+	 * Получить индекс всех товаров для админки
+	 **
+	 *
+	 * @param string $sort критерий сортировки
+	 * @param string $order критерий порядка сортировки
+	 *
+	 * @return array массив всех товаров для админки
+	 */
+	public function getProductsForAdmin( $sort = 'name', $order = 'ASC' ) {
+		$products = $this->findAll( $sort, $order );
+
+		foreach ( $products as &$product ) {
+			$categories = $this->getCategories( $product['id'] );
+			if ( $categories ) {
+				$product['categories'] = $categories;
+			}
+			$specs = $this->getSpecificationsCount( $product['id'] );
+			if ( $specs ) {
+				$product['specs'] = $specs;
+			}
+		}
+		return $products;
+	}
+
+	/**
+	 * Получить категории определенного товара
+	 *
+	 * @param integer $productId ID продукта
+	 *
+	 * @return array массив спецификаций определенного товара
+	 */
+	protected function getCategories( $productId ) {
+		$sql = "
+		SELECT `name`
+		FROM `custom_light`.category
+  		JOIN product_has_category
+    	ON category.id = product_has_category.category_id
+		WHERE product_id = $productId
+		ORDER BY name ASC";
 
 		return $this->pdo->query( $sql );
 	}

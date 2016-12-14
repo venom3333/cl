@@ -9,13 +9,14 @@
 	<meta name="author" content="">
 	<link rel="icon" href="/favicon.ico">
 
-	<title><?= $title ?></title>
+	<title>Custom Light. <?= $title ?></title>
 
 	<!-- Bootstrap core CSS -->
 	<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 	<!-- Custom styles for this template -->
 	<link href="/templates/venom/css/main.css" rel="stylesheet">
+	<link href="/templates/venom/css/admin.css" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"
 	        integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY"
 	        crossorigin="anonymous"></script>
@@ -23,40 +24,39 @@
 
 <body id="top">
 <header>
-	<? include_once APP . "/views/" . TEMPLATE . "/common/header.php" ?>
+	<nav class="navbar navbar-inverse" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/">Custom Light</a>
+			</div>
+			<div class="adminTitle"><?= $title ?></div>
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
 </header>
 
-<section class="content">
-	<div class="container">
-		<!--Хлебные крошки-->
-		<? include_once APP . "/views/" . TEMPLATE . "/common/breadcrumbs.php" ?>
-		<!--/Хлебные крошки-->
+<div>
+	<section class="adminMenu col-md-2">
+		<ul><p>Работа с базой данных</p>
+			<a href="/admin/products"><li>Продукты</li></a>
+			<a href="/admin/projects"><li>Проекты</li></a>
+			<a href="/admin/categories"><li>Категории</li></a>
+		</ul>
+	</section>
 
-		<!--Левое меню-->
-		<? include_once APP . "/views/" . TEMPLATE . "/common/nav_left.php" ?>
-		<!--/Левое меню-->
-		<div id="content">
-			<?= $content ?>
-		</div>
-	</div>
-</section>
+	<section class="content col-md-10">
+		<?= $content ?>
+	</section>
+</div>
 
 <footer>
-	<? include_once APP . "/views/" . TEMPLATE . "/common/footer.php" ?>
+
 </footer>
 
 <? // d(\core\Db::$countSql,0);?>
 <? // d(\core\Db::$queries,0);?>
-
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <script src="/bootstrap/js/bootstrap.min.js"></script>
-
-<!-- Script to Activate the Carousel -->
-<script>
-	$('.carousel').carousel({
-		interval: 5000 //changes the speed
-	})
-</script>
 </body>
 </html>
