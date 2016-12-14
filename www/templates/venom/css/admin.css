@@ -40,3 +40,13 @@
     text-decoration: none;
     color: #3c3c3c;
 }
+
+.adminActions div:hover {
+     text-shadow: 0 0 5px black;
+     cursor: pointer;
+     transition: all, .15s;
+ }
+
+.adminActions div:active {
+    text-shadow: 0 0 1px black;
+}
