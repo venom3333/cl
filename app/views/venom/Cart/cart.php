@@ -95,38 +95,42 @@
 
 	<h3>Информация по заказу:</h3>
 	<form class="checkout">
+		<fieldset class="form-group">
+			<legend>Способ доставки:</legend>
+			<div class="form-check">
+				<label class="cartDelivery1">
+					<input type="radio" class="form-check-input" name="cartDelivery" id="cartDelivery1" value="0" checked>
+					Самовывоз.
+				</label>
+			</div>
+			<div class="form-check">
+				<label class="cartDelivery2">
+					<input type="radio" class="form-check-input" name="cartDelivery" id="cartDelivery2" value="2">
+					Доставка.
+				</label>
+			</div>
+		</fieldset>
 		<div class="form-group">
-			<h4>Способ доставки:</h4>
-			<div class="form-group form-inline">
-				<input type="radio" class="form-control" id="cartDelivery1" name="cartDelivery" value="1">
-				<label for="cartDelivery1">Самовывоз.</label>
-			</div>
-			<div class="form-group form-inline">
-				<input type="radio" class="form-control" id="cartDelivery2" name="cartDelivery" value="2">
-				<label for="cartDelivery2">Курьером.</label>
-			</div>
-		</div>
-		<div class="form-group form-inline">
 			<label for="cartName">ФИО</label>
 			<input type="email" class="form-control" id="cartName" name="cartName" placeholder="Ваше имя">
 		</div>
-		<div class="form-group form-inline">
+		<div class="form-group">
 			<label for="cartPhoneNumber">Телефон</label>
 			<input type="tel" class="form-control" id="cartPhoneNumber" placeholder="Ваш телефон">
 		</div>
-		<div class="form-group form-inline">
+		<div class="form-group">
 			<label for="cartEmail">E-mail</label>
 			<input type="email" class="form-control" id="cartEmail" placeholder="Ваш e-mail">
 		</div>
-		<div class="form-group form-inline">
+		<div class="form-group">
 			<label for="cartAddress">Адрес доставки</label>
 			<textarea class="form-control" id="cartAddress" placeholder="Адрес доставки"></textarea>
 		</div>
-		<div class="form-group form-inline">
+		<div class="form-group">
 			<label for="cartNotes">Примечание</label>
 			<textarea class="form-control" id="cartNotes" placeholder="Примечания"></textarea>
 		</div>
-		<button type="button" class="btn btn-default">Заказать</button>
+		<button type="button" class="btn btn-primary">Заказать</button>
 	</form>
 </div>
 
