@@ -3,13 +3,15 @@
 	<h2><?= $project['name'] ?></h2>
 
 	<!--Галерея-->
-	<section id="myCarousel" class="carousel slide my-carousel">
+	<section id="myCarousel" class="carousel slide my-carousel col-md-7">
 		<!-- Indicators -->
 		<ol class="carousel-indicators image-carousel-indicators">
 			<? $counter = 0; ?>
 			<? foreach ( $project['images'] as $image ): ?>
 				<li data-target="#myCarousel"
-				    data-slide-to="<?= $counter ++; ?>" <? if ( $counter == 1 ) echo "class = \"myCarousel active\""; else echo "class = \"myCarousel\"" ?>>
+				    data-slide-to="<?= $counter ++; ?>" <? if ( $counter == 1 ) {
+					echo "class = \"myCarousel active\"";
+				} else echo "class = \"myCarousel\"" ?>>
 					<img src="<?= $image['image'] ?>" alt="">
 				</li>
 			<? endforeach; ?>
@@ -43,5 +45,8 @@
 	<!--Галерея-->
 
 	<!--/Инфо о проекте-->
-	<p><?= $project['description'] ?></p>
+	<section class="itemDescription">
+		<p><?= $project['description'] ?></p>
+	</section>
+
 </div>

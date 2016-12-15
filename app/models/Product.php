@@ -191,6 +191,7 @@ class Product extends Model {
 		// Сначала иконку
 		$uploadIconDir = 'images/icons/';
 		if ( $product['icon']['error'] == 0 ) {
+			$this->resizeImage( $product['icon']['tmp_name'], 200, 150 );
 			$uploadIconFile = $uploadIconDir . basename( $product['icon']['name'] );
 			move_uploaded_file( $product['icon']['tmp_name'], $uploadIconFile );
 			if ( ! is_file( $uploadIconFile ) ) {
@@ -202,6 +203,7 @@ class Product extends Model {
 		$uploadImageDir = 'images/';
 		foreach ( $product['images'] as $image ) {
 			if ( $image['error'] == 0 ) {
+				$this->resizeImage( $image['tmp_name'], 1024, 768 );
 				$uploadImageFile = $uploadImageDir . basename( $image['name'] );
 				move_uploaded_file( $image['tmp_name'], $uploadImageFile );
 				if ( ! is_file( $uploadImageFile ) ) {

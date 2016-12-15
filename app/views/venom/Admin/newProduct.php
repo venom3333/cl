@@ -24,7 +24,7 @@
 	</div>
 
 	<div class="form-group">
-		<label for="productIcon">Иконка продукта (200*200)</label>
+		<label for="productIcon">Иконка продукта (уменьшится до 200*150)</label>
 		<input type="file" class="form-control" id="productIcon" name="productIcon" accept="image/*"
 		       onchange="previewImage('productIcon', 'iconPreview')" required>
 		<img src="" alt="" id="iconPreview" class="preview">
@@ -38,7 +38,7 @@
 		</div>
 	<? endforeach; ?>
 
-	<h4>Добавьте от 2х до 5ти изображений (1024*768):</h4>
+	<h4>Добавьте от 2х до 5ти изображений (уменьшится до 1024*768):</h4>
 	<div class="row">
 		<? for ( $i = 1; $i <= 5; $i ++ ): ?>
 			<div class="form-group col-md-2">
