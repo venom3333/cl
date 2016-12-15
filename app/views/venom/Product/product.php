@@ -8,7 +8,7 @@
 	<!--	/Не отображается (нужно для корзины)-->
 
 	<!--Галерея-->
-	<section id="myCarousel" class="carousel slide my-carousel">
+	<section id="myCarousel" class="carousel slide my-carousel col-md-7">
 		<!-- Indicators -->
 		<ol class="carousel-indicators image-carousel-indicators">
 			<? $counter = 0; ?>
@@ -46,10 +46,12 @@
 			<span class="icon-next"></span>
 		</a>
 	</section>
-	<!--Галерея-->
+	<!--/Галерея-->
 
-
-	<p><?= $product['description'] ?></p>
+	<section class="itemDescription">
+		<p><?= $product['description'] ?></p>
+	</section>
+	<div class="clear"></div>
 
 	<div class="table-responsive">
 		<table class="table table-bordered table-striped table-hover sort_table">
@@ -78,7 +80,8 @@
 					<td class="spec<?= $i ?>" id="spec<?= $i ?>LightOutput"><?= $specification['light_output'] ?></td>
 					<td class="spec<?= $i ?>" id="spec<?= $i ?>Price"><?= $specification['price'] ?></td>
 					<td>
-						<input type="number" class="spec<?= $i ?>" id="spec<?= $i ?>Quantity" min="1" value="1" style="width: 3em;">
+						<input type="number" class="spec<?= $i ?>" id="spec<?= $i ?>Quantity" min="1" value="1"
+						       style="width: 3em;">
 					</td>
 					<td class="cart-button spec<?= $i ?>" id="spec<?= $i ?>CartButton">+
 						<div class="glyphicon glyphicon-shopping-cart"></div>
