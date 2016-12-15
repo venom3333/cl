@@ -1,3 +1,5 @@
+<script src="/templates/<?= TEMPLATE ?>/js/preview.js"></script>
+
 <h1>Новый продукт!</h1>
 <form action="/admin/create-product" enctype="multipart/form-data" method="post">
 	<div class="form-group">
@@ -23,12 +25,15 @@
 
 	<div class="form-group">
 		<label for="productIcon">Иконка продукта (200*200)</label>
-		<input type="file" class="form-control" id="productIcon" name="productIcon" accept="image/*" required>
+		<input type="file" class="form-control" id="productIcon" name="productIcon" accept="image/*"
+		       onchange="previewImage('productIcon', 'iconPreview')" required>
+		<img src="" alt="" id="iconPreview" class="preview">
 	</div>
 
 	<? foreach ( $categories as $category ): ?>
 		<div class="checkbox">
-			<label><input type="checkbox" name="category<?= $category['id'] ?>" value="<?= $category['id'] ?>"><?= $category['name'] ?>
+			<label><input type="checkbox" name="category<?= $category['id'] ?>"
+			              value="<?= $category['id'] ?>"><?= $category['name'] ?>
 			</label>
 		</div>
 	<? endforeach; ?>
@@ -38,7 +43,9 @@
 		<? for ( $i = 1; $i <= 5; $i ++ ): ?>
 			<div class="form-group col-md-2">
 				<label for="productImage<?= $i ?>">Изображение <?= $i ?></label>
-				<input type="file" class="form-control" id="productImage<?= $i ?>" name="productImage<?= $i ?>" accept="image/*">
+				<input type="file" class="form-control" id="productImage<?= $i ?>" name="productImage<?= $i ?>"
+				       accept="image/*" onchange="previewImage('productImage<?= $i ?>','productPreview<?= $i ?>')">
+				<img src="" alt="" id="productPreview<?= $i ?>" class="preview">
 			</div>
 		<? endfor; ?>
 	</div>
@@ -63,37 +70,44 @@
 				<tr>
 					<td>
 						<div class="form-group">
-							<input type="number" class="form-control" id="productDiameter<?= $i ?>" name="productDiameter<?= $i ?>">
+							<input type="number" class="form-control" id="productDiameter<?= $i ?>"
+							       name="productDiameter<?= $i ?>">
 						</div>
 					</td>
 					<td>
 						<div class="form-group">
-							<input type="number" class="form-control" id="productLength<?= $i ?>" name="productLength<?= $i ?>">
+							<input type="number" class="form-control" id="productLength<?= $i ?>"
+							       name="productLength<?= $i ?>">
 						</div>
 					</td>
 					<td>
 						<div class="form-group">
-							<input type="number" class="form-control" id="productWidth<?= $i ?>" name="productWidth<?= $i ?>">
+							<input type="number" class="form-control" id="productWidth<?= $i ?>"
+							       name="productWidth<?= $i ?>">
 						</div>
 					</td>
 					<td>
 						<div class="form-group">
-							<input type="number" class="form-control" id="productHeight<?= $i ?>" name="productHeight<?= $i ?>">
+							<input type="number" class="form-control" id="productHeight<?= $i ?>"
+							       name="productHeight<?= $i ?>">
 						</div>
 					</td>
 					<td>
 						<div class="form-group">
-							<input type="number" class="form-control" id="productPower<?= $i ?>" name="productPower<?= $i ?>">
+							<input type="number" class="form-control" id="productPower<?= $i ?>"
+							       name="productPower<?= $i ?>">
 						</div>
 					</td>
 					<td>
 						<div class="form-group">
-							<input type="number" class="form-control" id="productLightOutput<?= $i ?>" name="productLightOutput<?= $i ?>">
+							<input type="number" class="form-control" id="productLightOutput<?= $i ?>"
+							       name="productLightOutput<?= $i ?>">
 						</div>
 					</td>
 					<td>
 						<div class="form-group">
-							<input type="number" class="form-control" id="productPrice<?= $i ?>" name="productPrice<?= $i ?>">
+							<input type="number" class="form-control" id="productPrice<?= $i ?>"
+							       name="productPrice<?= $i ?>">
 						</div>
 					</td>
 				</tr>
