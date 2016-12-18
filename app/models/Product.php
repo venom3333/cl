@@ -140,7 +140,7 @@ class Product extends Model {
 	 *
 	 * @param integer $productId ID продукта
 	 *
-	 * @return array массив спецификаций определенного товара
+	 * @return array массив категорий определенного товара
 	 */
 	protected function getCategories( $productId ) {
 		$sql = "
@@ -187,29 +187,12 @@ class Product extends Model {
 	public function createProduct( array $product ) {
 
 		//d( $product );
-		// записываем файлы на сервер
-		// Сначала иконку
-		$uploadIconDir = 'images/icons/';
+		// записываем файл иконки на сервер
 		if ( $product['icon']['error'] == 0 ) {
-			$this->resizeImage( $product['icon']['tmp_name'], 200, 150 );
-			$uploadIconFile = $uploadIconDir . basename( $product['icon']['name'] );
-			move_uploaded_file( $product['icon']['tmp_name'], $uploadIconFile );
-			if ( ! is_file( $uploadIconFile ) ) {
-				Error::common( "Файл не загрузился!" );
-			}
-		}
-
-		// Затем изображения
-		$uploadImageDir = 'images/';
-		foreach ( $product['images'] as $image ) {
-			if ( $image['error'] == 0 ) {
-				$this->resizeImage( $image['tmp_name'], 1024, 768 );
-				$uploadImageFile = $uploadImageDir . basename( $image['name'] );
-				move_uploaded_file( $image['tmp_name'], $uploadImageFile );
-				if ( ! is_file( $uploadImageFile ) ) {
-					Error::common( "Файл не загрузился!" );
-				}
-			}
+			$src            = $product['icon']['tmp_name'];
+			$name           = $product['icon']['name'];
+			$dest           = 'images/icons/';
+			$uploadIconFile = $this->uploadAndResizeImage( $src, $name, $dest, 200, 150 );
 		}
 
 		// записываем в базу сам продукт
@@ -233,27 +216,28 @@ class Product extends Model {
 		";
 		$productID = $this->pdo->query( $sql );
 		$productID = $productID[0]['id'];
-		//d( $productID );
+
+		// записываем изображения на сервер и в базу
+		foreach ( $product['images'] as $image ) {
+			if ( $image['error'] == 0 ) {
+				$src  = $image['tmp_name'];
+				$name = $image['name'];
+				$path = $this->uploadAndResizeImage( $src, $name );
+			}
+			$sql = "REPLACE INTO product_image
+ 					SET `product_id` = '$productID',
+  					`path` = '/$path'
+  					";
+
+			$this->pdo->execute( $sql );
+		}
+
 		// записываем инфу о категориях
 		foreach ( $product['categories'] as $category ) {
 			$sql = "
 		REPLACE INTO product_has_category
 		SET product_id = '$productID',
 			category_id = '$category'
-		";
-			$this->pdo->execute( $sql );
-		}
-
-		// записываем инфу о изображениях
-		foreach ( $product['images'] as $image ) {
-			if ( ! $image['name'] ) {
-				continue;
-			}
-			$path = "/{$uploadImageDir}{$image['name']}";
-			$sql  = "
-		REPLACE INTO product_image
-		SET product_id = '$productID',
-			path = '$path'
 		";
 			$this->pdo->execute( $sql );
 		}

@@ -37,8 +37,12 @@ class AdminController extends AppController {
 	}
 
 	public function projectsAction() {
-		$title = "Работа с базой даннных. Проекты.";
-		$this->set( compact( 'title' ) );
+		$this->view   = "projects";
+		$projectModel = new Project;
+		$projects     = $projectModel->getProjectsForAdmin();
+
+		$title        = "Работа с базой даннных. Проекты.";
+		$this->set( compact( 'title', 'projects' ) );
 	}
 
 	public function categoriesAction() {
@@ -52,6 +56,15 @@ class AdminController extends AppController {
 		$categories    = $categoryModel->findAllNames();
 
 		$title = "Работа с базой даннных. Новый продукт.";
+		$this->set( compact( 'title', 'categories' ) );
+	}
+
+	public function newProjectAction() {
+
+		$categoryModel = new Category;
+		$categories    = $categoryModel->findAllNames();
+
+		$title = "Работа с базой даннных. Новый проект.";
 		$this->set( compact( 'title', 'categories' ) );
 	}
 
@@ -111,7 +124,44 @@ class AdminController extends AppController {
 		$productModel->removeProduct( $productId );
 
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
-		header('Location: http://custom-light/admin/products');
+		header( 'Location: http://custom-light/admin/products' );
+		exit();
+	}
+
+	public function createProjectAction() {
+		// принимаем всю переданную информацию и удобно складываем в массив
+		// основное
+		$project = [
+			'name'             => $_POST['projectName'],
+			'shortDescription' => $_POST['projectShortDescription'],
+			'description'      => $_POST['projectDescription'],
+			'icon'             => $_FILES['projectIcon'],
+		];
+		// категории
+		foreach ( $_POST as $key => $value ) {
+			if ( preg_match( "~^category[1-9]+~", $key ) ) {
+				$project['categories'][] = $value;
+			}
+		}
+		// изображения
+		foreach ( $_FILES as $key => $value ) {
+			if ( preg_match( "~^projectImage[1-9]+~", $key ) ) {
+				$project['images'][] = $value;
+			}
+		}
+		$projectModel = new Project;
+		$projectModel->createProject( $project );
+
+		$this->projectsAction();
+	}
+
+	public function removeProjectAction( $projectId ) {
+
+		$projectModel = new Project;
+		$projectModel->removeProject( $projectId );
+
+		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
+		header( 'Location: http://custom-light/admin/projects' );
 		exit();
 	}
 
