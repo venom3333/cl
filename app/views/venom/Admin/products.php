@@ -18,7 +18,7 @@
 			<tr>
 				<td><?= $product['id'] ?></td>
 				<!--			<td><img src="--><? //= $product['icon'] ?><!--" alt=""></td>-->
-				<td><?= $product['name'] ?></td>
+				<td><a href="/product/<?= $product['id'] ?>"><?= $product['name'] ?></a></td>
 				<td>
 					<? if ( isset( $product['categories'] ) ): ?>
 						<? foreach ( $product['categories'] as $category ): ?>

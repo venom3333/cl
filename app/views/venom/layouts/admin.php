@@ -38,9 +38,15 @@
 <div>
 	<section class="adminMenu col-md-2">
 		<ul><p>Работа с базой данных</p>
-			<a href="/admin/products"><li>Продукты</li></a>
-			<a href="/admin/projects"><li>Проекты</li></a>
-			<a href="/admin/categories"><li>Категории</li></a>
+			<a href="/admin/products">
+				<li>Продукты</li>
+			</a>
+			<a href="/admin/projects">
+				<li>Проекты</li>
+			</a>
+			<a href="/admin/categories">
+				<li>Категории</li>
+			</a>
 		</ul>
 	</section>
 
@@ -53,8 +59,8 @@
 
 </footer>
 
-<? // d(\core\Db::$countSql,0);?>
-<? // d(\core\Db::$queries,0);?>
+<?// d( \core\Db::$countSql, 0 ); ?>
+<?// d( \core\Db::$queries, 0 ); ?>
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <script src="/bootstrap/js/bootstrap.min.js"></script>

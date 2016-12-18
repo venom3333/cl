@@ -10,6 +10,7 @@ namespace core\base;
 
 
 use core\Db;
+use core\Error;
 
 abstract class Model {
 
@@ -97,5 +98,64 @@ abstract class Model {
 		imagecopyresampled( $img_o, $img_i, 0, 0, 0, 0, $w_o, $h_o, $w_i, $h_i ); // Переносим изображение из исходного в выходное, масштабируя его
 		$func = 'image' . $ext; // Получаем функция для сохранения результата
 		return $func( $img_o, $image ); // Сохраняем изображение в тот же файл, что и исходное, возвращая результат этой операции
+	}
+
+	protected function translit( string $str ) {
+		//d($str);
+		//$str = strip_tags( $str ); // убираем HTML-теги
+		$str = str_replace( array( "\n", "\r" ), " ", $str ); // убираем перевод каретки
+		$str = preg_replace( "/\s+/", '', $str ); // удаляем повторяющие пробелы
+		$str = trim( $str ); // убираем пробелы в начале и конце строки
+		$str = function_exists( 'mb_strtolower' ) ? mb_strtolower( $str ) : strtolower( $str ); // переводим строку в нижний регистр (иногда надо задать локаль)
+		$str = strtr( $str, array(
+			'а' => 'a',
+			'б' => 'b',
+			'в' => 'v',
+			'г' => 'g',
+			'д' => 'd',
+			'е' => 'e',
+			'ё' => 'e',
+			'ж' => 'j',
+			'з' => 'z',
+			'и' => 'i',
+			'й' => 'y',
+			'к' => 'k',
+			'л' => 'l',
+			'м' => 'm',
+			'н' => 'n',
+			'о' => 'o',
+			'п' => 'p',
+			'р' => 'r',
+			'с' => 's',
+			'т' => 't',
+			'у' => 'u',
+			'ф' => 'f',
+			'х' => 'h',
+			'ц' => 'c',
+			'ч' => 'ch',
+			'ш' => 'sh',
+			'щ' => 'shch',
+			'ы' => 'y',
+			'э' => 'e',
+			'ю' => 'yu',
+			'я' => 'ya',
+			'ъ' => '',
+			'ь' => ''
+		) );
+		$str = preg_replace( "/[^0-9a-z-_.]/i", "", $str ); // очищаем строку от недопустимых символов
+		$str = str_replace( " ", "-", $str ); // заменяем пробелы знаком минус
+		return $str; // возвращаем результат
+	}
+
+	protected function uploadAndResizeImage( string $src, string $name, string $dest = 'images/', int $width = 1024, int $height = 768 ) : string {
+		$this->resizeImage( $src, $width, $height );
+		$uploadedFile = $dest . $this->translit( basename( $name ) );
+		//d( $uploadedFile );
+		move_uploaded_file( $src, $uploadedFile );
+		if ( ! is_file( $uploadedFile ) ) {
+			Error::common( "Файл не загрузился! (Из $src в $dest" );
+		}
+
+		return $uploadedFile;
 	}
 }
