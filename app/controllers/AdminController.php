@@ -63,8 +63,10 @@ class AdminController extends AppController {
 	 * Формирование страницы админки с манипуляциями над категориями
 	 */
 	public function categoriesAction() {
+		$categoryModel = new Category;
+		$categories = $categoryModel->findAll();
 		$title = "Работа с базой даннных. Категории.";
-		$this->set( compact( 'title' ) );
+		$this->set( compact( 'title', 'categories' ) );
 	}
 
 	/**

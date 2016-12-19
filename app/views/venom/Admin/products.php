@@ -39,7 +39,7 @@
 					<a href="/admin/toggle-product-status/<?= $product['id'] ?>">
 						<div class="glyphicon glyphicon-eye-close"></div>
 					</a>
-					<a href="/admin/remove-product/<?= $product['id'] ?>">
+					<a href="#" onclick="confirmDelete('/admin/remove-product/<?= $product['id'] ?>')">
 						<div class="glyphicon glyphicon-remove-circle"></div>
 					</a>
 				</td>

@@ -60,7 +60,6 @@ abstract class Model {
 		return $this->pdo->query( $sql );
 	}
 
-
 	/**
 	 * Делает выборку всех данных определенного ID из определенной таблицы
 	 *
