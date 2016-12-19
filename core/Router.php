@@ -139,14 +139,14 @@ class Router {
 		$controller = $this->controllerName;
 		$action     = $this->actionName;
 
-		$cObj = new $controller( $this->route );
+		$controllerObject = new $controller( $this->route );
 
 		if ( isset( $this->alias ) ) {
-			$cObj->$action( $this->alias, $this->params );
+			$controllerObject->$action( $this->alias, $this->params );
 		} else {
-			$cObj->$action( $this->params );
+			$controllerObject->$action( $this->params );
 		}
-		$cObj->getView();
+		$controllerObject->getView();
 	}
 
 	/**

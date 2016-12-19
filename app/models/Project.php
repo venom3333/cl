@@ -66,27 +66,6 @@ class Project extends Model {
 		return $this->pdo->query( $sql );
 	}
 
-
-	public static function getProject( $projectId ) {
-		$db     = Db::getConnection();
-		$result = $db->query( '
-		SELECT *
-		FROM `custom_light`.project
-		WHERE id =' . $projectId );
-
-		$result->setFetchMode( \PDO::FETCH_ASSOC );
-		$project = $result->fetch();
-
-		// добавляем изображения
-		$images = self::getProjectImages( $projectId );
-		if ( $images ) {
-			$project['images'] = $images;
-		}
-
-		$db = null; // закрыть соединение
-		return $project;
-	}
-
 	/**
 	 * Получить индекс проектов относящихся к определенной категории
 	 *
@@ -151,9 +130,10 @@ class Project extends Model {
 	}
 
 	/**
-	 * Создет проект
+	 * Создет проект (включая запись в базу и закачивание изобрбажений на сервер)
 	 *
-	 * @param array $project
+	 * @param array $project Массив с данными о проекте
+	 *
 	 */
 	public function createProject( array $project ) {
 		//d( $project );
@@ -213,7 +193,13 @@ class Project extends Model {
 		}
 	}
 
-	public function removeProject( $projectId ) {
+	/**
+	 * Удаляет проект (включая запись в базу и закачивание изобрбажений на сервер)
+	 *
+	 * @param integer $projectId id удаляемого проекта
+	 *
+	 */
+	public function removeProject( int $projectId ) {
 		// Удаляем сам продукт
 		// сначала файл-иконку
 		$sql  = "

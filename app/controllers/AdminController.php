@@ -17,11 +17,17 @@ class AdminController extends AppController {
 
 	public $layout = 'admin';
 
+	/**
+	 * Формирование главной страницы админки
+	 */
 	public function indexAction() {
 		$title = "Административная панель. Главная.";
 		$this->set( compact( 'title' ) );
 	}
 
+	/**
+	 * Формирование страницы админки с манипуляциями над продуктами
+	 */
 	public function productsAction() {
 		$this->view   = "products";
 		$productModel = new Product;
@@ -30,12 +36,20 @@ class AdminController extends AppController {
 		$this->set( compact( 'title', 'products' ) );
 	}
 
+
+	/**
+	 * Меняет статус видимости продукта и затем
+	 * формирует страницу админки с манипуляциями над продуктами
+	 */
 	public function toggleProductStatusAction( $productId ) {
 		$productModel = new Product;
 		$productModel->toggleStatus( $productId );
 		$this->productsAction();
 	}
 
+	/**
+	 * Формирование страницы админки с манипуляциями над проектами
+	 */
 	public function projectsAction() {
 		$this->view   = "projects";
 		$projectModel = new Project;
@@ -45,11 +59,17 @@ class AdminController extends AppController {
 		$this->set( compact( 'title', 'projects' ) );
 	}
 
+	/**
+	 * Формирование страницы админки с манипуляциями над категориями
+	 */
 	public function categoriesAction() {
 		$title = "Работа с базой даннных. Категории.";
 		$this->set( compact( 'title' ) );
 	}
 
+	/**
+	 * Формирование страницы админки с формой создания продукта
+	 */
 	public function newProductAction() {
 
 		$categoryModel = new Category;
@@ -59,6 +79,9 @@ class AdminController extends AppController {
 		$this->set( compact( 'title', 'categories' ) );
 	}
 
+	/**
+	 * Формирование страницы админки с формой создания проекта
+	 */
 	public function newProjectAction() {
 
 		$categoryModel = new Category;
@@ -68,6 +91,10 @@ class AdminController extends AppController {
 		$this->set( compact( 'title', 'categories' ) );
 	}
 
+	/**
+	 * Создает новый продукт и затем
+	 * формирует страницу админки с манипуляциями над продуктами
+	 */
 	public function createProductAction() {
 		// принимаем всю переданную информацию и удобно складываем в массив
 		// основное
@@ -118,6 +145,10 @@ class AdminController extends AppController {
 		$this->productsAction();
 	}
 
+	/**
+	 * Удаляет определенный продукт и затем
+	 * формирует страницу админки с манипуляциями над продуктами
+	 */
 	public function removeProductAction( $productId ) {
 
 		$productModel = new Product;
@@ -128,6 +159,10 @@ class AdminController extends AppController {
 		exit();
 	}
 
+	/**
+	 * Создает новый проект и затем
+	 * формирует страницу админки с манипуляциями над проектами
+	 */
 	public function createProjectAction() {
 		// принимаем всю переданную информацию и удобно складываем в массив
 		// основное
@@ -152,9 +187,15 @@ class AdminController extends AppController {
 		$projectModel = new Project;
 		$projectModel->createProject( $project );
 
-		$this->projectsAction();
+		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
+		header( 'Location: http://custom-light/admin/projects' );
+		exit();
 	}
 
+	/**
+	 * Удаляет определенный проект и затем
+	 * формирует страницу админки с манипуляциями над проектами
+	 */
 	public function removeProjectAction( $projectId ) {
 
 		$projectModel = new Project;

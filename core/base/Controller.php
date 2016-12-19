@@ -30,16 +30,31 @@ abstract class Controller {
 	 */
 	public $vars = [];
 
+
+	/**
+	 * Controller constructor.
+	 * Создает объект контроллера и присваивает $route и $view
+	 * @param array $route массив с маршрутом
+	 */
 	public function __construct( $route ) {
 		$this->route = $route;
 		$this->view  = $route['action'];
 	}
 
+
+	/**
+	 *  Получить вид, передать в него параметры и отрисовать
+	 */
 	public function getView() {
-		$vObj = new View( $this->route, $this->layout, $this->view );
-		$vObj->render($this->vars);
+		$viewObject = new View( $this->route, $this->layout, $this->view );
+		$viewObject->render($this->vars);
 	}
 
+	/**
+	 *  Присвоить пользовательские данные
+	 *
+	 * @param array $vars
+	 */
 	public function set( $vars ) {
 		$this->vars = $vars;
 	}
