@@ -26,7 +26,7 @@
 				<td><?= $project['short_description'] ?></td>
 				<td class="adminActions">
 					<div class="glyphicon glyphicon-edit"></div>
-					<a href="/admin/remove-project/<?= $project['id'] ?>">
+					<a href="#" onclick="confirmDelete('/admin/remove-project/<?= $project['id'] ?>')">
 						<div class="glyphicon glyphicon-remove-circle"></div>
 					</a>
 				</td>

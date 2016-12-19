@@ -65,5 +65,10 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <script src="/bootstrap/js/bootstrap.min.js"></script>
+
+<!--защита от случайного удаления-->
+<script src="/templates/venom/js/confirmDelete.js"></script>
+<!--/защита от случайного удаления-->
+
 </body>
 </html>
