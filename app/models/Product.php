@@ -159,9 +159,8 @@ class Product extends Model {
 	 *
 	 * @param integer $productId ID продукта
 	 *
-	 * @return void
 	 */
-	public function toggleStatus( int $productId ) : void {
+	public function toggleStatus( int $productId ) {
 		$sql = "
 		SELECT status
 		FROM {$this->table}
