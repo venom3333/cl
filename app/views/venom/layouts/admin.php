@@ -37,6 +37,7 @@
 
 <div>
 	<section class="adminMenu col-md-2">
+		<ul><li><a href="/admin"><h4>Админка. Главная.</h4></a></li></ul>
 		<ul><p>Работа с базой данных</p>
 			<a href="/admin/products">
 				<li>Продукты</li>
