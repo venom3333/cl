@@ -14,18 +14,27 @@ use core\Error;
 
 abstract class Model {
 
-	protected $pdo;
-	protected $table;
+	protected $pdo;     // объект класса Db на основе pdo
+	protected $table;   // используемая моделью таблица
 
 	public function __construct() {
-		$this->pdo = Db::instance();
+		$this->pdo = Db::instance(); // создает (присваивает) объект PDO
 	}
 
-	public function query( $sql ) {
-		return $this->pdo->execute( $sql );
-	}
+//	public function query( $sql ) {
+//		return $this->pdo->execute( $sql );
+//	}
 
-	public function findAll( $sort = null, $order = 'DESC' ) {
+
+	/**
+	 * Делает выборку всех данный из определенной таблицы
+	 *
+	 * @param string $sort индекс сортировки
+	 * @param string $order порядок сортировки
+	 *
+	 * @return array Массив всех данных из определенной таблицы
+	 */
+	public function findAll( $sort = '', $order = 'DESC' ) {
 		$sql = "SELECT * FROM {$this->table}";
 		if ( $sort ) {
 			$sql .= " ORDER BY {$sort} {$order}";
@@ -34,6 +43,14 @@ abstract class Model {
 		return $this->pdo->query( $sql );
 	}
 
+	/**
+	 * Делает выборку всех ID и Name из определенной таблицы
+	 *
+	 * @param string $sort индекс сортировки
+	 * @param string $order порядок сортировки
+	 *
+	 * @return array Массив всех данных с ID и Name из определенной таблицы
+	 */
 	public function findAllNames( $sort = 'name', $order = 'ASC' ) {
 		$sql = "SELECT `id`, `name` FROM $this->table";
 		if ( $sort ) {
@@ -43,6 +60,14 @@ abstract class Model {
 		return $this->pdo->query( $sql );
 	}
 
+
+	/**
+	 * Делает выборку всех данных определенного ID из определенной таблицы
+	 *
+	 * @param int $id
+	 *
+	 * @return array Массив всех данных определенного ID из определенной таблицы
+	 */
 	public function findById( $id ) {
 		$sql = "SELECT *
  				FROM $this->table
@@ -100,11 +125,19 @@ abstract class Model {
 		return $func( $img_o, $image ); // Сохраняем изображение в тот же файл, что и исходное, возвращая результат этой операции
 	}
 
+
+	/**
+	 * Преобразует кириллические символы в строке в транслитерацию (латиницей),
+	 * также удаляет все "неестественные" символы и приводит строку к нижнему регистру
+	 * @param string $str входная строка
+	 *
+	 * @return string выходная строка
+	 */
 	protected function translit( string $str ) {
 		//d($str);
 		//$str = strip_tags( $str ); // убираем HTML-теги
 		$str = str_replace( array( "\n", "\r" ), " ", $str ); // убираем перевод каретки
-		$str = preg_replace( "/\s+/", '', $str ); // удаляем повторяющие пробелы
+		$str = preg_replace( "/\s+/", '', $str ); // удаляем все пробелы
 		$str = trim( $str ); // убираем пробелы в начале и конце строки
 		$str = function_exists( 'mb_strtolower' ) ? mb_strtolower( $str ) : strtolower( $str ); // переводим строку в нижний регистр (иногда надо задать локаль)
 		$str = strtr( $str, array(
@@ -147,6 +180,17 @@ abstract class Model {
 		return $str; // возвращаем результат
 	}
 
+	/**
+	 * Загружает изображение на сервер, переименовывает его до латинских символов и изменяет
+	 * размер изображения до заданного
+	 * @param string $src   путь до временного файла (источник)
+	 * @param string $name  имя будущего файла
+	 * @param string $dest  путь до будущего файла (куда сохранять)
+	 * @param int $width    ширина конечного изображения
+	 * @param int $height   высота конечного изображения
+	 *
+	 * @return string   путь до конечного изображения
+	 */
 	protected function uploadAndResizeImage( string $src, string $name, string $dest = 'images/', int $width = 1024, int $height = 768 ) : string {
 		$this->resizeImage( $src, $width, $height );
 		$uploadedFile = $dest . $this->translit( basename( $name ) );

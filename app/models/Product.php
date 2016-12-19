@@ -161,7 +161,7 @@ class Product extends Model {
 	 *
 	 * @return void
 	 */
-	public function toggleStatus( $productId ) {
+	public function toggleStatus( int $productId ) : void {
 		$sql = "
 		SELECT status
 		FROM {$this->table}
@@ -184,6 +184,13 @@ class Product extends Model {
 		$this->pdo->execute( $toggle );
 	}
 
+	/**
+	 * Создет продукт (включая запись в базу и закачивание изобрбажений на сервер)
+	 *
+	 * @param array $product Массив с данными о продукте
+	 *
+	 * @return void
+	 */
 	public function createProduct( array $product ) {
 
 		//d( $product );
@@ -280,7 +287,14 @@ class Product extends Model {
 		}
 	}
 
-	public function removeProduct( $productId ) {
+	/**
+	 * Удаляет продукт (включая запись в базу и закачивание изобрбажений на сервер)
+	 *
+	 * @param integer $productId id удаляемого продукта
+	 *
+	 * @return void
+	 */
+	public function removeProduct( int $productId ) : void {
 		// Удаляем сам продукт
 		// сначала файл-иконку
 		$sql  = "

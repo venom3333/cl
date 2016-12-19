@@ -1,3 +1,4 @@
+// Функция для предпросмотра загружаемых изображений
 function previewImage(sourceId, destId) {
 
     var preview = document.getElementById(destId);

@@ -25,6 +25,15 @@ class View {
 	 */
 	public $layout;
 
+	/**
+	 * View constructor.
+	 *
+	 * Создает объект View и присваивает маршрут, шаблон и вид
+	 *
+	 * @param array $route   маршрут
+	 * @param string $layout шаблон
+	 * @param string $view   вид
+	 */
 	public function __construct( $route, $layout = '', $view = '' ) {
 		$this->route = $route;
 
@@ -36,6 +45,11 @@ class View {
 		$this->view = $view;
 	}
 
+
+	/**
+	 * Отрисовывает вид и передает в него
+	 * @param array $vars пользовательские данные
+	 */
 	public function render( $vars ) {
 		if ( is_array( $vars ) ) {      // если переменные заданы то разбиваем этот массив на отдельные переменные
 			extract( $vars );
