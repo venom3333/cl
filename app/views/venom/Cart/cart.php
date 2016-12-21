@@ -18,7 +18,7 @@
 							<th class="cart-cell">Ширина</th>
 							<th class="cart-cell">Высота</th>
 							<th class="cart-cell">Мощность</th>
-							<th class="cart-cell">Сила света</th>
+							<th class="cart-cell">Световой поток (лм)</th>
 						</tr>
 						</thead>
 					</table>
