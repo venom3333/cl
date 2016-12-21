@@ -11,6 +11,6 @@ if ( stristr( $_SERVER ['DOCUMENT_ROOT'], 'localhost' ) ) {
 } else {
 	define( 'DB_USER', 'customligh_venom' );
 	define( 'DB_NAME', 'customligh_db' );
-	define( 'DB_HOST', 'localhost' );
-	define( 'DB_PASS', '666666' );
+	define( 'DB_HOST', 'customligh.mysql' );
+	define( 'DB_PASS', '9/MBHXML' );
 }

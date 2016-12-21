@@ -12,10 +12,12 @@ class Db {
 		require APP . '/config/db.php'; // конфигурация для БД
 		$options   = [
 			\PDO::ATTR_ERRMODE            => \PDO::ERRMODE_EXCEPTION,
-			\PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
+			\PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
+			\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"         // !!!!!!!! НАДО !!!!!!!!
 		];
-		$this->pdo = new \PDO( 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASS, $options );
+		$this->pdo = new \PDO( 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8', DB_USER, DB_PASS, $options );
 	}
+
 
 	/**
 	 * Проверяет не запущен ли уже экземпляр класса Db и если нет создает его

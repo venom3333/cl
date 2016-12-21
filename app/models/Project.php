@@ -60,7 +60,7 @@ class Project extends Model {
 	public function getImages( $id ) {
 		$sql = "
 		SELECT path AS image
-		FROM `custom_light`.project_image
+		FROM project_image
 		WHERE project_id = $id";
 
 		return $this->pdo->query( $sql );
@@ -78,7 +78,7 @@ class Project extends Model {
 
 		$result = $db->query( '
 		SELECT id, name
-		FROM `custom_light`.project
+		FROM project
   		' );
 
 		$result->setFetchMode( \PDO::FETCH_ASSOC );
@@ -120,7 +120,7 @@ class Project extends Model {
 	protected function getCategories( $projectId ) {
 		$sql = "
 		SELECT `name`
-		FROM `custom_light`.category
+		FROM category
   		JOIN category_has_project
     	ON category.id = category_has_project.category_id
 		WHERE project_id = $projectId
@@ -141,7 +141,7 @@ class Project extends Model {
 		if ( $project['icon']['error'] == 0 ) {
 			$src            = $project['icon']['tmp_name'];
 			$name           = $project['icon']['name'];
-			$dest           = 'images/icons/';
+			$dest           = 'images/projects/icons/';
 			$uploadIconFile = $this->uploadAndResizeImage( $src, $name, $dest, 300, 225 );
 			//d($uploadIconFile);
 		}
@@ -170,7 +170,8 @@ class Project extends Model {
 			if ( $image['error'] == 0 ) {
 				$src  = $image['tmp_name'];
 				$name = $image['name'];
-				$path = $this->uploadAndResizeImage( $src, $name );
+				$dest = 'images/projects/';
+				$path = $this->uploadAndResizeImage( $src, $name, $dest );
 			}
 			$sql = "REPLACE INTO project_image
  					SET `project_id` = '$projectID',

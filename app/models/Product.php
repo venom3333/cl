@@ -68,7 +68,7 @@ class Product extends Model {
 	 */
 	protected function getImages( $id ) {
 		$sql = "SELECT path AS image
-		FROM `custom_light`.product_image
+		FROM product_image
 		WHERE product_id = $id";
 
 		return $this->pdo->query( $sql );
@@ -84,7 +84,7 @@ class Product extends Model {
 	protected function getSpecifications( $productId ) {
 		$sql = "
 		SELECT *
-		FROM `custom_light`.specification
+		FROM specification
 		WHERE product_id = $productId";
 
 		return $this->pdo->query( $sql );
@@ -100,7 +100,7 @@ class Product extends Model {
 	protected function getSpecificationsCount( $productId ) {
 		$sql = "
 		SELECT count(*) as specs
-		FROM `custom_light`.specification
+		FROM specification
 		WHERE product_id = $productId";
 
 		$specs = $this->pdo->query( $sql );
@@ -145,7 +145,7 @@ class Product extends Model {
 	protected function getCategories( $productId ) {
 		$sql = "
 		SELECT `name`
-		FROM `custom_light`.category
+		FROM category
   		JOIN product_has_category
     	ON category.id = product_has_category.category_id
 		WHERE product_id = $productId
@@ -197,7 +197,7 @@ class Product extends Model {
 		if ( $product['icon']['error'] == 0 ) {
 			$src            = $product['icon']['tmp_name'];
 			$name           = $product['icon']['name'];
-			$dest           = 'images/icons/';
+			$dest           = 'images/products/icons/';
 			$uploadIconFile = $this->uploadAndResizeImage( $src, $name, $dest, 200, 150 );
 		}
 
@@ -228,7 +228,8 @@ class Product extends Model {
 			if ( $image['error'] == 0 ) {
 				$src  = $image['tmp_name'];
 				$name = $image['name'];
-				$path = $this->uploadAndResizeImage( $src, $name );
+				$dest = 'images/products/';
+				$path = $this->uploadAndResizeImage( $src, $name, $dest );
 			}
 			$sql = "REPLACE INTO product_image
  					SET `product_id` = '$productID',
@@ -291,9 +292,8 @@ class Product extends Model {
 	 *
 	 * @param integer $productId id удаляемого продукта
 	 *
-	 * @return void
 	 */
-	public function removeProduct( int $productId ) : void {
+	public function removeProduct( int $productId ) {
 		// Удаляем сам продукт
 		// сначала файл-иконку
 		$sql  = "

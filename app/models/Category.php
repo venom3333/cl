@@ -30,7 +30,7 @@ class Category extends Model {
 		$db     = Db::getConnection();
 		$result = $db->query( '
 			SELECT *
-			FROM `custom_light`.category
+			FROM category
 			WHERE parent_id =' . $catId );
 		$result->setFetchMode( \PDO::FETCH_ASSOC );
 		$rs = $result->fetchAll();
@@ -68,7 +68,7 @@ class Category extends Model {
 		$db     = Db::getConnection();
 		$result = $db->query( '
 			SELECT *
-			FROM `custom_light`.category
+			FROM category
 		 ' );
 		$result->setFetchMode( \PDO::FETCH_ASSOC );
 		$cats = $result->fetchAll();
@@ -78,140 +78,7 @@ class Category extends Model {
 	}
 
 	/**
-	 * Получить товары для индекс страницы
-	 *
-	 * @return array массив товаров для индекс страницы
-	 */
-	public static function getIndexOfItems() {
-		$db     = Db::getConnection();
-		$result = $db->query( '
-		SELECT * FROM `custom_light`.item
-	' );
-
-		$result->setFetchMode( \PDO::FETCH_ASSOC );
-		$items = $result->fetchAll();
-
-		foreach ( $items as &$item ) {
-			$colors = self::getItemColors( $item['id'] );
-			if ( $colors ) {
-				$item['colors'] = $colors;
-			}
-			$categories = self::getItemCategories( $item['id'] );
-			if ( $categories ) {
-				$item['categories'] = $categories;
-			}
-		}
-		unset( $item );
-
-		$db = null; // закрыть соединение
-		return $items;
-	}
-
-	/**
-	 * Получить все товары
-	 *
-	 * @return array массив всех товаров
-	 */
-	public static function getAllItems() {
-		$db     = Db::getConnection();
-		$result = $db->query( '
-		SELECT * FROM `custom_light`.item
-	' );
-
-		$result->setFetchMode( \PDO::FETCH_ASSOC );
-		$items = $result->fetchAll();
-
-		foreach ( $items as &$item ) {
-			$colors = self::getItemColors( $item['id'] );
-			if ( $colors ) {
-				$item['colors'] = $colors;
-			}
-			$categories = self::getItemCategories( $item['id'] );
-			if ( $categories ) {
-				$item['categories'] = $categories;
-			}
-			$images = self::getItemImages( $item['id'] );
-			if ( $images ) {
-				$item['images'] = $images;
-			}
-		}
-		unset( $item );
-
-		$db = null; // закрыть соединение
-		return $items;
-	}
-
-	/**
-	 * Получить все цвета, относящиеся к товару
-	 *
-	 * @param integer $itemId ID товара
-	 *
-	 * @return array массив всех цветов товара
-	 */
-	public static function getItemColors( $itemId ) {
-		$db     = Db::getConnection();
-		$result = $db->query( '
-		SELECT `name` AS `color`
-		FROM `custom_light`.color
-		JOIN item_has_color
-		ON color.id = item_has_color.color_id
-		WHERE item_has_color.item_id =' . $itemId );
-
-		$result->setFetchMode( \PDO::FETCH_ASSOC );
-		$colors = $result->fetchAll();
-
-		$db = null; // закрыть соединение
-		return $colors;
-	}
-
-	/**
-	 * Получить все цвета, относящиеся к товару
-	 *
-	 * @param integer $itemId ID товара
-	 *
-	 * @return array массив всех категорий товара
-	 */
-	public static function getItemCategories( $itemId ) {
-		$db     = Db::getConnection();
-		$result = $db->query( '
-		SELECT `name` AS `category`
-		FROM `custom_light`.category
-		JOIN item_has_category
-		ON category.id = item_has_category.category_id
-		WHERE item_has_category.item_id =' . $itemId );
-
-		$result->setFetchMode( \PDO::FETCH_ASSOC );
-		$colors = $result->fetchAll();
-
-		$db = null; // закрыть соединение
-		return $colors;
-	}
-
-	/**
-	 * Получить все цвета, относящиеся к товару
-	 *
-	 * @param integer $itemId ID товара
-	 *
-	 * @return array массив всех изображений товара
-	 */
-	public static function getItemImages( $itemId ) {
-		$db     = Db::getConnection();
-		$result = $db->query( '
-		SELECT `path` AS `image`
-		FROM `custom_light`.image
-		JOIN item_has_image
-		ON image.id = item_has_image.image_id
-		WHERE item_has_image.item_id =' . $itemId );
-
-		$result->setFetchMode( \PDO::FETCH_ASSOC );
-		$images = $result->fetchAll();
-
-		$db = null; // закрыть соединение
-		return $images;
-	}
-
-	/**
-	 * Получить все цвета, относящиеся к товару
+	 * Получить описание категории
 	 *
 	 * @param integer $categoryId ID категории
 	 *
@@ -229,7 +96,7 @@ class Category extends Model {
 		$db     = Db::getConnection();
 		$result = $db->query( '
 		SELECT name, short_description
-		FROM `custom_light`.category
+		FROM category
 		WHERE id =' . $categoryId );
 
 		$result->setFetchMode( \PDO::FETCH_ASSOC );
