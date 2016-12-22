@@ -128,7 +128,7 @@ class AdminController extends AppController {
 		$productModel->removeProduct( $productId );
 
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
-		header( 'Location: http://custom-light/admin/products' );
+		header( 'Location: /admin/products' );
 		exit();
 	}
 
@@ -187,7 +187,7 @@ class AdminController extends AppController {
 		$projectModel->createProject( $project );
 
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
-		header( 'Location: http://custom-light/admin/projects' );
+		header( 'Location: /admin/projects' );
 		exit();
 	}
 
@@ -203,7 +203,7 @@ class AdminController extends AppController {
 		$projectModel->removeProject( $projectId );
 
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
-		header( 'Location: http://custom-light/admin/projects' );
+		header( 'Location: /admin/projects' );
 		exit();
 	}
 
@@ -247,7 +247,7 @@ class AdminController extends AppController {
 		$projectModel->createCategory( $category );
 
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
-		header( 'Location: http://custom-light/admin/categories' );
+		header( 'Location: /admin/categories/' );
 		exit();
 	}
 
@@ -262,7 +262,7 @@ class AdminController extends AppController {
 		$projectModel->removeCategory( $categoryId );
 
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
-		header( 'Location: http://custom-light/admin/categories' );
+		header( 'Location: /admin/categories' );
 		exit();
 	}
 
@@ -300,7 +300,7 @@ class AdminController extends AppController {
 		$projectModel->updateCategory( $categoryId, $updatedCategory );
 
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
-		header( 'Location: http://custom-light/admin/categories' );
+		header( 'Location: /admin/categories' );
 		exit();
 	}
 }
