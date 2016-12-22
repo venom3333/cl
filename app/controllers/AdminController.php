@@ -55,7 +55,7 @@ class AdminController extends AppController {
 		$projectModel = new Project;
 		$projects     = $projectModel->getProjectsForAdmin();
 
-		$title        = "Работа с базой даннных. Проекты.";
+		$title = "Работа с базой даннных. Проекты.";
 		$this->set( compact( 'title', 'projects' ) );
 	}
 
@@ -64,13 +64,13 @@ class AdminController extends AppController {
 	 */
 	public function categoriesAction() {
 		$categoryModel = new Category;
-		$categories = $categoryModel->findAll();
-		$title = "Работа с базой даннных. Категории.";
+		$categories    = $categoryModel->findAll();
+		$title         = "Работа с базой даннных. Категории.";
 		$this->set( compact( 'title', 'categories' ) );
 	}
 
 	/**
-	 * Формирование страницы админки с формой создания продукта
+	 * Формирование страницы админки с формой создания нового продукта
 	 */
 	public function newProductAction() {
 
@@ -82,7 +82,7 @@ class AdminController extends AppController {
 	}
 
 	/**
-	 * Формирование страницы админки с формой создания проекта
+	 * Формирование страницы админки с формой создания нового проекта
 	 */
 	public function newProjectAction() {
 
@@ -91,6 +91,16 @@ class AdminController extends AppController {
 
 		$title = "Работа с базой даннных. Новый проект.";
 		$this->set( compact( 'title', 'categories' ) );
+	}
+
+	/**
+	 * Формирование страницы админки с формой создания новой категории
+	 */
+	public function newCategoryAction() {
+
+		$title = "Работа с базой даннных. Новая Категория.";
+		$this->set( compact( 'title' ) );
+
 	}
 
 	/**
@@ -150,8 +160,11 @@ class AdminController extends AppController {
 	/**
 	 * Удаляет определенный продукт и затем
 	 * формирует страницу админки с манипуляциями над продуктами
+	 *
+	 * @param int $productId id продукта
+
 	 */
-	public function removeProductAction( $productId ) {
+	public function removeProductAction( int $productId ) {
 
 		$productModel = new Product;
 		$productModel->removeProduct( $productId );
@@ -197,8 +210,10 @@ class AdminController extends AppController {
 	/**
 	 * Удаляет определенный проект и затем
 	 * формирует страницу админки с манипуляциями над проектами
+	 *
+	 * @param int $projectId id проекта
 	 */
-	public function removeProjectAction( $projectId ) {
+	public function removeProjectAction(int $projectId ) {
 
 		$projectModel = new Project;
 		$projectModel->removeProject( $projectId );
@@ -208,4 +223,42 @@ class AdminController extends AppController {
 		exit();
 	}
 
+	/**
+	 * Создает новую категорию и затем
+	 * формирует страницу админки с манипуляциями над категориями
+	 */
+	public function createCategoryAction() {
+		// принимаем всю переданную информацию и удобно складываем в массив
+		// основное
+		$category = [
+			'name'             => $_POST['categoryName'],
+			'shortDescription' => $_POST['categoryShortDescription'],
+			'description'      => $_POST['categoryDescription'],
+			'icon'             => $_FILES['categoryIcon'],
+		];
+
+		$projectModel = new Category;
+		$projectModel->createCategory( $category );
+
+		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
+		header( 'Location: http://custom-light/admin/categories' );
+		exit();
+	}
+
+	/**
+	 * Удаляет определенную категорию и затем
+	 * формирует страницу админки с манипуляциями над категориями
+	 *
+	 * @param int $categoryId id категории
+	 */
+	public function removeCategoryAction( int $categoryId ) {
+		$projectModel = new Category;
+		$projectModel->removeCategory( $categoryId );
+
+		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
+		header( 'Location: http://custom-light/admin/categories' );
+		exit();
+	}
+
 }
+

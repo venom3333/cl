@@ -1,5 +1,6 @@
 <?php
 namespace app\models;
+
 use core\base\Model;
 use core\Db;
 
@@ -87,7 +88,7 @@ class Category extends Model {
 	 */
 	public static function getCategoryHeader( $categoryId ) {
 
-		if ( !$categoryId ) {
+		if ( ! $categoryId ) {
 			$categoryHeader = [ 'name' => 'Все категории', 'short_description' => 'Продукция из всех категорий' ];
 
 			return $categoryHeader;
@@ -104,5 +105,59 @@ class Category extends Model {
 
 		$db = null; // закрыть соединение
 		return $categoryHeader;
+	}
+
+	/**
+	 * Создет проект (включая запись в базу и закачивание изобрбажений на сервер)
+	 *
+	 * @param array $category Массив с данными о проекте
+	 *
+	 */
+	public function createCategory( array $category ) {
+
+		// записываем файл иконки на сервер
+		if ( $category['icon']['error'] == 0 ) {
+			$src            = $category['icon']['tmp_name'];
+			$name           = $category['icon']['name'];
+			$dest           = 'images/categories/icons/';
+			$uploadIconFile = $this->uploadAndResizeImage( $src, $name, $dest, 200, 150 );
+			//d($uploadIconFile);
+		}
+		// записываем в базу категорию
+		$sql = "
+		REPLACE INTO category
+		SET name = '{$category['name']}',
+    	short_description = '{$category['shortDescription']}',
+    	description = '{$category['description']}',
+    	icon = '/{$uploadIconFile}'
+		";
+		$this->pdo->execute( $sql );
+	}
+
+	/**
+	 * Удаляет категорию (включая запись в базу и изобрбажения на сервере)
+	 *
+	 * @param integer $categoryId id удаляемой категории
+	 *
+	 */
+	public function removeCategory( int $categoryId ) {
+		// Удаляем категорию
+		// сначала файл-иконку
+		$sql  = "
+			SELECT icon
+			FROM category
+			WHERE id = $categoryId
+		";
+		$icon = $this->pdo->query( $sql );
+		$icon = $icon[0];
+		unlink( WWW . $icon['icon'] );
+
+		// затем саму запись в БД
+		$sql = "
+			DELETE
+			FROM category
+			WHERE id = '$categoryId'
+		";
+		$this->pdo->execute( $sql );
 	}
 }

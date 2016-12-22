@@ -7,7 +7,7 @@ class Db {
 	public static $countSql = 0; // количество запросов за соединение
 	public static $queries = []; // запросы за соединение
 
-	// Создает объект pdo и присваивает его в одноименное поле
+	// Создает объект PDO и присваивает его в одноименное поле
 	protected function __construct() {
 		require APP . '/config/db.php'; // конфигурация для БД
 		$options   = [
