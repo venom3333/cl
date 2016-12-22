@@ -160,4 +160,59 @@ class Category extends Model {
 		";
 		$this->pdo->execute( $sql );
 	}
+
+	/**
+	 * Сохраняет категорию поверх предыдущей (обновляет) (включая запись в базу и изобрбажения на сервере)
+	 *
+	 * @param integer $categoryId id перезаписываемой категории
+	 * @param array $updatedCategory массив с информацией о категории
+	 */
+	public function updateCategory( int $categoryId, array $updatedCategory = [] ) {
+		// если имеем новую иконку, то удаляем старую и записываем новую
+		if ( ! $updatedCategory['icon']['error'] ) {
+
+			// удаляем текущий файл-иконку
+			$sql  = "
+			SELECT icon
+			FROM category
+			WHERE id = $categoryId
+		";
+			$icon = $this->pdo->query( $sql );
+			$icon = $icon[0];
+			$file = WWW . $icon['icon'];
+			if ( file_exists( $file ) ) {
+				unlink( $file );
+			}
+
+			// записываем новый файл иконки на сервер
+			$src                        = $updatedCategory['icon']['tmp_name'];
+			$name                       = $updatedCategory['icon']['name'];
+			$dest                       = 'images/categories/icons/';
+			$updatedCategory['newIcon'] = $this->uploadAndResizeImage( $src, $name, $dest, 200, 150 );
+
+			// пишем категорию в базу данных
+			$sql = "
+			UPDATE category
+			SET name = '{$updatedCategory['name']}',
+				short_description = '{$updatedCategory['short_description']}',
+				description = '{$updatedCategory['description']}',
+				icon = '/{$updatedCategory['newIcon']}'
+				WHERE id = {$updatedCategory['id']}
+			";
+
+			$this->pdo->execute( $sql );
+
+		} // иначе не трогаем картинки и пишем просто категорию в базу данных
+		else {
+			$sql = "
+			UPDATE category
+			SET name = '{$updatedCategory['name']}',
+				short_description = '{$updatedCategory['short_description']}',
+				description = '{$updatedCategory['description']}'
+				WHERE id = {$updatedCategory['id']}
+			";
+
+			$this->pdo->execute( $sql );
+		}
+	}
 }

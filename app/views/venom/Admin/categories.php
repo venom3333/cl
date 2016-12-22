@@ -16,7 +16,7 @@
 				<td><a href="/category/<?= $category['id'] ?>"><?= $category['name'] ?></a></td>
 				<td><?= $category['short_description'] ?></td>
 				<td class="adminActions">
-					<div class="glyphicon glyphicon-edit"></div>
+					<a href="/admin/edit-category/<?= $category['id'] ?>"><div class="glyphicon glyphicon-edit"></div></a>
 					<a href="#" onclick="confirmDelete('/admin/remove-category/<?= $category['id'] ?>')">
 						<div class="glyphicon glyphicon-remove-circle"></div>
 					</a>

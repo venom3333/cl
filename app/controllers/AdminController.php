@@ -25,6 +25,8 @@ class AdminController extends AppController {
 		$this->set( compact( 'title' ) );
 	}
 
+
+	// ПРОДУКТЫ
 	/**
 	 * Формирование страницы админки с манипуляциями над продуктами
 	 */
@@ -36,37 +38,16 @@ class AdminController extends AppController {
 		$this->set( compact( 'title', 'products' ) );
 	}
 
-
 	/**
 	 * Меняет статус видимости продукта и затем
 	 * формирует страницу админки с манипуляциями над продуктами
+	 *
+	 * @param int $productId id продукта
 	 */
-	public function toggleProductStatusAction( $productId ) {
+	public function toggleProductStatusAction( int $productId ) {
 		$productModel = new Product;
 		$productModel->toggleStatus( $productId );
 		$this->productsAction();
-	}
-
-	/**
-	 * Формирование страницы админки с манипуляциями над проектами
-	 */
-	public function projectsAction() {
-		$this->view   = "projects";
-		$projectModel = new Project;
-		$projects     = $projectModel->getProjectsForAdmin();
-
-		$title = "Работа с базой даннных. Проекты.";
-		$this->set( compact( 'title', 'projects' ) );
-	}
-
-	/**
-	 * Формирование страницы админки с манипуляциями над категориями
-	 */
-	public function categoriesAction() {
-		$categoryModel = new Category;
-		$categories    = $categoryModel->findAll();
-		$title         = "Работа с базой даннных. Категории.";
-		$this->set( compact( 'title', 'categories' ) );
 	}
 
 	/**
@@ -79,28 +60,6 @@ class AdminController extends AppController {
 
 		$title = "Работа с базой даннных. Новый продукт.";
 		$this->set( compact( 'title', 'categories' ) );
-	}
-
-	/**
-	 * Формирование страницы админки с формой создания нового проекта
-	 */
-	public function newProjectAction() {
-
-		$categoryModel = new Category;
-		$categories    = $categoryModel->findAllNames();
-
-		$title = "Работа с базой даннных. Новый проект.";
-		$this->set( compact( 'title', 'categories' ) );
-	}
-
-	/**
-	 * Формирование страницы админки с формой создания новой категории
-	 */
-	public function newCategoryAction() {
-
-		$title = "Работа с базой даннных. Новая Категория.";
-		$this->set( compact( 'title' ) );
-
 	}
 
 	/**
@@ -162,7 +121,6 @@ class AdminController extends AppController {
 	 * формирует страницу админки с манипуляциями над продуктами
 	 *
 	 * @param int $productId id продукта
-
 	 */
 	public function removeProductAction( int $productId ) {
 
@@ -172,6 +130,32 @@ class AdminController extends AppController {
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
 		header( 'Location: http://custom-light/admin/products' );
 		exit();
+	}
+
+
+	// ПРОДЕКТЫ
+	/**
+	 * Формирование страницы админки с манипуляциями над проектами
+	 */
+	public function projectsAction() {
+		$this->view   = "projects";
+		$projectModel = new Project;
+		$projects     = $projectModel->getProjectsForAdmin();
+
+		$title = "Работа с базой даннных. Проекты.";
+		$this->set( compact( 'title', 'projects' ) );
+	}
+
+	/**
+	 * Формирование страницы админки с формой создания нового проекта
+	 */
+	public function newProjectAction() {
+
+		$categoryModel = new Category;
+		$categories    = $categoryModel->findAllNames();
+
+		$title = "Работа с базой даннных. Новый проект.";
+		$this->set( compact( 'title', 'categories' ) );
 	}
 
 	/**
@@ -213,7 +197,7 @@ class AdminController extends AppController {
 	 *
 	 * @param int $projectId id проекта
 	 */
-	public function removeProjectAction(int $projectId ) {
+	public function removeProjectAction( int $projectId ) {
 
 		$projectModel = new Project;
 		$projectModel->removeProject( $projectId );
@@ -221,6 +205,28 @@ class AdminController extends AppController {
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
 		header( 'Location: http://custom-light/admin/projects' );
 		exit();
+	}
+
+
+	// КАТЕГОРИИ
+	/**
+	 * Формирование страницы админки с манипуляциями над категориями
+	 */
+	public function categoriesAction() {
+		$categoryModel = new Category;
+		$categories    = $categoryModel->findAll();
+		$title         = "Работа с базой даннных. Категории.";
+		$this->set( compact( 'title', 'categories' ) );
+	}
+
+	/**
+	 * Формирование страницы админки с формой создания новой категории
+	 */
+	public function newCategoryAction() {
+
+		$title = "Работа с базой даннных. Новая Категория.";
+		$this->set( compact( 'title' ) );
+
 	}
 
 	/**
@@ -260,5 +266,42 @@ class AdminController extends AppController {
 		exit();
 	}
 
+	/**
+	 * Удаляет определенную категорию и затем
+	 * формирует страницу админки с манипуляциями над категориями
+	 *
+	 * @param int $categoryId id категории
+	 */
+	public function editCategoryAction( int $categoryId ) {
+
+		$categoryModel = new Category;
+		$category      = $categoryModel->findById( $categoryId )[0];
+		$title         = "Работа с базой даннных. Редактирование Категории $categoryId.";
+		$this->set( compact( 'title', 'category' ) );
+	}
+
+	/**
+	 * Перезаписывает (обновляет) определенную категорию и затем
+	 * формирует страницу админки с манипуляциями над категориями
+	 *
+	 * @param int $categoryId id категории
+	 */
+	public function updateCategoryAction( int $categoryId ) {
+
+		$updatedCategory ['id'] = $_POST ['categoryId'];
+		$updatedCategory ['name'] = $_POST ['categoryName'];
+		$updatedCategory ['short_description'] = $_POST ['categoryShortDescription'];
+		$updatedCategory ['description'] = $_POST ['categoryDescription'];
+		$updatedCategory ['currentIcon'] = $_POST ['categoryCurrentIcon'];
+		$updatedCategory ['icon'] = $_FILES['categoryIcon'];
+
+		$projectModel = new Category;
+
+		$projectModel->updateCategory( $categoryId, $updatedCategory );
+
+		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
+		header( 'Location: http://custom-light/admin/categories' );
+		exit();
+	}
 }
 
