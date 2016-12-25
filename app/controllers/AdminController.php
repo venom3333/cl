@@ -132,12 +132,157 @@ class AdminController extends AppController {
 		exit();
 	}
 
+	/**
+	 * Формирует страницу админки с редактированием определенного продукта     *
+	 *
+	 * @param int $productId id категории
+	 */
+	public function editProductAction( int $productId ) {
 
-	// ПРОДЕКТЫ
+		$productModel    = new Product;
+		$categoriesModel = new Category;
+		$product         = $productModel->findById( $productId );
+		$categories      = $categoriesModel->findAllNames();
+		$title           = "Работа с базой даннных. Редактирование Продукта $productId.";
+		$this->set( compact( 'title', 'product', 'categories' ) );
+	}
+
+	/**
+	 * Перезаписывает (обновляет) основную информацию определенного продукта и затем
+	 * перезагружает страницу админки с редактированием текущего продукта
+	 *
+	 * @param int $productId id продукта
+	 */
+	public function updateProductAction( int $productId ) {
+
+		$updatedProduct ['id']                = $_POST ['productId'];
+		$updatedProduct ['name']              = $_POST ['productName'];
+		$updatedProduct ['short_description'] = $_POST ['productShortDescription'];
+		$updatedProduct ['description']       = $_POST ['productDescription'];
+		$updatedProduct ['currentIcon']       = $_POST ['productCurrentIcon'];
+		$updatedProduct ['icon']              = $_FILES['productIcon'];
+
+		$projectModel = new Product;
+
+		$projectModel->updateMain( $productId, $updatedProduct );
+
+		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
+		header( "Location: /admin/edit-product/$productId" );
+		exit();
+	}
+
+	/**
+	 * Перезаписывает (обновляет) информацию о категориях определенного продукта и затем
+	 * перезагружает страницу админки с редактированием текущего продукта
+	 *
+	 * @param int $productId id продукта
+	 */
+	public function updateProductCategoriesAction( int $productId ) {
+
+		$categories = array();
+		if ( $_SERVER['REQUEST_METHOD'] == "POST" ) {
+			foreach ( $_POST as $category ) {
+				$categories[] = $category;
+			}
+		}
+
+		$productModel = new Product;
+
+		$productModel->updateCategories( $productId, $categories );
+
+		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
+		header( "Location: /admin/edit-product/$productId" );
+		exit();
+	}
+
+	/**
+	 *  Добавляет изображение продукту
+	 *    и перезагружает страницу админки с редактированием текущего продукта
+	 *
+	 *     * @param int $productId id продукта
+	 */
+	public function addProductImageAction( int $productId ) {
+
+		if ( ! $_FILES['productImage']['error'] ) {
+			$image        = $_FILES['productImage'];
+			$productModel = new Product;
+
+			$productModel->addImage( $productId, $image );
+		}
+		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
+		header( "Location: /admin/edit-product/$productId" );
+		exit();
+	}
+
+	/**
+	 *  Удаляет определенное изображение из продукта
+	 *    и перезагружает страницу админки с редактированием текущего продукта
+	 *
+	 *     * @param int $imageId id изображения
+	 *     * @param int $productId id продукта для определения страницу с каким продуктом затем открыть в "Location:"
+	 */
+	public function removeProductImageAction( int $imageId, $productId ) {
+
+		$productModel = new Product;
+		$productModel->removeImage( $imageId );
+
+		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
+		header( "Location: /admin/edit-product/$productId" );
+		exit();
+	}
+
+	/**
+	 *  Добавляет спецификацию продукта
+	 *    и перезагружает страницу админки с редактированием текущего продукта
+	 *
+	 *     * @param int $productId id продукта
+	 */
+	public function addProductSpecificationAction( int $productId ) {
+
+		$specification = array();
+		foreach ( $_POST as $key => $value ) {
+			if ( $value ) {
+				$specification [ $key ] = $value;
+			} else {
+				$specification [ $key ] = 0;
+			}
+		}
+
+		$productModel = new Product;
+		$productModel->addSpecification( $productId, $specification );
+
+		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
+		header( "Location: /admin/edit-product/$productId" );
+		exit();
+	}
+
+	/**
+	 *  Удаляет определенную спецификацию из продукта
+	 *    и перезагружает страницу админки с редактированием текущего продукта
+	 *
+	 *     * @param int $specificationId id спецификации
+	 *     * @param int $productId id продукта для определения страницу с каким продуктом затем открыть в "Location:"
+	 */
+	public
+	function removeProductSpecificationAction(
+		int $specificationId, $productId
+	) {
+
+		$productModel = new Product;
+		$productModel->removeSpecification( $specificationId );
+
+		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
+		header( "Location: /admin/edit-product/$productId" );
+		exit();
+	}
+
+
+// ПРОЕКТЫ
 	/**
 	 * Формирование страницы админки с манипуляциями над проектами
 	 */
-	public function projectsAction() {
+	public
+	function projectsAction() {
 		$this->view   = "projects";
 		$projectModel = new Project;
 		$projects     = $projectModel->getProjectsForAdmin();
@@ -149,7 +294,8 @@ class AdminController extends AppController {
 	/**
 	 * Формирование страницы админки с формой создания нового проекта
 	 */
-	public function newProjectAction() {
+	public
+	function newProjectAction() {
 
 		$categoryModel = new Category;
 		$categories    = $categoryModel->findAllNames();
@@ -162,7 +308,8 @@ class AdminController extends AppController {
 	 * Создает новый проект и затем
 	 * формирует страницу админки с манипуляциями над проектами
 	 */
-	public function createProjectAction() {
+	public
+	function createProjectAction() {
 		// принимаем всю переданную информацию и удобно складываем в массив
 		// основное
 		$project = [
@@ -197,7 +344,10 @@ class AdminController extends AppController {
 	 *
 	 * @param int $projectId id проекта
 	 */
-	public function removeProjectAction( int $projectId ) {
+	public
+	function removeProjectAction(
+		int $projectId
+	) {
 
 		$projectModel = new Project;
 		$projectModel->removeProject( $projectId );
@@ -207,12 +357,12 @@ class AdminController extends AppController {
 		exit();
 	}
 
-
-	// КАТЕГОРИИ
+// КАТЕГОРИИ
 	/**
 	 * Формирование страницы админки с манипуляциями над категориями
 	 */
-	public function categoriesAction() {
+	public
+	function categoriesAction() {
 		$categoryModel = new Category;
 		$categories    = $categoryModel->findAll();
 		$title         = "Работа с базой даннных. Категории.";
@@ -222,7 +372,8 @@ class AdminController extends AppController {
 	/**
 	 * Формирование страницы админки с формой создания новой категории
 	 */
-	public function newCategoryAction() {
+	public
+	function newCategoryAction() {
 
 		$title = "Работа с базой даннных. Новая Категория.";
 		$this->set( compact( 'title' ) );
@@ -233,7 +384,8 @@ class AdminController extends AppController {
 	 * Создает новую категорию и затем
 	 * формирует страницу админки с манипуляциями над категориями
 	 */
-	public function createCategoryAction() {
+	public
+	function createCategoryAction() {
 		// принимаем всю переданную информацию и удобно складываем в массив
 		// основное
 		$category = [
@@ -257,7 +409,10 @@ class AdminController extends AppController {
 	 *
 	 * @param int $categoryId id категории
 	 */
-	public function removeCategoryAction( int $categoryId ) {
+	public
+	function removeCategoryAction(
+		int $categoryId
+	) {
 		$projectModel = new Category;
 		$projectModel->removeCategory( $categoryId );
 
@@ -267,15 +422,17 @@ class AdminController extends AppController {
 	}
 
 	/**
-	 * Удаляет определенную категорию и затем
-	 * формирует страницу админки с манипуляциями над категориями
+	 * Формирует страницу админки с редактированием определенной категории     *
 	 *
 	 * @param int $categoryId id категории
 	 */
-	public function editCategoryAction( int $categoryId ) {
+	public
+	function editCategoryAction(
+		int $categoryId
+	) {
 
 		$categoryModel = new Category;
-		$category      = $categoryModel->findById( $categoryId )[0];
+		$category      = $categoryModel->findById( $categoryId );
 		$title         = "Работа с базой даннных. Редактирование Категории $categoryId.";
 		$this->set( compact( 'title', 'category' ) );
 	}
@@ -286,14 +443,17 @@ class AdminController extends AppController {
 	 *
 	 * @param int $categoryId id категории
 	 */
-	public function updateCategoryAction( int $categoryId ) {
+	public
+	function updateCategoryAction(
+		int $categoryId
+	) {
 
-		$updatedCategory ['id'] = $_POST ['categoryId'];
-		$updatedCategory ['name'] = $_POST ['categoryName'];
+		$updatedCategory ['id']                = $_POST ['categoryId'];
+		$updatedCategory ['name']              = $_POST ['categoryName'];
 		$updatedCategory ['short_description'] = $_POST ['categoryShortDescription'];
-		$updatedCategory ['description'] = $_POST ['categoryDescription'];
-		$updatedCategory ['currentIcon'] = $_POST ['categoryCurrentIcon'];
-		$updatedCategory ['icon'] = $_FILES['categoryIcon'];
+		$updatedCategory ['description']       = $_POST ['categoryDescription'];
+		$updatedCategory ['currentIcon']       = $_POST ['categoryCurrentIcon'];
+		$updatedCategory ['icon']              = $_FILES['categoryIcon'];
 
 		$projectModel = new Category;
 

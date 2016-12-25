@@ -21,6 +21,19 @@ class Category extends Model {
 	}
 
 	/**
+	 * Получить определенную категорию
+	 *
+	 * @param integer $id ID продукта
+	 *
+	 * @return array массив с данными определенного товара
+	 */
+	public function findById( $id ) {
+		$category = parent::findById( $id );
+
+		return $category[0];
+	}
+
+	/**
 	 * Получить дочерние категории для категории $catId
 	 *
 	 * @param integer $catId ID категории

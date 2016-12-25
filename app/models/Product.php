@@ -56,6 +56,12 @@ class Product extends Model {
 			$product['specifications'] = $specifications;
 		}
 
+		// добавляем категории
+		$categories = self::getCategories( $id );
+		if ( $categories ) {
+			$product['categories'] = $categories;
+		}
+
 		return $product;
 	}
 
@@ -67,7 +73,7 @@ class Product extends Model {
 	 * @return array массив изображений определенного товара
 	 */
 	protected function getImages( $id ) {
-		$sql = "SELECT path AS image
+		$sql = "SELECT id, path AS image
 		FROM product_image
 		WHERE product_id = $id";
 
@@ -144,7 +150,7 @@ class Product extends Model {
 	 */
 	protected function getCategories( $productId ) {
 		$sql = "
-		SELECT `name`
+		SELECT id, `name`
 		FROM category
   		JOIN product_has_category
     	ON category.id = product_has_category.category_id
@@ -345,6 +351,169 @@ class Product extends Model {
 			DELETE
 			FROM specification
 			WHERE product_id = '$productId'
+		";
+		$this->pdo->execute( $sql );
+	}
+
+	/**
+	 * Сохраняет основную информацию продукта поверх предыдущей (обновляет) (включая запись в базу и изобрбажение иконки на сервере)
+	 *
+	 * @param integer $productId id перезаписываемго продукта
+	 * @param array $updatedProduct массив с информацией о продукте
+	 */
+	public function updateMain( int $productId, array $updatedProduct = [] ) {
+		// если имеем новую иконку, то удаляем старую и записываем новую
+		if ( ! $updatedProduct['icon']['error'] ) {
+
+			// удаляем текущий файл-иконку
+			$sql  = "
+			SELECT icon
+			FROM product
+			WHERE id = $productId
+		";
+			$icon = $this->pdo->query( $sql );
+			$icon = $icon[0];
+			$file = WWW . $icon['icon'];
+			if ( file_exists( $file ) ) {
+				unlink( $file );
+			}
+
+			// записываем новый файл иконки на сервер
+			$src                       = $updatedProduct['icon']['tmp_name'];
+			$name                      = $updatedProduct['icon']['name'];
+			$dest                      = 'images/products/icons/';
+			$updatedProduct['newIcon'] = $this->uploadAndResizeImage( $src, $name, $dest, 200, 150 );
+
+			// пишем информацию в базу данных
+			$sql = "
+			UPDATE product
+			SET name = '{$updatedProduct['name']}',
+				short_description = '{$updatedProduct['short_description']}',
+				description = '{$updatedProduct['description']}',
+				icon = '/{$updatedProduct['newIcon']}',
+				updated = CURRENT_TIMESTAMP
+				WHERE id = {$updatedProduct['id']}
+			";
+
+			$this->pdo->execute( $sql );
+
+		} // иначе не трогаем картинки и просто пишем информацию в базу данных
+		else {
+			$sql = "
+			UPDATE product
+			SET name = '{$updatedProduct['name']}',
+				short_description = '{$updatedProduct['short_description']}',
+				description = '{$updatedProduct['description']}'
+				WHERE id = {$updatedProduct['id']}
+			";
+
+			$this->pdo->execute( $sql );
+		}
+	}
+
+	/**
+	 * Обновляет информацию о категориях продукта
+	 *
+	 * @param integer $productId id продукта
+	 * @param array $categories массив с информацией о категориях
+	 */
+	public function updateCategories( int $productId, array $categories = [] ) {
+//		Удаляем старые записи о категориях
+		$sql = "
+			DELETE FROM product_has_category
+			WHERE product_id = $productId
+		";
+
+		$this->pdo->execute( $sql );
+
+//		Добавляем обновленные записи о категориях
+		foreach ( $categories as $category ) {
+			$sql = "
+			INSERT INTO product_has_category
+			SET product_id = $productId,
+				category_id = $category
+		";
+			$this->pdo->execute( $sql );
+		}
+	}
+
+	/**
+	 * Добавляет изображение продукту и записывает его на сервер
+	 *
+	 * @param int $id ID продукта
+	 * @param array $image массив с информацией о картинке
+	 */
+	public function addImage( int $id, array $image ) {
+		// Добавляем файл на сервер
+		$src          = $image['tmp_name'];
+		$name         = $image['name'];
+		$dest         = 'images/products/';
+		$newImagePath = $this->uploadAndResizeImage( $src, $name, $dest, IMAGE_WIDTH, IMAGE_HEIGHT );
+
+		// Добавляем запись в БД
+		$sql = "
+			INSERT INTO product_image
+			SET product_id = $id,
+				path = '/$newImagePath'
+		";
+
+		$this->pdo->execute( $sql );
+	}
+
+	/**
+	 * Удаляет определенное изображение у продукта и удаляет файл
+	 *
+	 * @param int $imageId ID изображения
+	 */
+	public function removeImage( int $imageId ) {
+		// сначала файл-иконку
+		$sql  = "
+			SELECT path
+			FROM product_image
+			WHERE id = $imageId
+		";
+		$path = $this->pdo->query( $sql )[0];
+		unlink( WWW . $path['path'] );
+
+		// затем саму запись в БД
+		$sql = "
+			DELETE
+			FROM product_image
+			WHERE id = '$imageId'
+		";
+		$this->pdo->execute( $sql );
+	}
+
+	/**
+	 * Добавляет спецификацию определенному продукту
+	 *
+	 * @param int $id ID продукта
+	 * @param array $specification массив с информацией о спецификации
+	 */
+	public function addSpecification( int $id, array $specification ) {
+		$sql = "
+			INSERT INTO specification
+			SET product_id = $id,
+				diameter = {$specification['diameter']},
+				length = {$specification['length']},
+				width = {$specification['width']},
+				height = {$specification['height']},
+				power = {$specification['power']},
+				light_output = {$specification['lightOutput']},
+				price = {$specification['price']}
+		";
+		$this->pdo->execute( $sql );
+	}
+
+	/**
+	 * Удаляет определенную спецификацию у продукта
+	 *
+	 * @param int $specificationId ID спецификации
+	 */
+	public function removeSpecification( int $specificationId ) {
+		$sql = "
+			DELETE FROM specification
+			WHERE id = $specificationId
 		";
 		$this->pdo->execute( $sql );
 	}

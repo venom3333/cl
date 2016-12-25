@@ -36,5 +36,5 @@
 		<img src="" alt="" id="iconPreview" class="preview">
 	</div>
 
-	<input type="submit" value="Сохранить">
+	<input type="submit" class="btn btn-success" value="Сохранить">
 </form>

@@ -20,6 +20,11 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"
 	        integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY"
 	        crossorigin="anonymous"></script>
+
+	<!--	Прикручиваем редактор для полей <textarea>-->
+	<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+	<script src="/templates/venom/js/tinyMCE/tinyMCE_init.js"></script>
+
 </head>
 
 <body id="top">
@@ -37,7 +42,9 @@
 
 <div>
 	<section class="adminMenu col-md-2">
-		<ul><li><a href="/admin"><h4>Админка. Главная.</h4></a></li></ul>
+		<ul>
+			<li><a href="/admin"><h4>Админка. Главная.</h4></a></li>
+		</ul>
 		<ul><p>Работа с базой данных</p>
 			<a href="/admin/products">
 				<li>Продукты</li>
@@ -60,8 +67,8 @@
 
 </footer>
 
-<?// d( \core\Db::$countSql, 0 ); ?>
-<?// d( \core\Db::$queries, 0 ); ?>
+<? // d( \core\Db::$countSql, 0 ); ?>
+<? // d( \core\Db::$queries, 0 ); ?>
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <script src="/bootstrap/js/bootstrap.min.js"></script>

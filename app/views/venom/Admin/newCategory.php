@@ -24,5 +24,5 @@
 		<img src="" alt="" id="iconPreview" class="preview">
 	</div>
 
-	<input type="submit" value="Создать Категорию">
+	<input type="submit" class="btn btn-primary" value="Создать Категорию">
 </form>

@@ -115,5 +115,5 @@
 			</tbody>
 		</table>
 	</div>
-	<input type="submit" value="Создать Продукт">
+	<input type="submit" class="btn btn-primary" value="Создать Продукт">
 </form>

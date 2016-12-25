@@ -35,7 +35,9 @@
 					<?= $product['status'] ? "Виден" : "Не виден"; ?>
 				</td>
 				<td class="adminActions">
-					<div class="glyphicon glyphicon-edit"></div>
+					<a href="/admin/edit-product/<?= $product['id'] ?>">
+						<div class="glyphicon glyphicon-edit"></div>
+					</a>
 					<a href="/admin/toggle-product-status/<?= $product['id'] ?>">
 						<div class="glyphicon glyphicon-eye-close"></div>
 					</a>

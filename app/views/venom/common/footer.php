@@ -18,8 +18,8 @@
 			</div>
 			<div class="col-md-3 ftr-grid">
 				<h3>Контaкты:</h3>
-					<p>Телефон: 322-22-32</p>
-					<p>Факс: 322-22-32</p>
+					<p>Телефон: 8(495)773-71-59</p>
+					<p>Факс: 8(495)773-71-59</p>
 					<p>Email: info@custom-light.ru</p>
 			</div>
 			<div class="col-md-3 ftr-grid">

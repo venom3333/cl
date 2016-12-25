@@ -44,5 +44,5 @@
 		<? endfor; ?>
 	</div>
 
-	<input type="submit" value="Создать Проект">
+	<input type="submit" class="btn btn-primary" value="Создать Проект">
 </form>
