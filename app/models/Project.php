@@ -149,7 +149,7 @@ class Project extends Model {
 			$src            = $project['icon']['tmp_name'];
 			$name           = $project['icon']['name'];
 			$dest           = 'images/projects/icons/';
-			$uploadIconFile = $this->uploadAndResizeImage( $src, $name, $dest, 300, 225 );
+			$uploadIconFile = $this->uploadAndResizeImage( $src, $name, $dest, PROJECT_IMAGE_WIDTH, PROJECT_IMAGE_HEIGHT );
 			//d($uploadIconFile);
 		}
 		// записываем в базу сам проект
@@ -177,7 +177,7 @@ class Project extends Model {
 			if ( $image['error'] == 0 ) {
 				$src  = $image['tmp_name'];
 				$name = $image['name'];
-				$dest = 'images/projects/';
+				$dest = "images/projects/$projectID/";
 				$path = $this->uploadAndResizeImage( $src, $name, $dest );
 			}
 			$sql = "REPLACE INTO project_image
@@ -346,7 +346,7 @@ class Project extends Model {
 		// Добавляем файл на сервер
 		$src          = $image['tmp_name'];
 		$name         = $image['name'];
-		$dest         = 'images/projects/';
+		$dest         = "images/projects/$id";
 		$newImagePath = $this->uploadAndResizeImage( $src, $name, $dest, IMAGE_WIDTH, IMAGE_HEIGHT );
 
 		// Добавляем запись в БД
