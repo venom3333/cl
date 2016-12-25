@@ -204,7 +204,7 @@ class Product extends Model {
 			$src            = $product['icon']['tmp_name'];
 			$name           = $product['icon']['name'];
 			$dest           = 'images/products/icons/';
-			$uploadIconFile = $this->uploadAndResizeImage( $src, $name, $dest, 200, 150 );
+			$uploadIconFile = $this->uploadAndResizeImage( $src, $name, $dest, DEFAULT_ICON_WIDTH, DEFAULT_ICON_HEIGHT );
 		}
 
 		// записываем в базу сам продукт
@@ -234,7 +234,7 @@ class Product extends Model {
 			if ( $image['error'] == 0 ) {
 				$src  = $image['tmp_name'];
 				$name = $image['name'];
-				$dest = 'images/products/';
+				$dest = "images/products/$productID/";
 				$path = $this->uploadAndResizeImage( $src, $name, $dest );
 			}
 			$sql = "REPLACE INTO product_image
@@ -382,7 +382,7 @@ class Product extends Model {
 			$src                       = $updatedProduct['icon']['tmp_name'];
 			$name                      = $updatedProduct['icon']['name'];
 			$dest                      = 'images/products/icons/';
-			$updatedProduct['newIcon'] = $this->uploadAndResizeImage( $src, $name, $dest, 200, 150 );
+			$updatedProduct['newIcon'] = $this->uploadAndResizeImage( $src, $name, $dest, DEFAULT_ICON_WIDTH, DEFAULT_ICON_HEIGHT );
 
 			// пишем информацию в базу данных
 			$sql = "
@@ -447,7 +447,7 @@ class Product extends Model {
 		// Добавляем файл на сервер
 		$src          = $image['tmp_name'];
 		$name         = $image['name'];
-		$dest         = 'images/products/';
+		$dest         = "images/products/$id";
 		$newImagePath = $this->uploadAndResizeImage( $src, $name, $dest, IMAGE_WIDTH, IMAGE_HEIGHT );
 
 		// Добавляем запись в БД

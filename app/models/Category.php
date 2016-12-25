@@ -133,7 +133,7 @@ class Category extends Model {
 			$src            = $category['icon']['tmp_name'];
 			$name           = $category['icon']['name'];
 			$dest           = 'images/categories/icons/';
-			$uploadIconFile = $this->uploadAndResizeImage( $src, $name, $dest, 200, 150 );
+			$uploadIconFile = $this->uploadAndResizeImage( $src, $name, $dest, DEFAULT_ICON_WIDTH, DEFAULT_ICON_HEIGHT );
 			//d($uploadIconFile);
 		}
 		// записываем в базу категорию
@@ -201,7 +201,7 @@ class Category extends Model {
 			$src                        = $updatedCategory['icon']['tmp_name'];
 			$name                       = $updatedCategory['icon']['name'];
 			$dest                       = 'images/categories/icons/';
-			$updatedCategory['newIcon'] = $this->uploadAndResizeImage( $src, $name, $dest, 200, 150 );
+			$updatedCategory['newIcon'] = $this->uploadAndResizeImage( $src, $name, $dest, DEFAULT_ICON_WIDTH, DEFAULT_ICON_HEIGHT );
 
 			// пишем категорию в базу данных
 			$sql = "
