@@ -22,8 +22,8 @@
 	        crossorigin="anonymous"></script>
 
 	<!--	Прикручиваем редактор для полей <textarea>-->
-	<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-	<script src="/templates/venom/js/tinyMCE/tinyMCE_init.js"></script>
+	<script src="/templates/venom/js/tinymce/tinymce.min.js"></script>
+	<script src="/templates/venom/js/tinymce/tinyMCE_init.js"></script>
 
 </head>
 
