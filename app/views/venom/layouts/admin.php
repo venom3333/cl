@@ -23,7 +23,7 @@
 
 	<!--	Прикручиваем редактор для полей <textarea>-->
 	<script src="/templates/venom/js/tinymce/tinymce.min.js"></script>
-	<script src="/templates/venom/js/tinymce/tinyMCE_init.js"></script>
+	<script src="/templates/venom/js/tinymce/tinymce_init.js"></script>
 
 </head>
 

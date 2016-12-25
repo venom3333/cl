@@ -3,7 +3,7 @@
 		<thead>
 		<tr>
 			<th>ID</th>
-<!--			<th>Иконка</th>-->
+			<!--			<th>Иконка</th>-->
 			<th>Имя</th>
 			<th>Категории</th>
 			<th>Краткое описание</th>
@@ -13,7 +13,7 @@
 		<? foreach ( $projects as $project ): ?>
 			<tr>
 				<td><?= $project['id'] ?></td>
-<!--				<td><img src="--><?//= $project['icon'] ?><!--" alt=""></td>-->
+				<!--				<td><img src="--><? //= $project['icon'] ?><!--" alt=""></td>-->
 				<td><a href="/project/<?= $project['id'] ?>"><?= $project['name'] ?></a></td>
 				<td>
 					<? if ( isset( $project['categories'] ) ): ?>
@@ -21,11 +21,12 @@
 							<?= $category['name'] ?>
 						<? endforeach; ?>
 					<? endif; ?>
-
 				</td>
 				<td><?= $project['short_description'] ?></td>
 				<td class="adminActions">
-					<div class="glyphicon glyphicon-edit"></div>
+					<a href="/admin/edit-project/<?= $project['id'] ?>">
+						<div class="glyphicon glyphicon-edit"></div>
+					</a>
 					<a href="#" onclick="confirmDelete('/admin/remove-project/<?= $project['id'] ?>')">
 						<div class="glyphicon glyphicon-remove-circle"></div>
 					</a>

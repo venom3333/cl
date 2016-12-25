@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: vovan
- * Date: 13.12.2016
- * Time: 18:51
- */
-
 namespace app\controllers;
 
 
@@ -354,6 +347,105 @@ class AdminController extends AppController {
 
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
 		header( 'Location: /admin/projects' );
+		exit();
+	}
+
+	/**
+	 * Формирует страницу админки с редактированием определенного проекта     *
+	 *
+	 * @param int $projectId id категории
+	 */
+	public function editProjectAction( int $projectId ) {
+
+		$projectModel    = new Project;
+		$categoriesModel = new Category;
+		$project         = $projectModel->findById( $projectId );
+		$categories      = $categoriesModel->findAllNames();
+		$title           = "Работа с базой даннных. Редактирование Проекта $projectId.";
+		$this->set( compact( 'title', 'project', 'categories' ) );
+	}
+
+	/**
+	 * Перезаписывает (обновляет) основную информацию определенного проекта и затем
+	 * перезагружает страницу админки с редактированием текущего проекта
+	 *
+	 * @param int $projectId id проекта
+	 */
+	public function updateProjectAction( int $projectId ) {
+
+		$updatedProject ['id']                = $_POST ['projectId'];
+		$updatedProject ['name']              = $_POST ['projectName'];
+		$updatedProject ['short_description'] = $_POST ['projectShortDescription'];
+		$updatedProject ['description']       = $_POST ['projectDescription'];
+		$updatedProject ['currentIcon']       = $_POST ['projectCurrentIcon'];
+		$updatedProject ['icon']              = $_FILES['projectIcon'];
+
+		$projectModel = new Project;
+
+		$projectModel->updateMain( $projectId, $updatedProject );
+
+		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
+		header( "Location: /admin/edit-project/$projectId" );
+		exit();
+	}
+
+	/**
+	 * Перезаписывает (обновляет) информацию о категориях определенного проекта и затем
+	 * перезагружает страницу админки с редактированием текущего проекта
+	 *
+	 * @param int $projectId id проекта
+	 */
+	public function updateProjectCategoriesAction( int $projectId ) {
+
+		$categories = array();
+		if ( $_SERVER['REQUEST_METHOD'] == "POST" ) {
+			foreach ( $_POST as $category ) {
+				$categories[] = $category;
+			}
+		}
+
+		$projectModel = new Project;
+
+		$projectModel->updateCategories( $projectId, $categories );
+
+		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
+		header( "Location: /admin/edit-project/$projectId" );
+		exit();
+	}
+
+	/**
+	 *  Добавляет изображение проекту
+	 *    и перезагружает страницу админки с редактированием текущего проекта
+	 *
+	 *     * @param int $projectId id проекта
+	 */
+	public function addProjectImageAction( int $projectId ) {
+
+		if ( ! $_FILES['projectImage']['error'] ) {
+			$image        = $_FILES['projectImage'];
+			$projectModel = new Project;
+
+			$projectModel->addImage( $projectId, $image );
+		}
+		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
+		header( "Location: /admin/edit-project/$projectId" );
+		exit();
+	}
+
+	/**
+	 *  Удаляет определенное изображение из проекта
+	 *    и перезагружает страницу админки с редактированием текущего проекта
+	 *
+	 *     * @param int $imageId id изображения
+	 *     * @param int $projectId id проекта для определения страницу с каким проектом затем открыть в "Location:"
+	 */
+	public function removeProjectImageAction( int $imageId, $projectId ) {
+
+		$projectModel = new Project;
+		$projectModel->removeImage( $imageId );
+
+		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
+		header( "Location: /admin/edit-project/$projectId" );
 		exit();
 	}
 

@@ -60,13 +60,19 @@ textarea {
     max-height: 150px;
 }
 
-/*Продукт*/
-.productEdit {
+/*Продукт-Проект*/
+form .btn {
+    margin: 10px 0;
+}
+
+.productEdit,
+.projectEdit {
     margin: 1% 0;
     padding: 1%;
 }
 
-.productEdit img {
+.productEdit img,
+.projectEdit img {
     padding: 5px 0;
 }
 
@@ -75,4 +81,5 @@ textarea {
     border: 2px solid rgba(0, 0, 0, 0);
     border-bottom-color: darkgreen;
 }
-/*/Продукт*/
+
+/*/Продукт-Проект*/

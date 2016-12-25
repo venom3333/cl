@@ -41,6 +41,13 @@ class Project extends Model {
 
 		$project = $project[0];
 
+		// добавляем категории
+		$categories = self::getCategories( $id );
+		if ( $categories ) {
+			$project['categories'] = $categories;
+		}
+
+
 		// добавляем изображения
 		$images = self::getImages( $id );
 		if ( $images ) {
@@ -59,7 +66,7 @@ class Project extends Model {
 	 */
 	public function getImages( $id ) {
 		$sql = "
-		SELECT path AS image
+		SELECT id, path AS image
 		FROM project_image
 		WHERE project_id = $id";
 
@@ -119,7 +126,7 @@ class Project extends Model {
 	 */
 	protected function getCategories( $projectId ) {
 		$sql = "
-		SELECT `name`
+		SELECT id, `name`
 		FROM category
   		JOIN category_has_project
     	ON category.id = category_has_project.category_id
@@ -244,6 +251,134 @@ class Project extends Model {
 			DELETE
 			FROM project_image
 			WHERE project_id = '$projectId'
+		";
+		$this->pdo->execute( $sql );
+	}
+
+	/**
+	 * Сохраняет основную информацию проекта поверх предыдущей (обновляет) (включая запись в базу и изобрбажение иконки на сервере)
+	 *
+	 * @param integer $projectId id перезаписываемго проекта
+	 * @param array $updatedProject массив с информацией о проекте
+	 */
+	public function updateMain( int $projectId, array $updatedProject = [] ) {
+		// если имеем новую иконку, то удаляем старую и записываем новую
+		if ( ! $updatedProject['icon']['error'] ) {
+
+			// удаляем текущий файл-иконку
+			$sql  = "
+			SELECT icon
+			FROM project
+			WHERE id = $projectId
+		";
+			$icon = $this->pdo->query( $sql );
+			$icon = $icon[0];
+			$file = WWW . $icon['icon'];
+			if ( file_exists( $file ) ) {
+				unlink( $file );
+			}
+
+			// записываем новый файл иконки на сервер
+			$src                       = $updatedProject['icon']['tmp_name'];
+			$name                      = $updatedProject['icon']['name'];
+			$dest                      = 'images/projects/icons/';
+			$updatedProject['newIcon'] = $this->uploadAndResizeImage( $src, $name, $dest, PROJECT_IMAGE_WIDTH, PROJECT_IMAGE_HEIGHT );
+
+			// пишем информацию в базу данных
+			$sql = "
+			UPDATE project
+			SET name = '{$updatedProject['name']}',
+				short_description = '{$updatedProject['short_description']}',
+				description = '{$updatedProject['description']}',
+				icon = '/{$updatedProject['newIcon']}'
+				WHERE id = {$updatedProject['id']}
+			";
+
+			$this->pdo->execute( $sql );
+
+		} // иначе не трогаем картинки и просто пишем информацию в базу данных
+		else {
+			$sql = "
+			UPDATE project
+			SET name = '{$updatedProject['name']}',
+				short_description = '{$updatedProject['short_description']}',
+				description = '{$updatedProject['description']}'
+				WHERE id = {$updatedProject['id']}
+			";
+
+			$this->pdo->execute( $sql );
+		}
+	}
+
+	/**
+	 * Обновляет информацию о категориях проекта
+	 *
+	 * @param integer $projectId id проекта
+	 * @param array $categories массив с информацией о категориях
+	 */
+	public function updateCategories( int $projectId, array $categories = [] ) {
+//		Удаляем старые записи о категориях
+		$sql = "
+			DELETE FROM category_has_project
+			WHERE project_id = $projectId
+		";
+
+		$this->pdo->execute( $sql );
+
+//		Добавляем обновленные записи о категориях
+		foreach ( $categories as $category ) {
+			$sql = "
+			INSERT INTO category_has_project
+			SET project_id = $projectId,
+				category_id = $category
+		";
+			$this->pdo->execute( $sql );
+		}
+	}
+
+	/**
+	 * Добавляет изображение проекту и записывает его на сервер
+	 *
+	 * @param int $id ID проекта
+	 * @param array $image массив с информацией о картинке
+	 */
+	public function addImage( int $id, array $image ) {
+		// Добавляем файл на сервер
+		$src          = $image['tmp_name'];
+		$name         = $image['name'];
+		$dest         = 'images/projects/';
+		$newImagePath = $this->uploadAndResizeImage( $src, $name, $dest, IMAGE_WIDTH, IMAGE_HEIGHT );
+
+		// Добавляем запись в БД
+		$sql = "
+			INSERT INTO project_image
+			SET project_id = $id,
+				path = '/$newImagePath'
+		";
+
+		$this->pdo->execute( $sql );
+	}
+
+	/**
+	 * Удаляет определенное изображение у проекта и удаляет файл
+	 *
+	 * @param int $imageId ID изображения
+	 */
+	public function removeImage( int $imageId ) {
+		// сначала файл-иконку
+		$sql  = "
+			SELECT path
+			FROM project_image
+			WHERE id = $imageId
+		";
+		$path = $this->pdo->query( $sql )[0];
+		unlink( WWW . $path['path'] );
+
+		// затем саму запись в БД
+		$sql = "
+			DELETE
+			FROM project_image
+			WHERE id = '$imageId'
 		";
 		$this->pdo->execute( $sql );
 	}

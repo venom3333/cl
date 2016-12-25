@@ -30,6 +30,8 @@ define( 'ICON_WIDTH', 200 );
 define( 'ICON_HEIGHT', 150 );
 define( 'IMAGE_WIDTH', 1024 );
 define( 'IMAGE_HEIGHT', 768 );
+define( 'PROJECT_IMAGE_WIDTH', 300 );
+define( 'PROJECT_IMAGE_HEIGHT', 225 );
 
 
 // Инициализация корзины
