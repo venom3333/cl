@@ -27,13 +27,19 @@ class MailController extends AppController {
 	 */
 	public function makeOrderAction() {
 
+		$customerInfo        = get_object_vars( json_decode( $_POST['data'] ) );
+		$customerInfo2String = '';
+		foreach ( $customerInfo as $key => $value ) {
+			$customerInfo2String .= "\r\n$key: $value";
+		}
+
 		$data = $_SESSION['cart'];
 
-		$order                  = array();
+		$order ['customerInfo'] = $customerInfo2String;
 		$order['grandTotal']    = $_SESSION['cart']['grandTotal'];
 		$order['grandQuantity'] = $_SESSION['cart']['grandQuantity'];
 		foreach ( $data['products'] as &$product ) {
-			$product = get_object_vars( $product );
+			$product        = get_object_vars( $product );
 			$product2string = "";
 			foreach ( $product as $key => $value ) {
 				$product2string .= "\r\n$key: $value";
@@ -42,7 +48,7 @@ class MailController extends AppController {
 
 			$order['products'][] = $product;
 		}
-		$order['products'] = implode( "\r\n", $order['products']);
+		$order['products'] = implode( "\r\n", $order['products'] );
 
 		$mailModel = new Mail;
 		$mailModel->sendArrayToDefaultMail( 'ЗАКАЗ!', $order );

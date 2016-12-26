@@ -22,6 +22,20 @@ function callbackMail() {
 
 function makeOrderMail() {
 
+    var data = {};
+    if (document.getElementById('cartDelivery1').checked) {
+        data.delivery = document.getElementById('cartDelivery1').value;
+    } else {
+        data.delivery = document.getElementById('cartDelivery2').value;
+    }
+    data.name = document.getElementById('cartName').value;
+    data.number = document.getElementById('cartPhoneNumber').value;
+    data.email = document.getElementById('cartEmail').value;
+    data.address = document.getElementById('cartAddress').value;
+    data.text = document.getElementById('cartNotes').value;
+
+    console.log(data);
+
     // Ajax запрос
     var url = "/mail/make-order";
     var xhr = new XMLHttpRequest();
@@ -33,7 +47,8 @@ function makeOrderMail() {
             location.reload();
         }
     };
-    xhr.send("");
+    xhr.send("data=" + JSON.stringify(data));
+
 }
 
 function addMailListeners() {

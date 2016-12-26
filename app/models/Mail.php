@@ -30,6 +30,8 @@ class Mail extends Model {
 		$headers[] = "From: customlight.ru";
 		$headers = implode( "\r\n", $headers);
 
+		d($message);
+
 		mail( $to, $subject, $message, $headers );
 	}
 }

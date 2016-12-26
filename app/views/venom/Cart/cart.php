@@ -99,13 +99,13 @@
 			<legend>Способ доставки:</legend>
 			<div class="form-check">
 				<label class="cartDelivery1">
-					<input type="radio" class="form-check-input" name="cartDelivery" id="cartDelivery1" value="0" checked>
+					<input type="radio" class="form-check-input" name="cartDelivery" id="cartDelivery1" value="Самовывоз" checked>
 					Самовывоз.
 				</label>
 			</div>
 			<div class="form-check">
 				<label class="cartDelivery2">
-					<input type="radio" class="form-check-input" name="cartDelivery" id="cartDelivery2" value="2">
+					<input type="radio" class="form-check-input" name="cartDelivery" id="cartDelivery2" value="Доставка">
 					Доставка.
 				</label>
 			</div>
