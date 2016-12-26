@@ -1,7 +1,7 @@
 <script src="/templates/<?= TEMPLATE ?>/js/preview.js"></script>
 
 <h1>Новый продукт!</h1>
-<form action="/admin/create-product" enctype="multipart/form-data" method="post">
+<form action="/admin/create-product" enctype="multipart/form-data" method="post" novalidate>
 	<div class="form-group">
 		<label for="productName">Наименование</label>
 		<input type="text" class="form-control" id="productName" name="productName" required>

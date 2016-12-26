@@ -56,4 +56,4 @@ function addMailListeners() {
     addEventListenerByClass('make-order-button', 'click', makeOrderMail);
 }
 
-addMailListeners();
+setTimeout(addMailListeners, 500);

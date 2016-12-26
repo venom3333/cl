@@ -177,7 +177,7 @@ class Project extends Model {
 			if ( $image['error'] == 0 ) {
 				$src  = $image['tmp_name'];
 				$name = $image['name'];
-				$dest = "images/projects/$projectID/";
+				$dest = "images/projects/";
 				$path = $this->uploadAndResizeImage( $src, $name, $dest );
 			}
 			$sql = "REPLACE INTO project_image
@@ -346,7 +346,7 @@ class Project extends Model {
 		// Добавляем файл на сервер
 		$src          = $image['tmp_name'];
 		$name         = $image['name'];
-		$dest         = "images/projects/$id";
+		$dest         = "images/projects/";
 		$newImagePath = $this->uploadAndResizeImage( $src, $name, $dest, IMAGE_WIDTH, IMAGE_HEIGHT );
 
 		// Добавляем запись в БД

@@ -1,7 +1,7 @@
 <script src="/templates/<?= TEMPLATE ?>/js/preview.js"></script>
 
 <h1>Новый проект!</h1>
-<form action="/admin/create-project" enctype="multipart/form-data" method="post">
+<form action="/admin/create-project" enctype="multipart/form-data" method="post" novalidate>
 	<div class="form-group">
 		<label for="projectName">Наименование</label>
 		<input type="text" class="form-control" id="projectName" name="projectName" required>

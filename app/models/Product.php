@@ -234,7 +234,7 @@ class Product extends Model {
 			if ( $image['error'] == 0 ) {
 				$src  = $image['tmp_name'];
 				$name = $image['name'];
-				$dest = "images/products/$productID/";
+				$dest = "images/products/";
 				$path = $this->uploadAndResizeImage( $src, $name, $dest );
 			}
 			$sql = "REPLACE INTO product_image
@@ -447,7 +447,7 @@ class Product extends Model {
 		// Добавляем файл на сервер
 		$src          = $image['tmp_name'];
 		$name         = $image['name'];
-		$dest         = "images/products/$id";
+		$dest         = "images/products/";
 		$newImagePath = $this->uploadAndResizeImage( $src, $name, $dest, IMAGE_WIDTH, IMAGE_HEIGHT );
 
 		// Добавляем запись в БД

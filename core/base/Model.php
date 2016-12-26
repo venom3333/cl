@@ -193,7 +193,6 @@ abstract class Model {
 	protected function uploadAndResizeImage( string $src, string $name, string $dest = 'images/', int $width = 1024, int $height = 768 ) : string {
 		$this->resizeImage( $src, $width, $height );
 		$uploadedFile = $dest . $this->translit( basename( $name ) );
-		//d( $uploadedFile );
 		move_uploaded_file( $src, $uploadedFile );
 		if ( ! is_file( $uploadedFile ) ) {
 			Error::common( "Файл не загрузился! (Из $src в $dest" );
