@@ -25,6 +25,9 @@
 	<script src="/templates/venom/js/tinymce/tinymce.min.js"></script>
 	<script src="/templates/venom/js/tinymce_init.js"></script>
 
+	<!--	Общие функции JS-->
+	<script src="/templates/<?= TEMPLATE ?>/js/general.js"></script>
+
 </head>
 
 <body id="top">
