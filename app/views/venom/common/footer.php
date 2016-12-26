@@ -26,13 +26,17 @@
 				<form class="callback" id="callback">
 					<div class="form-group">
 						<label for="inputName"></label>
-						<input type="email" class="form-control" id="inputName" placeholder="Ваше имя">
+						<input type="email" class="form-control" id="inputName" placeholder="Ваше имя" required>
 					</div>
 					<div class="form-group">
 						<label for="inputPhoneNumber"></label>
-						<input type="text" class="form-control" id="inputPhoneNumber" placeholder="Ваш телефон">
+						<input type="text" class="form-control" id="inputPhoneNumber" placeholder="Ваш телефон" required>
 					</div>
-					<button type="button" class="btn btn-default">Перезвоните мне</button>
+					<div class="form-group">
+						<label for="inputText"></label>
+						<textarea type="text" class="form-control" id="inputText" placeholder="Примечание"></textarea>
+					</div>
+					<button type="button" class="btn btn-default callback-mail-button">Заказать звонок</button>
 				</form>
 			</div>
 			<div class="clearfix"></div>

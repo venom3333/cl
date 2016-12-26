@@ -99,13 +99,13 @@
 			<legend>Способ доставки:</legend>
 			<div class="form-check">
 				<label class="cartDelivery1">
-					<input type="radio" class="form-check-input" name="cartDelivery" id="cartDelivery1" value="0" checked>
+					<input type="radio" class="form-check-input" name="cartDelivery" id="cartDelivery1" value="Самовывоз" checked>
 					Самовывоз.
 				</label>
 			</div>
 			<div class="form-check">
 				<label class="cartDelivery2">
-					<input type="radio" class="form-check-input" name="cartDelivery" id="cartDelivery2" value="2">
+					<input type="radio" class="form-check-input" name="cartDelivery" id="cartDelivery2" value="Доставка">
 					Доставка.
 				</label>
 			</div>
@@ -130,7 +130,7 @@
 			<label for="cartNotes">Примечание</label>
 			<textarea class="form-control" id="cartNotes" placeholder="Примечания"></textarea>
 		</div>
-		<button type="button" class="btn btn-primary">Заказать</button>
+		<button type="button" class="btn btn-primary make-order-button">Заказать</button>
 	</form>
 </div>
 
