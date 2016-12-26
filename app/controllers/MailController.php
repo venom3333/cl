@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: vovan
- * Date: 26.12.2016
- * Time: 10:27
- */
 
 namespace app\controllers;
 
@@ -52,6 +46,7 @@ class MailController extends AppController {
 
 		$mailModel = new Mail;
 		$mailModel->sendArrayToDefaultMail( 'ЗАКАЗ!', $order );
+		$_SESSION['cart']['products'] = array(); // Чистим корзину
 		exit;
 	}
 }
