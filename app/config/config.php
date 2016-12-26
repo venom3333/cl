@@ -33,6 +33,11 @@ define( 'IMAGE_HEIGHT', 768 );
 define( 'PROJECT_IMAGE_WIDTH', 300 );
 define( 'PROJECT_IMAGE_HEIGHT', 225 );
 
+// Емайлы
+define( 'SUPER_ADMIN_EMAIL', 'v.kagsfey@mail.ru' );
+define( 'ADMIN_EMAIL', 'v.kagsfey@mail.ru' );
+define( 'DEFAULT_EMAIL', 'info@customlight.ru' );
+
 
 // Инициализация корзины
 include 'cart.php';

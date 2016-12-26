@@ -1,10 +1,3 @@
-function addEventListenerByClass(className, event, fn) {
-    var list = document.getElementsByClassName(className);
-    for (var i = 0, len = list.length; i < len; i++) {
-        list[i].addEventListener(event, fn);
-    }
-}
-
 function addToCart() {
     var itemClass = this.className;
     itemClass = itemClass.replace("cart-button ", "");
@@ -98,7 +91,7 @@ function updateWidget() {
     xhr.onload = function () {
         if (xhr.status === 200) {
             document.getElementById('carticon').innerHTML = xhr.responseText; // обновляем виджет корзины
-            setTimeout(addListeners, 200); // Добавляем события на кнопки
+            setTimeout(addCartListeners, 200); // Добавляем события на кнопки
         }
     };
     xhr.send();
@@ -146,11 +139,11 @@ function updateProductQuantity() {
     updateWidget();
 }
 
-function addListeners() {
+function addCartListeners() {
     addEventListenerByClass('cart-button', 'click', addToCart);
     addEventListenerByClass('cart-delete-button', 'click', deleteFromCart);
     addEventListenerByClass('cart-update-button', 'change', updateProductQuantity);
     addEventListenerByClass('cart-wipe-button', 'click', wipeCart);
 }
 
-addListeners();
+addCartListeners();

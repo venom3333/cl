@@ -130,7 +130,7 @@
 			<label for="cartNotes">Примечание</label>
 			<textarea class="form-control" id="cartNotes" placeholder="Примечания"></textarea>
 		</div>
-		<button type="button" class="btn btn-primary">Заказать</button>
+		<button type="button" class="btn btn-primary make-order-button">Заказать</button>
 	</form>
 </div>
 

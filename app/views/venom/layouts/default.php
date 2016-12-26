@@ -19,6 +19,10 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"
 	        integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY"
 	        crossorigin="anonymous"></script>
+
+<!--	Общие функции JS-->
+	<script src="/templates/<?= TEMPLATE ?>/js/general.js"></script>
+
 </head>
 
 <body id="top">
@@ -40,6 +44,9 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <script src="/bootstrap/js/bootstrap.min.js"></script>
+
+<!--Отправка почты-->
+<script src="/templates/<?= TEMPLATE ?>/js/mail.js"></script>
 
 <!-- Script to Activate the Carousel -->
 <script>
