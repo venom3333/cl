@@ -15,7 +15,7 @@ html,
 body {
     height: 100%;
     background-image: url(/images/abstract-back-dark.svg);
-    background-size: 200%;
+    background-size: 150%;
 }
 
 .content {
@@ -92,8 +92,9 @@ body {
 
 /*Продукт*/
 .product-grid {
-    margin: 10px 0;
-    height: 400px;
+    margin: 30px 0;
+    padding: 15px;
+    height: 300px;
     text-align: justify;
     overflow: hidden;
     transition: all .2s;
@@ -115,6 +116,10 @@ body {
 .product-grid a:active {
     text-decoration: none;
     color: #0f0f0f;
+}
+
+.product-model-sec {
+    margin: 5% 0;
 }
 
 /*/Продукт*/

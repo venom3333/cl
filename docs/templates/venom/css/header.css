@@ -143,14 +143,17 @@
     padding: 0 5px;
 }
 
+.line-block a::before,
+.line-block a::after {
+    content: "   |   ";
+}
+
 .line-block a {
     text-transform: uppercase;
     line-height: 1em;
     font-weight: 700;
     text-align: center;
     color: white;
-    border-right: 2px solid white;
-    border-left: 2px solid white;
     margin-top: 5px;
     margin-bottom: 5px;
 }

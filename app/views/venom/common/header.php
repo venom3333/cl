@@ -1,10 +1,10 @@
 <div class="header">
-	<div class="col-md-3 logo">
+	<div class="col-md-2 logo">
 		<a href="/"><img src="/images/сustomlight-logo.svg" alt="Логотип"></a>
 	</div>
 
 	<!-- Навбар -->
-	<div class="col-lg-7 nav-line">
+	<div class="col-lg-8 nav-line">
 		<? include_once APP . "/views/" . TEMPLATE . "/common/navbar.php" ?>
 	</div>
 	<!-- /Навбар -->

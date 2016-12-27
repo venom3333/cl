@@ -4,15 +4,13 @@
 			<div class="col-md-3 logo">
 				<a href="/"><img src="/images/сustomlight-logo-w.svg" alt="Логотип"></a>
 			</div>
-			<div class="col-md-3 ftr-grid">
+			<div class="col-md-3 ftr-grid footer-categories">
 				<a href="/" class="col-md-6">Главная</a>
 				<a href="#top" class="col-md-6">Наверх</a>
 				<h3>Категории</h3>
-				<ul class="nav-bottom">
 					<? foreach ( $categoryNames as $categoryName ): ?>
-						<li class="col-md-6"><a href="/category/<?= $categoryName['id'] ?>"><?= $categoryName['name'] ?></a></li>
+						<div class="col-md-6"><a href="/category/<?= $categoryName['id'] ?>"><?= $categoryName['name'] ?></a></div>
 					<? endforeach; ?>
-				</ul>
 
 			</div>
 			<div class="col-md-3 ftr-grid contacts">
