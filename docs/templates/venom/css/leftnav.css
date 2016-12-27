@@ -1,0 +1,21 @@
+/*/Левое навигационное меню*/
+.rsidebar {
+    background: rgba(42, 125, 110, .1);
+    padding: 0 5px;
+}
+
+.rsidebar a {
+    text-decoration: none;
+    color: black;
+}
+
+.rsidebar p {
+    padding: 0 5px;
+}
+
+.rsidebar p:hover {
+    background: rgba(42, 125, 110, 1);
+    color: white;
+}
+
+/*Левое навигационное меню*/
