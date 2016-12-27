@@ -8,13 +8,11 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/">Custom Light</a>
-			<a class="navbar-brand" href="#callback">8(495)773-71-59</a>
 		</div>
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
+			<ul class="nav navbar-nav test">
 				<li class="active"><a href="/page/about">О компании</a></li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Каталог<b class="caret"></b></a>
@@ -39,11 +37,7 @@
 				<li class="active"><a href="/page/contacts">Контакты</a></li>
 			</ul>
 
-			<!--Виджет корзины-->
-			<ul class="nav navbar-nav navbar-right" id="carticon">
-				<? include_once APP . "/views/" . TEMPLATE . "/common/carticon.php" ?>
-			</ul>
-			<!--/Виджет корзины-->
+
 
 		</div>
 		<!-- /.navbar-collapse -->

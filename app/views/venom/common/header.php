@@ -1,15 +1,27 @@
-<div class="header header-top">
-	<div class="header-bottom">
-<!--		<div class="logo">-->
-<!--			<h1><a href="/">Custom Light</a></h1>-->
-<!--		</div>-->
-		<!-- Навбар -->
-		<? include_once APP . "/views/" . TEMPLATE . "/common/navbar.php" ?>
-		<!-- /Навбар -->
-		<div class="clearfix"> </div>
-		<!---->
+<div class="header">
+	<div class="col-md-3 logo">
+		<a href="/"><img src="/images/сustomlight-logo.svg" alt="Логотип"></a>
 	</div>
-	<div class="clearfix"> </div>
+
+	<!-- Навбар -->
+	<div class="col-md-7">
+		<? include_once APP . "/views/" . TEMPLATE . "/common/navbar.php" ?>
+	</div>
+	<!-- /Навбар -->
+	<div class="col-md-2">
+		<!--Виджет корзины-->
+		<? include_once APP . "/views/" . TEMPLATE . "/common/carticon.php" ?>
+		<!--/Виджет корзины-->
+		<div class="h-line clearfix"></div>
+		<div class="phone-number">
+			<a href="#callback">8(495)773-71-59</a>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<div class="line-block col-md-12">
+		<a href="#" class="col-md-2 col-md-offset-10">Заказать звонок</a>
+	</div>
+	<div class="clearfix"></div>
 </div>
 
 

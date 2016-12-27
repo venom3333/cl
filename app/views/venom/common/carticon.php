@@ -1,4 +1,6 @@
-<li><a href="/cart" class="glyphicon glyphicon-shopping-cart">
-		В корзине:<br><?= $_SESSION['cart']['grandQuantity'] ?> товаров на <?= $_SESSION['cart']['grandTotal'] ?>
+<div class="carticon" id="carticon">
+	<a href="/cart" class="glyphicon glyphicon-shopping-cart">
+		<?= $_SESSION['cart']['grandQuantity'] ?> шт.<br>на <?= $_SESSION['cart']['grandTotal'] ?>
 		руб.
-	</a></li>
+	</a>
+</div>
