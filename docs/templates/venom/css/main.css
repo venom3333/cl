@@ -95,11 +95,12 @@ body {
     height: 400px;
     text-align: justify;
     overflow: hidden;
-    transition: box-shadow .1s;
+    transition: all .2s;
 }
 
 .product-grid:hover {
-    box-shadow: 0 0 10px rgba(42, 125, 110, 1);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 1);
+    opacity: .8;
 }
 
 .product-grid h4 {
