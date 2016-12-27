@@ -96,7 +96,7 @@
 	<h3>Информация по заказу:</h3>
 	<form class="checkout">
 		<fieldset class="form-group">
-			<legend>Способ доставки:</legend>
+			<legend class="h-line-reverse">Способ доставки:</legend>
 			<div class="form-check">
 				<label class="cartDelivery1">
 					<input type="radio" class="form-check-input" name="cartDelivery" id="cartDelivery1" value="Самовывоз" checked>

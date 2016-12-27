@@ -19,7 +19,7 @@
 	</div>
 	<div class="clearfix"></div>
 	<div class="line-block col-md-12">
-		<a href="#" class="col-md-2 col-md-offset-10 col-sm-12">Заказать звонок</a>
+		<a href="#callback" class="col-md-2 col-md-offset-10 col-sm-12">Заказать звонок</a>
 	</div>
 	<div class="clearfix"></div>
 </div>

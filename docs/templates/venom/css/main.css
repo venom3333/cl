@@ -26,6 +26,24 @@ body {
     width: 80%;
 }
 
+.h-line {
+    height: 2px;
+    width: 100%;
+    background: linear-gradient(to right, #ffffff 25%, #2a7d6e 100%);
+}
+
+.h-line-reverse {
+    height: 2px;
+    width: 100%;
+    background: linear-gradient(to left, #ffffff 25%, #2a7d6e 100%);
+}
+
+.vertical-center {
+    min-height: 25vh;
+    display: flex;
+    align-items: center;
+}
+
 .clear {
     clear: both;
 }
@@ -116,10 +134,6 @@ body {
 .product-grid a:active {
     text-decoration: none;
     color: #0f0f0f;
-}
-
-.product-model-sec {
-    margin: 5% 0;
 }
 
 /*/Продукт*/

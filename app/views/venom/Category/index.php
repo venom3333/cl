@@ -1,11 +1,11 @@
 <!--Список товаров категории-->
 <div class="col-md-10 product-model-sec">
 	<h2><?= $categoryHeader['name'] ?></h2>
-	<hr>
+	<div class="h-line-reverse clearfix"></div>
 	<p><?= $categoryHeader['short_description'] ?></p>
-	<hr>
+	<div class="h-line-reverse clearfix"></div>
 	<p><?= $categoryHeader['description'] ?></p>
-	<hr>
+	<div class="h-line-reverse clearfix"></div>
 	<? foreach ( $products as $product ): ?>
 		<div class="product-grid col-md-3">
 			<a href="/product/<?= $product['id'] ?>">
@@ -31,7 +31,7 @@
 <!--Список относящихся к категории проектов-->
 <div class="col-md-12 product-model-sec">
 	<h3>Проекты с данной категорией</h3>
-	<hr>
+	<div class="h-line-reverse clearfix"></div>
 	<? foreach ( $projects as $project ): ?>
 		<div class="product-grid col-md-3">
 			<a href="/project/<?= $project['id'] ?>">

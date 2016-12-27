@@ -2,22 +2,24 @@
 	<div class="footer-container">
 		<div class="footer-grids">
 			<div class="col-md-3 logo">
-				<a href="/"><img src="/images/сustomlight-logo-w.svg" alt="Логотип"></a>
+				<a href="/" class="vertical-center"><img src="/images/сustomlight-logo-w.svg" alt="Логотип"></a>
 			</div>
-			<div class="col-md-3 ftr-grid footer-categories">
-				<a href="/" class="col-md-6">Главная</a>
-				<a href="#top" class="col-md-6">Наверх</a>
-				<h3>Категории</h3>
+			<div class="col-md-4 ftr-grid footer-categories">
+				<div class="col-md-12">
+					<a href="/" class="col-md-6"><div>Главная</div></a>
+					<a href="#top" class="col-md-6"><div>Наверх</div></a>
+					<h5>Категории:</h5>
 					<? foreach ( $categoryNames as $categoryName ): ?>
-						<div class="col-md-6"><a href="/category/<?= $categoryName['id'] ?>"><?= $categoryName['name'] ?></a></div>
+					<a
+						href="/category/<?= $categoryName['id'] ?>" class="col-md-12"><div><?= $categoryName['name'] ?></div></a>
 					<? endforeach; ?>
-
+				</div>
 			</div>
-			<div class="col-md-3 ftr-grid contacts">
+			<div class="col-md-2 ftr-grid contacts">
 				<h3>Контaкты:</h3>
-					<p>Телефон: 8(495)773-71-59</p>
-					<p>Факс: 8(495)773-71-59</p>
-					<p>Email: info@custom-light.ru</p>
+				<p>Телефон: 8(495)773-71-59</p>
+				<p>Факс: 8(495)773-71-59</p>
+				<p>Email: info@custom-light.ru</p>
 			</div>
 			<div class="col-md-3 ftr-grid">
 				<form class="callback" id="callback">
@@ -27,7 +29,8 @@
 					</div>
 					<div class="form-group">
 						<label for="inputPhoneNumber"></label>
-						<input type="text" class="form-control" id="inputPhoneNumber" placeholder="Ваш телефон" required>
+						<input type="text" class="form-control" id="inputPhoneNumber" placeholder="Ваш телефон"
+						       required>
 					</div>
 					<div class="form-group">
 						<label for="inputText"></label>

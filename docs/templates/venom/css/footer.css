@@ -1,4 +1,9 @@
 /* Футер */
+
+.footer * {
+    transition: none;
+}
+
 .footer {
     background-color: rgba(42, 125, 110, .7);
     color: white;
@@ -13,7 +18,8 @@
 }
 
 .footer-container div {
-    margin-bottom: 15px;
+    padding-bottom: 5px;
+    margin-bottom: 0;
 }
 
 .nav-bottom {
@@ -26,19 +32,25 @@
     text-align: right;
 }
 
-.footer-categories a {
+.footer-categories a,
+.footer-categories h5 {
     text-decoration: none;
     color: white;
-    width: 100%;
+    text-align: center;
 }
 
 .footer-categories a:hover {
     text-decoration: none;
     color: black;
+    background: white;
 }
 
-.footer-categories div:hover {
-    background: white;
+.footer-categories div {
+    padding: 0 5px;
+}
+
+.callback-mail-button {
+    margin-bottom: 5px;
 }
 
 /* /Футер */
