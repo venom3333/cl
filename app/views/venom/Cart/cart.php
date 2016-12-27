@@ -18,7 +18,7 @@
 							<th class="cart-cell">Ширина</th>
 							<th class="cart-cell">Высота</th>
 							<th class="cart-cell">Мощность</th>
-							<th class="cart-cell">Световой поток (лм)</th>
+							<th class="cart-cell">Cветовой поток</th>
 						</tr>
 						</thead>
 					</table>
@@ -71,10 +71,9 @@
 						</div>
 					</td>
 					<td class="cart-update-button cart<?= $counter ?>">
-						<input type="number" id="cart<?= $counter ?>Quantity" value='<?= $cartProduct->quantity ?>'
-						       min="1"
-						       style="width: 3em;">
-						<div class="glyphicon glyphicon-repeat"></div>
+							<input type="number" id="cart<?= $counter ?>Quantity" value='<?= $cartProduct->quantity ?>'
+							       min="1"
+							       style="width: 3em;">
 					</td>
 					<td><?= $cartProduct->price ?></td>
 					<td><?= $cartProduct->price * $cartProduct->quantity ?></td>
@@ -99,13 +98,15 @@
 			<legend class="h-line-reverse">Способ доставки:</legend>
 			<div class="form-check">
 				<label class="cartDelivery1">
-					<input type="radio" class="form-check-input" name="cartDelivery" id="cartDelivery1" value="Самовывоз" checked>
+					<input type="radio" class="form-check-input" name="cartDelivery" id="cartDelivery1"
+					       value="Самовывоз" checked>
 					Самовывоз.
 				</label>
 			</div>
 			<div class="form-check">
 				<label class="cartDelivery2">
-					<input type="radio" class="form-check-input" name="cartDelivery" id="cartDelivery2" value="Доставка">
+					<input type="radio" class="form-check-input" name="cartDelivery" id="cartDelivery2"
+					       value="Доставка">
 					Доставка.
 				</label>
 			</div>

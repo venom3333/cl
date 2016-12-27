@@ -14,3 +14,33 @@
     text-shadow: 0 0 0 black;
 }
 
+table th, table td {
+    text-align: center;
+}
+
+table th {
+    line-height: 2em;
+}
+
+.cart-cell {
+    width: 16%;
+}
+
+.table > tbody > tr > td {
+    padding: 0;
+    line-height: 75px;
+}
+
+.cart-inner-thead {
+    margin: 0;
+}
+
+.cart-grand-total {
+    font-weight: bold;
+    font-size: 150%;
+    text-align: right;
+}
+
+.table {
+    margin-bottom: 0;
+}
