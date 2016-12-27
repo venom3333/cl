@@ -18,7 +18,7 @@
 	</div>
 
 	<div class="form-group">
-		<label for="projectIcon">Иконка проекта (размер установится в 200*150px)</label>
+		<label for="projectIcon">Иконка проекта (размер установится в <?= DEFAULT_ICON_WIDTH, '*', DEFAULT_ICON_HEIGHT?>px)</label>
 		<input type="file" class="form-control" id="projectIcon" name="projectIcon" accept="image/*"
 		       onchange="previewImage('projectIcon', 'iconPreview')" required>
 		<img src="" alt="" id="iconPreview" class="preview">
@@ -32,7 +32,7 @@
 		</div>
 	<? endforeach; ?>
 
-	<h4>Добавьте от 2х до 5ти изображений (размер установится в 1024*768px):</h4>
+	<h4>Добавьте от 2х до 5ти изображений (размер установится в <?= IMAGE_WIDTH, "*", IMAGE_HEIGHT?>px):</h4>
 	<div class="row">
 		<? for ( $i = 1; $i <= 5; $i ++ ): ?>
 			<div class="form-group col-md-2">

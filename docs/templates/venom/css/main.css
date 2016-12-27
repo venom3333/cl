@@ -1,22 +1,24 @@
 @import url(header.css);
 @import url(footer.css);
 @import url(cart.css);
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
 
 /* Общие */
 
 * {
     font-family: 'Roboto', sans-serif;
+    transition: all .2s;
 }
 
 html,
 body {
     height: 100%;
+    background-image: url(/images/abstract-back-dark.svg);
+    background-size: 200%;
 }
 
 .content {
-    background-image: url(/images/abstract-back-medium.svg);
-    background-size: 200%;
+
 }
 
 .container {
@@ -84,9 +86,33 @@ body {
     margin-left: -50%;
     z-index: 0;
 }
+
 /* /Слайдер */
 
 /*Продукт*/
+.product-grid {
+    margin: 10px 0;
+    height: 400px;
+    text-align: justify;
+    overflow: hidden;
+    transition: box-shadow .1s;
+}
+
+.product-grid:hover {
+    box-shadow: 0 0 10px rgba(42, 125, 110, 1);
+}
+
+.product-grid h4 {
+    text-align: center;
+}
+
+.product-grid a,
+.product-grid a:hover,
+.product-grid a:visited,
+.product-grid a:active {
+    text-decoration: none;
+    color: #0f0f0f;
+}
 
 /*/Продукт*/
 

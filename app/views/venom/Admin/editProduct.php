@@ -34,7 +34,7 @@
 
 
 		<div class="form-group">
-			<label for="productIcon">Новая иконка категории (ЗАМЕНИТ ТЕКУЩУЮ, размер установится в 200*150px):</label>
+			<label for="productIcon">Новая иконка категории (ЗАМЕНИТ ТЕКУЩУЮ, размер установится в <?= DEFAULT_ICON_WIDTH, '*', DEFAULT_ICON_HEIGHT?>px):</label>
 			<input type="file" class="form-control" id="productIcon" name="productIcon" accept="image/*"
 			       onchange="previewImage('productIcon', 'iconPreview')">
 			<img src="" alt="" id="iconPreview" class="preview">

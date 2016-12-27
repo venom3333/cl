@@ -4,7 +4,7 @@
 	</div>
 
 	<!-- Навбар -->
-	<div class="col-md-7">
+	<div class="col-lg-7 nav-line">
 		<? include_once APP . "/views/" . TEMPLATE . "/common/navbar.php" ?>
 	</div>
 	<!-- /Навбар -->
@@ -14,12 +14,12 @@
 		<!--/Виджет корзины-->
 		<div class="h-line clearfix"></div>
 		<div class="phone-number">
-			<a href="#callback">8(495)773-71-59</a>
+			<a href="#callback">8(495)773 71 59</a>
 		</div>
 	</div>
 	<div class="clearfix"></div>
 	<div class="line-block col-md-12">
-		<a href="#" class="col-md-2 col-md-offset-10">Заказать звонок</a>
+		<a href="#" class="col-md-2 col-md-offset-10 col-sm-12">Заказать звонок</a>
 	</div>
 	<div class="clearfix"></div>
 </div>

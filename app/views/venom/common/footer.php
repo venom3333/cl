@@ -1,9 +1,8 @@
 <div class="footer">
-	<div class="container footer-container">
+	<div class="footer-container">
 		<div class="footer-grids">
-			<div class="col-md-3 about-us">
-				<h3>Custom Light</h3>
-				<p>Maecenas nec auctor sem. Vivamus porttitor tincidunt elementum nisi a, euismod rhoncus urna. Curabitur scelerisque vulputate arcu eu pulvinar. Fusce vel neque diam</p>
+			<div class="col-md-3 logo">
+				<a href="/"><img src="/images/сustomlight-logo-w.svg" alt="Логотип"></a>
 			</div>
 			<div class="col-md-3 ftr-grid">
 				<a href="/" class="col-md-6">Главная</a>
@@ -16,7 +15,7 @@
 				</ul>
 
 			</div>
-			<div class="col-md-3 ftr-grid">
+			<div class="col-md-3 ftr-grid contacts">
 				<h3>Контaкты:</h3>
 					<p>Телефон: 8(495)773-71-59</p>
 					<p>Факс: 8(495)773-71-59</p>

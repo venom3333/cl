@@ -1,7 +1,7 @@
 /* Футер */
 .footer {
-    background-color: #dcdcdc;
-    border-top: 2px solid #b9b9b9;
+    background-color: rgba(42, 125, 110, .7);
+    color: white;
 }
 
 .footer-container {
@@ -22,4 +22,7 @@
     padding: 0;
 }
 
+.contacts {
+    text-align: right;
+}
 /* /Футер */

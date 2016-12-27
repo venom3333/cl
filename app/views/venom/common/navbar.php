@@ -12,12 +12,12 @@
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav test">
-				<li class="active"><a href="/page/about">О компании</a></li>
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/page/about" id="first-a">О компании</a></li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Каталог<b class="caret"></b></a>
 					<ul class="dropdown-menu">
-						<li><a href="#"><b>Категории:</b></a></li>
+						<p><b>Категории:</b></p>
 						<li class="divider"></li>
 						<? foreach ( $categoryNames as $categoryName ): ?>
 							<li><a href="/category/<?= $categoryName['id'] ?>"><?= $categoryName['name'] ?></a></li>
@@ -36,9 +36,6 @@
 				<li class="active"><a href="/page/designers">Архитекторам / Дизайнерам</a></li>
 				<li class="active"><a href="/page/contacts">Контакты</a></li>
 			</ul>
-
-
-
 		</div>
 		<!-- /.navbar-collapse -->
 	</div>

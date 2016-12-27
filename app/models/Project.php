@@ -149,7 +149,7 @@ class Project extends Model {
 			$src            = $project['icon']['tmp_name'];
 			$name           = $project['icon']['name'];
 			$dest           = 'images/projects/icons/';
-			$uploadIconFile = $this->uploadAndResizeImage( $src, $name, $dest, PROJECT_IMAGE_WIDTH, PROJECT_IMAGE_HEIGHT );
+			$uploadIconFile = $this->uploadAndResizeImage( $src, $name, $dest, PROJECT_ICON_WIDTH, PROJECT_ICON_HEIGHT );
 			//d($uploadIconFile);
 		}
 		// записываем в базу сам проект
@@ -282,7 +282,7 @@ class Project extends Model {
 			$src                       = $updatedProject['icon']['tmp_name'];
 			$name                      = $updatedProject['icon']['name'];
 			$dest                      = 'images/projects/icons/';
-			$updatedProject['newIcon'] = $this->uploadAndResizeImage( $src, $name, $dest, PROJECT_IMAGE_WIDTH, PROJECT_IMAGE_HEIGHT );
+			$updatedProject['newIcon'] = $this->uploadAndResizeImage( $src, $name, $dest, PROJECT_ICON_WIDTH, PROJECT_ICON_HEIGHT );
 
 			// пишем информацию в базу данных
 			$sql = "

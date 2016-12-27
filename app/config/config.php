@@ -26,12 +26,12 @@ define( 'TemplateWebPath', "/templates/" . TEMPLATE );
 //<
 
 // Размеры изображений на сервере
-define( 'DEFAULT_ICON_WIDTH', 200 );
-define( 'DEFAULT_ICON_HEIGHT', 150 );
-define( 'IMAGE_WIDTH', 1024 );
-define( 'IMAGE_HEIGHT', 768 );
-define( 'PROJECT_IMAGE_WIDTH', 300 );
-define( 'PROJECT_IMAGE_HEIGHT', 225 );
+define( 'DEFAULT_ICON_WIDTH', 350 );
+define( 'DEFAULT_ICON_HEIGHT', 263 );
+define( 'IMAGE_WIDTH', 1280 );
+define( 'IMAGE_HEIGHT', 1024 );
+define( 'PROJECT_ICON_WIDTH', 350 );
+define( 'PROJECT_ICON_HEIGHT', 263 );
 
 // Емайлы
 define( 'SUPER_ADMIN_EMAIL', 'v.kagsfey@mail.ru' );

@@ -34,7 +34,7 @@
 
 
 		<div class="form-group">
-			<label for="projectIcon">Новая иконка категории (ЗАМЕНИТ ТЕКУЩУЮ, размер установится в 200*150px):</label>
+			<label for="projectIcon">Новая иконка категории (ЗАМЕНИТ ТЕКУЩУЮ, размер установится в <?= DEFAULT_ICON_WIDTH, '*', DEFAULT_ICON_HEIGHT?>px):</label>
 			<input type="file" class="form-control" id="projectIcon" name="projectIcon" accept="image/*"
 			       onchange="previewImage('projectIcon', 'iconPreview')">
 			<img src="" alt="" id="iconPreview" class="preview">
@@ -83,7 +83,7 @@
 	<h4>Добавление изображений:</h4>
 	<form action="/admin/add-project-image/<?= $project['id'] ?>" method="post" enctype="multipart/form-data">
 		<div class="form-group">
-			<label for="projectImage">Новое изображение (размер установится в 1024*768px):</label>
+			<label for="projectImage">Новое изображение (размер установится в <?= IMAGE_WIDTH, "*", IMAGE_HEIGHT?>px):</label>
 			<input type="file" class="form-control" id="projectImage" name="projectImage" accept="image/*"
 			       onchange="previewImage('projectImage', 'imagePreview')">
 			<img src="" alt="" id="imagePreview" class="preview">

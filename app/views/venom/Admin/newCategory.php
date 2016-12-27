@@ -18,7 +18,7 @@
 	</div>
 
 	<div class="form-group">
-		<label for="categoryIcon">Иконка категории (размер установится в 200*150px)</label>
+		<label for="categoryIcon">Иконка категории (размер установится в <?= DEFAULT_ICON_WIDTH, '*', DEFAULT_ICON_HEIGHT?>px)</label>
 		<input type="file" class="form-control" id="categoryIcon" name="categoryIcon" accept="image/*"
 		       onchange="previewImage('categoryIcon', 'iconPreview')" required>
 		<img src="" alt="" id="iconPreview" class="preview">
