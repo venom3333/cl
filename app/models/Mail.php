@@ -14,8 +14,8 @@ class Mail extends Model {
 		}
 		$message = wordwrap( $message, 70, "\r\n" );
 
-		$to = ADMIN_EMAIL;
-//		$to = DEFAULT_EMAIL . "," . ADMIN_EMAIL;
+		//$to = ADMIN_EMAIL;
+		$to = DEFAULT_EMAIL . "," . ADMIN_EMAIL;
 
 		// Заголовки
 		$headers = array();

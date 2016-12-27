@@ -135,3 +135,4 @@
 </div>
 
 <script src="/templates/<?= TEMPLATE ?>/js/cart.js"></script>
+<script src="/templates/<?= TEMPLATE ?>/js/mail.js"></script>
