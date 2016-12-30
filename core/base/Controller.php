@@ -51,10 +51,11 @@ abstract class Controller {
 	 * @param array $route массив с маршрутом
 	 */
 	public function __construct( $route ) {
-		if ( isset ($_POST['auth']) && $_POST['auth'] == ADMIN_PASS){
-			$_SESSION ['auth'] = $_POST['auth'];
+		if ( isset ( $_POST['auth'] ) && md5( $_POST['auth']) === ADMIN_PASS ) {
+			$_SESSION ['auth'] = md5( $_POST['auth']);
 		}
-		if ( $this->auth || $route['action'] != 'index' ) {
+
+		if ( $this->auth || $route['action'] !== 'index' ) {
 			if ( ! $this->is_auth() ) {
 				Error::common( "Идите нахуй. Авторизация не прошла!!!" );
 			}
@@ -72,6 +73,7 @@ abstract class Controller {
 		if ( ! isset( $_SESSION ['auth'] ) || $_SESSION ['auth'] != ADMIN_PASS ) {
 			return false;
 		}
+
 		return true;
 	}
 
