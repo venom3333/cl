@@ -5,10 +5,13 @@ namespace app\controllers;
 use app\models\Category;
 use app\models\Product;
 use app\models\Project;
+use core\Error;
 
 class AdminController extends AppController {
 
 	public $layout = 'admin';
+
+	private $auth = true;
 
 	/**
 	 * Формирование главной страницы админки

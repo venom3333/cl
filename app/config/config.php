@@ -38,6 +38,9 @@ define( 'SUPER_ADMIN_EMAIL', 'v.kagsfey@mail.ru' );
 define( 'ADMIN_EMAIL', 'v.kagsfey@mail.ru' );
 define( 'DEFAULT_EMAIL', 'info@customlight.ru' );
 
+// Админ pass
+define( 'ADMIN_PASS', 'IamADMIN');
+
 
 // Инициализация корзины
 include 'cart.php';

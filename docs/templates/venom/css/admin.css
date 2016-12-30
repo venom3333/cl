@@ -2,6 +2,10 @@ textarea {
     min-height: 20em;
 }
 
+.adminPass {
+    float: right;
+}
+
 .navbar-inverse {
     background-color: black;
 }
