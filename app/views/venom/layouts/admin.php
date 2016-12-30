@@ -37,12 +37,16 @@
 			<div class="navbar-header">
 				<a class="navbar-brand" href="/">Custom Light</a>
 			</div>
-			<div class="adminTitle"><?= $title ?></div>
-			<? if ( ! isset( $_SESSION ['auth'] ) || $_SESSION ['auth'] != ADMIN_PASS ): ?>
-				<form action="/admin" class="adminPass" method="post">
-					<label for="auth"></label><input type="password" name="auth" placeholder="Скажи пароль..." id="auth">
-				</form>
-			<? endif; ?>
+			<div class="adminTitle"><?= $title ?><br>
+				<? if ( ! isset( $_SESSION ['auth'] ) || $_SESSION ['auth'] != ADMIN_PASS ): ?>
+					<form action="/admin" class="adminPass" method="post">
+						<label for="auth"></label><input type="password" name="auth" placeholder="Скажи пароль..."
+						                                 id="auth">
+					</form>
+				<? else: ?>
+					Вы - Админ!
+				<? endif; ?>
+			</div>
 		</div>
 		<!-- /.container-fluid -->
 	</nav>
