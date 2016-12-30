@@ -4,7 +4,7 @@
 			<div class="col-md-3 logo">
 				<a href="/" class="vertical-center"><img src="/images/сustomlight-logo-w.svg" alt="Логотип"></a>
 			</div>
-			<div class="col-md-4 ftr-grid footer-categories">
+			<div class="col-md-6 ftr-grid footer-categories">
 				<div class="col-md-12">
 					<a href="/" class="col-md-6"><div>Главная</div></a>
 					<a href="#top" class="col-md-6"><div>Наверх</div></a>
@@ -15,29 +15,12 @@
 					<? endforeach; ?>
 				</div>
 			</div>
-			<div class="col-md-2 ftr-grid contacts">
+			<div class="col-md-3 ftr-grid contacts">
 				<h3>Контaкты:</h3>
 				<p>Телефон: 8(495)773-71-59</p>
 				<p>Факс: 8(495)773-71-59</p>
 				<p>Email: info@custom-light.ru</p>
-			</div>
-			<div class="col-md-3 ftr-grid">
-				<form class="callback" id="callback">
-					<div class="form-group">
-						<label for="inputName"></label>
-						<input type="email" class="form-control" id="inputName" placeholder="Ваше имя" required>
-					</div>
-					<div class="form-group">
-						<label for="inputPhoneNumber"></label>
-						<input type="text" class="form-control" id="inputPhoneNumber" placeholder="Ваш телефон"
-						       required>
-					</div>
-					<div class="form-group">
-						<label for="inputText"></label>
-						<textarea type="text" class="form-control" id="inputText" placeholder="Примечание"></textarea>
-					</div>
-					<button type="button" class="btn btn-default callback-mail-button">Заказать звонок</button>
-				</form>
+				<p>Адрес: 141280, Московская область, г.Ивантеевка, Студенческий проезд, дом 12</p>
 			</div>
 			<div class="clearfix"></div>
 		</div>

@@ -28,7 +28,6 @@ table th {
 
 .table > tbody > tr > td {
     padding: 0;
-    line-height: 75px;
 }
 
 .cart-inner-thead {
