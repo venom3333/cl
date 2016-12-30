@@ -142,12 +142,15 @@
     content: "   |   ";
 }
 
+.line-block * {
+    color: white;
+}
+
 .line-block a {
     text-transform: uppercase;
     line-height: 1em;
     font-weight: 700;
     text-align: center;
-    color: white;
     margin-top: 5px;
     margin-bottom: 5px;
 }

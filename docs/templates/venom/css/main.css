@@ -106,6 +106,13 @@ body {
     z-index: 0;
 }
 
+.slider-shape {
+    position: relative;
+    background: white;
+    box-shadow: 3px 3px  rgba(42, 125, 110, 1);
+
+}
+
 /* /Слайдер */
 
 /*Продукт*/

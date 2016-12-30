@@ -11,21 +11,36 @@
 	<div class="carousel-inner">
 		<div class="item active">
 			<!-- Set the first background image using inline CSS below. -->
-			<div class="fill" style="background-image:url('/images/bnr.jpg');"></div>
+			<div class="fill" style="background-image:url('/images/bnr.jpg');">
+				<div class="slider-shape">
+					Описание:
+					Что-то полезное и интересное.
+				</div>
+			</div>
 			<div class="carousel-caption">
 				<h2>Caption 1</h2>
 			</div>
 		</div>
 		<div class="item">
 			<!-- Set the second background image using inline CSS below. -->
-			<div class="fill" style="background-image:url('/images/bnr2.jpg');"></div>
+			<div class="fill" style="background-image:url('/images/bnr2.jpg');">
+				<div class="slider-shape">
+					Описание:
+					Что-то полезное и интересное.
+				</div>
+			</div>
 			<div class="carousel-caption">
 				<h2>Caption 2</h2>
 			</div>
 		</div>
 		<div class="item">
 			<!-- Set the third background image using inline CSS below. -->
-			<div class="fill" style="background-image:url('/images/bnr3.jpg');"></div>
+			<div class="fill" style="background-image:url('/images/bnr3.jpg');">
+				<div class="slider-shape">
+					Описание:
+					Что-то полезное и интересное.
+				</div>
+			</div>
 			<div class="carousel-caption">
 				<h2>Caption 3</h2>
 			</div>
