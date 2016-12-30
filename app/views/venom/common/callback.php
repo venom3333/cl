@@ -2,7 +2,7 @@
 	<ul class="nav navbar-nav">
 		<li class="dropdown">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="caret"></b>Заказать звонок<b class="caret"></b></a>
-			<ul class="dropdown-menu">
+			<ul class="dropdown-menu callback-wrapper">
 				<li>
 					<form class="callback" id="callback">
 						<div class="form-group">
@@ -20,7 +20,7 @@
 							<label for="inputText"></label>
 							<textarea class="form-control" id="inputText" placeholder="Примечание"></textarea>
 						</div>
-						<button type="button" class="btn btn-success callback-mail-button">Заказать звонок
+						<button type="button" class="btn btn-default callback-mail-button">Заказать звонок
 						</button>
 					</form>
 				</li>

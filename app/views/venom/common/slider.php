@@ -14,7 +14,7 @@
 			<div class="fill" style="background-image:url('/images/bnr.jpg');">
 				<div class="slider-shape">
 					Описание:
-					Что-то полезное и интересное.
+					Что-то полезное и интересное...
 				</div>
 				<div class="slider-shape-2"></div>
 			</div>
@@ -27,7 +27,7 @@
 			<div class="fill" style="background-image:url('/images/bnr2.jpg');">
 				<div class="slider-shape">
 					Описание:
-					Что-то полезное и интересное.
+					Что-то полезное и интересное...
 				</div>
 				<div class="slider-shape-2"></div>
 			</div>
@@ -40,7 +40,7 @@
 			<div class="fill" style="background-image:url('/images/bnr3.jpg');">
 				<div class="slider-shape">
 					Описание:
-					Что-то полезное и интересное.
+					Что-то полезное и интересное...
 				</div>
 				<div class="slider-shape-2"></div>
 			</div>

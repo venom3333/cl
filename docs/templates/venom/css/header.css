@@ -51,6 +51,10 @@
     padding: 0 15px;
 }
 
+.dropdown-menu {
+    opacity: .95;
+}
+
 .nav > li > a,
 .dropdown-menu > li > a {
     text-transform: uppercase;
@@ -160,10 +164,18 @@
     color: black;
 }
 
+.callback-wrapper {
+    background: rgba(42, 125, 110, 1);
+}
+
 .callback {
     margin: 5px;
 }
 
-.callback li{
+.callback li {
     margin: 0;
+}
+
+.callback-mail-button {
+    color: black;
 }

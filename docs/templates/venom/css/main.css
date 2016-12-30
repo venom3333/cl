@@ -118,6 +118,7 @@ body {
     top: 30%;
     background: white;
     box-shadow: 0 7px rgba(42, 125, 110, .9);
+    padding: 10px;
 }
 
 .slider-shape-2 {
