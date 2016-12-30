@@ -63,6 +63,11 @@ abstract class Controller {
 		$this->view  = $route['action'];
 	}
 
+	/**
+	 * Проверяет авторизован ли пользователь
+	 *
+	 * @return bool авторизован или нет
+	 */
 	private function is_auth() {
 		if ( ! isset( $_SESSION ['auth'] ) || $_SESSION ['auth'] != ADMIN_PASS ) {
 			return false;
