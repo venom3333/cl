@@ -16,6 +16,7 @@
 					Описание:
 					Что-то полезное и интересное.
 				</div>
+				<div class="slider-shape-2"></div>
 			</div>
 			<div class="carousel-caption">
 				<h2>Caption 1</h2>
@@ -28,6 +29,7 @@
 					Описание:
 					Что-то полезное и интересное.
 				</div>
+				<div class="slider-shape-2"></div>
 			</div>
 			<div class="carousel-caption">
 				<h2>Caption 2</h2>
@@ -40,6 +42,7 @@
 					Описание:
 					Что-то полезное и интересное.
 				</div>
+				<div class="slider-shape-2"></div>
 			</div>
 			<div class="carousel-caption">
 				<h2>Caption 3</h2>
@@ -48,10 +51,10 @@
 	</div>
 
 	<!-- Controls -->
-	<a class="left carousel-control" href="#myCarousel" data-slide="prev">
-		<span class="icon-prev"></span>
-	</a>
-	<a class="right carousel-control" href="#myCarousel" data-slide="next">
-		<span class="icon-next"></span>
-	</a>
+<!--	<a class="left carousel-control" href="#myCarousel" data-slide="prev">-->
+<!--		<span class="icon-prev"></span>-->
+<!--	</a>-->
+<!--	<a class="right carousel-control" href="#myCarousel" data-slide="next">-->
+<!--		<span class="icon-next"></span>-->
+<!--	</a>-->
 </section>
