@@ -23,7 +23,7 @@ body {
 }
 
 .container {
-    width: 100%;
+    width: 80%;
 }
 
 .h-line {
@@ -137,9 +137,9 @@ body {
 
 /*Продукт*/
 .product-grid {
-    margin: 30px 0;
-    padding: 15px;
-    height: 320px;
+    margin: 10px 0;
+    padding: 15px 2%;
+    height: 290px;
     text-align: justify;
     overflow: hidden;
     transition: all .2s;
@@ -151,8 +151,9 @@ body {
     background: rgba(42, 125, 110, .1);
 }
 
-.product-grid h4 {
+.product-grid h5 {
     text-align: center;
+    font-size: 120%;
 }
 
 .product-grid a,
@@ -163,5 +164,17 @@ body {
     color: #0f0f0f;
 }
 
+.product-model-sec {
+    margin-top: 5%;
+}
+
 /*/Продукт*/
+
+.about-main {
+    text-align: justify;
+}
+
+.about-main h3 {
+    text-align: center;
+}
 

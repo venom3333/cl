@@ -11,17 +11,36 @@
 					<div class="product-img b-link-stripe b-animate-go  thickbox">
 						<img src="<?= $category['icon'] ?>" class="img-responsive" alt="">
 					</div>
-					<h4><?= $category['name'] ?></h4>
+					<h5><?= $category['name'] ?></h5>
 
 					<!--					<div class="product-info simpleCart_shelfItem">-->
-<!--						<div class="product-info-cust prt_name">-->
-<!--							<p>--><?//= $category['short_description'] ?><!--</p>-->
-<!--							<div class="clearfix"></div>-->
-<!--						</div>-->
-<!--					</div>-->
+					<!--						<div class="product-info-cust prt_name">-->
+					<!--							<p>--><? //= $category['short_description'] ?><!--</p>-->
+					<!--							<div class="clearfix"></div>-->
+					<!--						</div>-->
+					<!--					</div>-->
 				</a>
 			</div>
 		<? endforeach; ?>
 	</div>
 </div>
+<div class="about-main col-md-8 col-md-offset-2">
+	<h3>О компании:</h3>
+	<p>
+		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, blanditiis consequatur
+		corporis eligendi esse exercitationem iusto libero necessitatibus nemo obcaecati perferendis placeat quam
+		rerum
+		similique soluta sunt temporibus veritatis vitae.
+		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, blanditiis consequatur corporis
+		eligendi esse
+		exercitationem iusto libero necessitatibus nemo obcaecati perferendis placeat quam rerum similique soluta
+		sunt
+		temporibus veritatis vitae.</p>
+	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, blanditiis consequatur corporis
+		eligendi
+		esse exercitationem iusto libero necessitatibus nemo obcaecati perferendis placeat quam rerum similique
+		soluta
+		sunt temporibus veritatis vitae.</p>
+</div>
+<div class="clearfix"></div>
 <!--/Контент-->
