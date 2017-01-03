@@ -20,7 +20,7 @@
 
 	<div class="form-group">
 		<label for="productDescription">Описание</label>
-		<textarea class="form-control" id="productDescription" name="productDescription" required></textarea>
+		<textarea class="form-control" id="productDescription" name="productDescription"></textarea>
 	</div>
 
 	<div class="form-group">

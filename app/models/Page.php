@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: vovan
- * Date: 03.01.2017
- * Time: 11:49
- */
 
 namespace app\models;
-
 
 use core\base\Model;
 
@@ -52,4 +45,57 @@ class Page extends Model {
 		return $this->pdo->query( $sql );
 	}
 
+	/**
+	 * Создет страницу
+	 *
+	 * @param array $page Массив с данными о странице
+	 *
+	 */
+	public function createPage( array $page ) {
+		// записываем в базу страницу
+		$sql = "
+		REPLACE INTO page
+		SET name = '{$page['name']}',
+    	alias = '{$page['alias']}',
+    	content = '{$page['content']}'
+		";
+		$this->pdo->execute( $sql );
+	}
+
+	/**
+	 * Удаляет страницу
+	 *
+	 * @param integer $pageId id удаляемой станицы
+	 *
+	 */
+	public function removePage( int $pageId ) {
+		// Удаляем страницу
+		$sql = "
+			DELETE
+			FROM page
+			WHERE id = '$pageId'
+		";
+		$this->pdo->execute( $sql );
+	}
+
+	/**
+	 * Сохраняет страницу поверх предыдущей (обновляет)
+	 *
+	 * @param integer $pageId id перезаписываемой категории
+	 * @param array $updatedPage массив с информацией о категории
+	 */
+	public function updatePage( int $pageId, array $updatedPage = [] ) {
+
+		// пишем страницу в базу данных
+		$sql = "
+			UPDATE page
+			SET name = '{$updatedPage['name']}',
+    		alias = '{$updatedPage['alias']}',
+    		content = '{$updatedPage['content']}'
+			WHERE id = '$pageId'
+			";
+
+		$this->pdo->execute( $sql );
+
+	}
 }

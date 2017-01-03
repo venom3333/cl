@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: vovan
- * Date: 05.12.2016
- * Time: 14:03
- */
 
 namespace app\controllers;
 
@@ -15,6 +9,8 @@ use app\models\Page;
 use core\base\Controller;
 
 abstract class AppController extends Controller {
+
+	// общая информация для определенного шаблона (меню и т.п.)
 	protected $layoutEssentials = array();
 
 	public function __construct( array $route ) {
@@ -22,6 +18,7 @@ abstract class AppController extends Controller {
 		$this->getLayoutEssentials();
 	}
 
+	// Загружает необходимую информацию для определенного шаблона
 	protected function getLayoutEssentials() {
 		switch ( $this->layout ) {
 			case 'admin':

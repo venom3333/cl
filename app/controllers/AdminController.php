@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Category;
 use app\models\Product;
 use app\models\Project;
+use app\models\Page;
 use core\Error;
 
 class AdminController extends AppController {
@@ -558,5 +559,103 @@ class AdminController extends AppController {
 		header( 'Location: /admin/categories' );
 		exit();
 	}
+
+// СТРАНИЦЫ
+	/**
+	 * Формирование страницы админки с манипуляциями над страницами
+	 */
+	public
+	function pagesAction() {
+		$pageModel = new Page;
+		$pages     = $pageModel->findAll();
+		$title     = "Работа с базой даннных. Категории.";
+		$this->set( compact( 'title', 'pages' ) );
+	}
+
+	/**
+	 * Формирование страницы админки с формой создания новой страницы
+	 */
+	public
+	function newPageAction() {
+
+		$title = "Работа с базой даннных. Новая Страница.";
+		$this->set( compact( 'title' ) );
+
+	}
+
+	/**
+	 * Создает новую страницу и затем
+	 * формирует страницу админки с манипуляциями над страницами
+	 */
+	public
+	function createPageAction() {
+		// принимаем всю переданную информацию и удобно складываем в массив
+		// основное
+		$page = [
+			'name'    => $_POST['pageName'],
+			'alias'   => $_POST['pageAlias'],
+			'content' => $_POST['pageContent'],
+		];
+
+		$pageModel = new Page;
+		$pageModel->createPage( $page );
+
+		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
+		header( 'Location: /admin/pages/' );
+		exit();
+	}
+
+	/**
+	 * Удаляет определенную страницу и затем
+	 * формирует страницу админки с манипуляциями над страницами
+	 *
+	 * @param int $pageId id категории
+	 */
+	public
+	function removePageAction(
+		int $pageId
+	) {
+		$pageModel = new Page;
+		$pageModel->removePage( $pageId );
+
+		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
+		header( 'Location: /admin/pages' );
+		exit();
+	}
+
+	/**
+	 * Формирует страницу админки с редактированием определенной страницы     *
+	 *
+	 * @param int $pageId id категории
+	 */
+	public
+	function editPageAction(int $pageId) {
+		$pageModel = new Page;
+		$page      = $pageModel->findById( $pageId )[0];
+		$title     = "Работа с базой даннных. Редактирование страницы с ID = $pageId.";
+		$this->set( compact( 'title', 'page' ) );
+	}
+
+	/**
+	 * Перезаписывает (обновляет) определенную страницу и затем
+	 * формирует страницу админки с манипуляциями над страницами
+	 *
+	 * @param int $pageId id категории
+	 */
+	public
+	function updatePageAction( int $pageId ) {
+		$updatedPage ['name']              = $_POST ['pageName'];
+		$updatedPage ['alias'] = $_POST ['pageAlias'];
+		$updatedPage ['content']       = $_POST ['pageContent'];
+
+		$pageModel = new Page;
+
+		$pageModel->updatePage( $pageId, $updatedPage );
+
+		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
+		header( 'Location: /admin/pages' );
+		exit();
+	}
+
 }
 

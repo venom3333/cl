@@ -121,9 +121,9 @@ class Category extends Model {
 	}
 
 	/**
-	 * Создет проект (включая запись в базу и закачивание изобрбажений на сервер)
+	 * Создет категорию (включая запись в базу и закачивание изобрбажений на сервер)
 	 *
-	 * @param array $category Массив с данными о проекте
+	 * @param array $category Массив с данными о категории
 	 *
 	 */
 	public function createCategory( array $category ) {
