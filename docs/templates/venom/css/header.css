@@ -43,10 +43,6 @@
     font-weight: 700;
 }
 
-#first-a {
-    border: none;
-}
-
 .nav p {
     padding: 0 15px;
 }
@@ -111,6 +107,10 @@
 
 .icon-bar {
     background-color: #0f0f0f;
+}
+
+.navbar-nav>li:first-child>a{
+    border: none;
 }
 
 /* /Навбар */

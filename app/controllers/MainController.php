@@ -6,7 +6,6 @@
 namespace app\controllers;
 
 use app\models\Category;
-use app\models\Project;
 
 
 class MainController extends AppController {
@@ -26,16 +25,10 @@ class MainController extends AppController {
 	 *
 	 */
 	public function indexAction() {
-		//< для меню и левой навигации
 		$categoryModel = new Category;
-		$projectModel  = new Project;
-		$categoryNames = $categoryModel->findAllNames();
-		$projectNames  = $projectModel->findAllNames();
-		//> для меню и левой навигации
+		$categories    = $categoryModel->findAll();
 
-		$categories = $categoryModel->findAll();
-
-		$title = 'Custom Light. Нестандартное освещение';
-		$this->set( compact( 'title', 'categoryNames', 'projectNames', 'categories' ) );
+		$title = APP_NAME . '. Нестандартное освещение';
+		$this->set( [ 'title' => $title, 'categories' => $categories, 'layoutEssentials' => $this->layoutEssentials ] );
 	}
 }

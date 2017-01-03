@@ -9,7 +9,7 @@
 					<a href="/" class="col-md-6"><div>Главная</div></a>
 					<a href="#top" class="col-md-6"><div>Наверх</div></a>
 					<h5>Категории:</h5>
-					<? foreach ( $categoryNames as $categoryName ): ?>
+					<? foreach ( $layoutEssentials['categories'] as $categoryName ): ?>
 					<a
 						href="/category/<?= $categoryName['id'] ?>" class="col-md-12"><div><?= $categoryName['name'] ?></div></a>
 					<? endforeach; ?>

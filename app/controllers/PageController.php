@@ -8,8 +8,7 @@
 
 namespace app\controllers;
 
-use app\models\Category;
-use app\models\Project;
+use app\models\Page;
 
 class PageController extends AppController {
 
@@ -18,31 +17,18 @@ class PageController extends AppController {
 	/**
 	 * Формирование выбранной текстовой (информационной) страницы
 	 *
+	 * @param string $alias алиас запрашиваемой страницы
 	 */
 	public function indexAction( $alias = null ) {
 
-		$categoryModel = new Category;
-		$projectModel  = new Project;
-		//< для меню и левой навигации
-		$categoryNames = $categoryModel->findAllNames();
-		$projectNames  = $projectModel->findAllNames();
-		//> для меню и левой навигации
+		$this->view       = 'page';
 
-		$this->view = $alias;
+		$pageModel = new Page;
+		$page      = $pageModel->findByAlias( $alias );
 
-		$title = "Custom Light.";
+		$title = APP_NAME . '. ' . $page['name'];
 
-		switch ( $alias ) {
-			case 'about':
-				$title = " О компании."; break;
-			case 'contacts':
-				$title = " Контакты."; break;
-			case 'designers':
-				$title = " Дизайнерам и архитекторам."; break;
-
-		}
-
-		$this->set( compact( 'title', 'categoryNames', 'projectNames', 'categoryHeader') );
+		$this->set( [ 'title' => $title, 'layoutEssentials' => $this->layoutEssentials, 'page' => $page ] );
 	}
 
 }

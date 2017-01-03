@@ -8,8 +8,6 @@
 
 namespace app\controllers;
 
-
-use app\models\Category;
 use app\models\Project;
 
 class ProjectController extends AppController {
@@ -22,18 +20,12 @@ class ProjectController extends AppController {
 	 */
 	public function indexAction( $id = null ) {
 
-		$categoryModel = new Category;
-		$projectModel  = new Project;
-		//< для меню и левой навигации
-		$categoryNames = $categoryModel->findAllNames();
-		$projectNames  = $projectModel->findAllNames();
-		//> для меню и левой навигации
-
-		$project = $projectModel->findById( $id );
+		$projectModel = new Project;
+		$project      = $projectModel->findById( $id );
 
 		$this->view = 'project';
 
-		$title = "Custom Light. {$project['name']}";
-		$this->set( compact( 'title', 'categoryNames', 'projectNames', 'project' ) );
+		$title = APP_NAME . ". {$project['name']}";
+		$this->set( [ 'title' => $title, 'layoutEssentials' => $this->layoutEssentials, 'project' => $project ] );
 	}
 }

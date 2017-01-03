@@ -13,13 +13,12 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="/page/about" id="first-a">О компании</a></li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Каталог<b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<p><b>Категории:</b></p>
 						<li class="divider"></li>
-						<? foreach ( $categoryNames as $categoryName ): ?>
+						<? foreach ( $layoutEssentials['categories'] as $categoryName ): ?>
 							<li><a href="/category/<?= $categoryName['id'] ?>"><?= $categoryName['name'] ?></a></li>
 						<? endforeach; ?>
 					</ul>
@@ -28,13 +27,14 @@
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Реализованные проекты<b
 							class="caret"></b></a>
 					<ul class="dropdown-menu">
-						<? foreach ( $projectNames as $projectName ): ?>
+						<? foreach ( $layoutEssentials['projects'] as $projectName ): ?>
 							<li><a href="/project/<?= $projectName['id'] ?>"><?= $projectName['name'] ?></a></li>
 						<? endforeach; ?>
 					</ul>
 				</li>
-				<li class="active"><a href="/page/designers">Архитекторам / Дизайнерам</a></li>
-				<li class="active"><a href="/page/contacts">Контакты</a></li>
+				<? foreach ( $layoutEssentials['pages'] as $pageName ): ?>
+					<li class="nav-a"><a href="/page/<?= $pageName['alias'] ?>"><?= $pageName['name'] ?></a></li>
+				<? endforeach; ?>
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->

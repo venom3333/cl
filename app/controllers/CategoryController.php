@@ -24,21 +24,24 @@ class CategoryController extends AppController {
 	 */
 	public function indexAction( $categoryId = null ) {
 
-		if ($categoryId == null) Error::e404('Категория не задана!');
+		if ( $categoryId == null ) {
+			Error::e404( 'Категория не задана!' );
+		}
 
-		$categoryModel = new Category();
-		$projectModel  = new Project;
-		$productModel  = new Product;
-		//< для меню и левой навигации
-		$categoryNames = $categoryModel->findAllNames();
-		$projectNames  = $projectModel->findAllNames();
-		//> для меню и левой навигации
-
+		$categoryModel  = new Category();
+		$projectModel   = new Project;
+		$productModel   = new Product;
 		$categoryHeader = $categoryModel->findCategoryBrief( $categoryId );
 		$products       = $productModel->findByCategory( $categoryId );
 		$projects       = $projectModel->findByCategory( $categoryId );
 
-		$title = "Custom Light. {$categoryHeader['name']}";
-		$this->set( compact( 'title', 'categoryNames', 'projectNames', 'products', 'categoryHeader', 'projects' ) );
+		$title = APP_NAME . ". {$categoryHeader['name']}";
+		$this->set( [
+			'title'            => $title,
+			'products'         => $products,
+			'categoryHeader'   => $categoryHeader,
+			'projects'         => $projects,
+			'layoutEssentials' => $this->layoutEssentials
+		] );
 	}
 }

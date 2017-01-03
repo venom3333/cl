@@ -3,6 +3,9 @@
  * Файл настроек
  */
 
+//>Название приложения
+define( 'APP_NAME', 'CustomLight');
+
 //> Константы для обращения к контроллерам
 define( 'PathPrefix', '../controllers/' );
 define( 'PathPostfix', 'Controller.php' );

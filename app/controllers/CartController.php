@@ -8,10 +8,6 @@
 
 namespace app\controllers;
 
-
-use app\models\Category;
-use app\models\Project;
-
 class CartController extends AppController {
 
 	public $layout = 'main';
@@ -20,18 +16,10 @@ class CartController extends AppController {
 	 *  Вывод основной страницы корзины
 	 */
 	public function indexAction() {
-		//< для меню и левой навигации
-		$categoryModel = new Category;
-		$projectModel  = new Project;
-		$categoryNames = $categoryModel->findAllNames();
-		$projectNames  = $projectModel->findAllNames();
-		//> для меню и левой навигации
-
 		$this->view = 'cart';
 
-		$title = "Custom Light. Корзина. Оформление заказа.";
-		$this->set( compact( 'title', 'categoryNames', 'projectNames' ) );
-
+		$title = APP_NAME . ". Корзина. Оформление заказа.";
+		$this->set( [ 'title' => $title, 'layoutEssentials' => $this->layoutEssentials ] );
 	}
 
 	/**
