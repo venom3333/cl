@@ -22,11 +22,6 @@ body {
     width: 80%;
 }
 
-#content {
-    position: relative;
-    left: 10px;
-}
-
 .h-line {
     height: 2px;
     width: 100%;
@@ -166,7 +161,7 @@ body {
 }
 
 .product-model-sec {
-    margin-top: 5%;
+    /*margin-top: 5%;*/
 }
 
 /*/Продукт*/

@@ -54,4 +54,9 @@
     margin-bottom: 5px;
 }
 
+.map {
+    position: relative;
+    top: 5px;
+}
+
 /* /Футер */

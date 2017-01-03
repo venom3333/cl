@@ -629,7 +629,9 @@ class AdminController extends AppController {
 	 * @param int $pageId id категории
 	 */
 	public
-	function editPageAction(int $pageId) {
+	function editPageAction(
+		int $pageId
+	) {
 		$pageModel = new Page;
 		$page      = $pageModel->findById( $pageId )[0];
 		$title     = "Работа с базой даннных. Редактирование страницы с ID = $pageId.";
@@ -643,10 +645,12 @@ class AdminController extends AppController {
 	 * @param int $pageId id категории
 	 */
 	public
-	function updatePageAction( int $pageId ) {
-		$updatedPage ['name']              = $_POST ['pageName'];
-		$updatedPage ['alias'] = $_POST ['pageAlias'];
-		$updatedPage ['content']       = $_POST ['pageContent'];
+	function updatePageAction(
+		int $pageId
+	) {
+		$updatedPage ['name']    = $_POST ['pageName'];
+		$updatedPage ['alias']   = $_POST ['pageAlias'];
+		$updatedPage ['content'] = $_POST ['pageContent'];
 
 		$pageModel = new Page;
 
@@ -656,6 +660,5 @@ class AdminController extends AppController {
 		header( 'Location: /admin/pages' );
 		exit();
 	}
-
 }
 

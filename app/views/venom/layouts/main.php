@@ -32,7 +32,7 @@
 <section class="content">
 	<div class="container">
 		<!--Хлебные крошки-->
-		<? include_once APP . "/views/" . TEMPLATE . "/common/breadcrumbs.php" ?>
+<!--		--><?// include_once APP . "/views/" . TEMPLATE . "/common/breadcrumbs.php" ?>
 		<!--/Хлебные крошки-->
 
 		<!--Левое меню-->

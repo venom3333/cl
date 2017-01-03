@@ -57,7 +57,7 @@
 		<ul>
 			<li><a href="/admin"><h4>Админка. Главная.</h4></a></li>
 		</ul>
-		<ul>
+		<ul><p>Работа со страницами</p>
 			<a href="/admin/pages">
 				<li>Страницы</li>
 			</a>

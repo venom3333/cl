@@ -12,7 +12,7 @@
 		<? foreach ( $pages as $page ): ?>
 			<tr>
 				<td><?= $page['id'] ?></td>
-				<td><a href="/page/<?= $page['id'] ?>"><?= $page['name'] ?></a></td>
+				<td><a href="/page/<?= $page['alias'] ?>"><?= $page['name'] ?></a></td>
 				<td><?= $page['alias'] ?></td>
 				<td class="adminActions">
 					<a href="/admin/edit-page/<?= $page['id'] ?>">
