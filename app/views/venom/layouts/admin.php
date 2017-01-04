@@ -38,10 +38,10 @@
 				<a class="navbar-brand" href="/">Custom Light</a>
 			</div>
 			<div class="adminTitle"><?= $title ?><br>
-				<? if ( ! isset( $_SESSION ['auth'] ) || $_SESSION ['auth'] != ADMIN_PASS ): ?>
+				<? if ( ! isset ( $_SESSION ['authAdmin'] ) || ! $_SESSION ['authAdmin'] ): ?>
 					<form action="/admin" class="adminPass" method="post">
-						<label for="auth"></label><input type="password" name="auth" placeholder="Скажи пароль..."
-						                                 id="auth">
+						<label for="authAdmin"></label><input type="password" name="authAdmin" placeholder="Скажи пароль..."
+						                                 id="authAdmin">
 					</form>
 				<? else: ?>
 					Вы - Админ!
