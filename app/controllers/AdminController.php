@@ -27,6 +27,7 @@ class AdminController extends AppController {
 			header( 'Location: /admin' );
 			exit();
 		}
+
 		return true;
 	}
 
