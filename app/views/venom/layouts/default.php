@@ -20,7 +20,7 @@
 	        integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY"
 	        crossorigin="anonymous"></script>
 
-<!--	Общие функции JS-->
+	<!--	Общие функции JS-->
 	<script src="/templates/<?= TEMPLATE ?>/js/general.js"></script>
 
 </head>
@@ -31,7 +31,9 @@
 </header>
 
 <section class="content">
-	<?= $content ?>
+	<div id="content">
+		<?= $content ?>
+	</div>
 </section>
 
 <footer>

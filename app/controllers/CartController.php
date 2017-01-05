@@ -4,7 +4,7 @@ namespace app\controllers;
 
 class CartController extends AppController {
 
-	public $layout = 'main';
+	//public $layout = 'main';
 
 	/**
 	 *  Вывод основной страницы корзины

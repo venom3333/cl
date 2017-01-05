@@ -12,7 +12,7 @@ define( 'PathPostfix', 'Controller.php' );
 
 // Умолчания
 define( 'CONTROLLERS', 'app\controllers\\' );
-define( 'DEFAULT_CONTROLLER', 'Main' );
+define( 'DEFAULT_CONTROLLER', 'Home' );
 define( 'DEFAULT_ACTION', 'index' );
 //<
 

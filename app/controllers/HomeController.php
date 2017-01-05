@@ -8,9 +8,9 @@ namespace app\controllers;
 use app\models\Category;
 
 
-class MainController extends AppController {
+class HomeController extends AppController {
 
-	//public $layout = 'main';
+	//public $layout = 'default';
 
 	public function testAction() {
 		$model      = new Category;

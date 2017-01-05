@@ -130,6 +130,7 @@ function updateProductQuantity() {
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function () {
         if (xhr.status === 200) {
+            console.log(xhr.responseText);
             document.getElementById('content').innerHTML = xhr.responseText; // Перезагружаем корзину
         }
     };
