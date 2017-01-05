@@ -47,7 +47,7 @@
 				<? else: ?>
 					Вы - Админ!
 					<form action="/admin/exit-auth" method="post">
-						<input type="submit" value="Выйти">
+						<input type="submit" class="btn btn-primary" value="Выйти">
 					</form>
 				<? endif; ?>
 			</div>
