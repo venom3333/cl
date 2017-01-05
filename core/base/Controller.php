@@ -67,9 +67,7 @@ abstract class Controller {
 		$this->view  = $route['action'];
 		//> блок функционала авторизации
 		if ( $this->auth ) {
-			if ( ! $this->is_auth() ) {
-				die( "Идите нахуй, АВТОРИЗАЦИЯ НЕ ПРОШЛА!!!" );
-			}
+			$this->is_auth() or die( "Идите нахуй, АВТОРИЗАЦИЯ НЕ ПРОШЛА!!!" );
 		}
 		//< блок функционала авторизации
 		$this->getLayoutEssentials();
@@ -95,6 +93,17 @@ abstract class Controller {
 
 			return true;
 		}
+	}
+
+	/**
+	 * Отменяет авторизацию определенного контроллера
+	 */
+	public function exitAuthAction() {
+		$this->is_auth                    = false;
+		$_SESSION [ $this->authCategory ] = '';
+		$this->view                       = "index";
+		$title                            = "Авторизация прекращена.";
+		$this->set( compact( 'title' ) );
 	}
 
 	// Загружает необходимую информацию для определенного шаблона

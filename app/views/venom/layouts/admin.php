@@ -40,11 +40,15 @@
 			<div class="adminTitle"><?= $title ?><br>
 				<? if ( ! isset ( $_SESSION ['authAdmin'] ) || ! $_SESSION ['authAdmin'] ): ?>
 					<form action="/admin" class="adminPass" method="post">
-						<label for="authAdmin"></label><input type="password" name="authAdmin" placeholder="Скажи пароль..."
-						                                 id="authAdmin">
+						<label for="authAdmin"></label><input type="password" name="authAdmin"
+						                                      placeholder="Скажи пароль..."
+						                                      id="authAdmin">
 					</form>
 				<? else: ?>
 					Вы - Админ!
+					<form action="/admin/exit-auth" method="post">
+						<input type="submit" value="Выйти">
+					</form>
 				<? endif; ?>
 			</div>
 		</div>
