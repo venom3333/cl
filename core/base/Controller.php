@@ -2,8 +2,6 @@
 
 namespace core\base;
 
-use core\Error;
-
 abstract class Controller {
 	/**
 	 * Текущий маршрут и параметры (controller, action, params, alias)

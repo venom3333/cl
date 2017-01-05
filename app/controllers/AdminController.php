@@ -6,7 +6,6 @@ use app\models\Category;
 use app\models\Product;
 use app\models\Project;
 use app\models\Page;
-use core\Error;
 
 class AdminController extends AppController {
 
