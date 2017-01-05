@@ -22,6 +22,15 @@ class AdminController extends AppController {
 		}
 	}
 
+	// обработаем неавторизованного пользователя по свОему
+	protected function is_auth() {
+		if ( ! parent::is_auth() ) {
+			header( 'Location: /admin' );
+			exit();
+		}
+		return true;
+	}
+
 	/**
 	 * Формирование главной страницы админки
 	 */

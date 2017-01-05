@@ -33,7 +33,7 @@ abstract class Controller {
 	protected $layoutEssentials = array();
 
 	/**
-	 * Нужна ли админская авторизация
+	 * Нужна ли авторизация
 	 * @var bool;
 	 */
 	protected $auth = false;
@@ -63,21 +63,15 @@ abstract class Controller {
 	 * @param array $route массив с маршрутом
 	 */
 	public function __construct( $route ) {
+		$this->route = $route;
+		$this->view  = $route['action'];
 		//> блок функционала авторизации
-		if ( isset ( $_POST[$this->authCategory] ) && md5( $_POST[$this->authCategory] ) === $this->pass ) {
-			$_SESSION [$this->authCategory] = md5( $_POST[$this->authCategory] );
-		}
-		if ( $this->auth && $route['action'] !== 'index' ) { // т.к. индексные страницы, как правило, являются страницами авторизации
+		if ( $this->auth ) {
 			if ( ! $this->is_auth() ) {
-				Error::common( "Идите нахуй. Авторизация не прошла!!!" );
-			} else {
-				$this->is_auth = true;
+				die( "Идите нахуй, АВТОРИЗАЦИЯ НЕ ПРОШЛА!!!" );
 			}
 		}
 		//< блок функционала авторизации
-
-		$this->route = $route;
-		$this->view  = $route['action'];
 		$this->getLayoutEssentials();
 	}
 
@@ -86,12 +80,21 @@ abstract class Controller {
 	 *
 	 * @return bool авторизован или нет
 	 */
-	private function is_auth() {
-		if ( ! isset( $_SESSION [$this->authCategory] ) || $_SESSION [$this->authCategory] != $this->pass ) {
-			return false;
+	protected function is_auth() {
+		if ( isset ( $_POST[ $this->authCategory ] ) && md5( $_POST[ $this->authCategory ] ) === $this->pass ) {
+			$_SESSION [ $this->authCategory ] = md5( $_POST[ $this->authCategory ] );
 		}
 
-		return true;
+		if ( $this->view == 'index' ) { // т.к. индексные страницы, как правило, являются страницами авторизации
+			return true;
+		}
+		if ( ! isset( $_SESSION [ $this->authCategory ] ) || $_SESSION [ $this->authCategory ] != $this->pass ) {
+			return false;
+		} else {
+			$this->is_auth = true;
+
+			return true;
+		}
 	}
 
 	// Загружает необходимую информацию для определенного шаблона
