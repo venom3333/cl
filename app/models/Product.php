@@ -3,6 +3,7 @@ namespace app\models;
 
 use core\base\Model;
 use core\Error;
+use core\Venom;
 
 /**
  * Модель для таблицы Продуктов (product)
@@ -124,7 +125,7 @@ class Product extends Model {
 	 *
 	 * @return array массив всех товаров для админки
 	 */
-	public function getProductsForAdmin( $sort = 'name', $order = 'ASC' ) {
+	public function getProductsForAdmin( $sort = 'id', $order = 'ASC' ) {
 		$products = $this->findAll( $sort, $order );
 
 		foreach ( $products as &$product ) {
@@ -199,22 +200,15 @@ class Product extends Model {
 	public function createProduct( array $product ) {
 
 		//d( $product );
-		// записываем файл иконки на сервер
-		if ( $product['icon']['error'] == 0 ) {
-			$src            = $product['icon']['tmp_name'];
-			$name           = $product['icon']['name'];
-			$dest           = 'images/products/icons/';
-			$uploadIconFile = $this->uploadAndResizeImage( $src, $name, $dest, DEFAULT_ICON_WIDTH, DEFAULT_ICON_HEIGHT );
-		}
-
 		// записываем в базу сам продукт
+		$product = Venom::addSlashes( $product ); //экранируем спецсимволы
 		$sql = "
 		REPLACE INTO product
 		SET name = '{$product['name']}',
     	status = '{$product['status']}',
     	short_description = '{$product['shortDescription']}',
     	description = '{$product['description']}',
-    	icon = '/{$uploadIconFile}',
+    	icon = '',
     	updated = NOW();
 		";
 		$this->pdo->execute( $sql );
@@ -229,12 +223,27 @@ class Product extends Model {
 		$productID = $this->pdo->query( $sql );
 		$productID = $productID[0]['id'];
 
+		// записываем файл иконки на сервер
+		if ( $product['icon']['error'] == 0 ) {
+			$src            = $product['icon']['tmp_name'];
+			$name           = $product['icon']['name'];
+			$dest           = "images/products/$productID/icons/";
+			$uploadIconFile = $this->uploadAndResizeImage( $src, $name, $dest, DEFAULT_ICON_WIDTH, DEFAULT_ICON_HEIGHT );
+			// записываем в базу путь до сохраненной иконки
+			$sql = "
+					UPDATE product
+					SET icon = '/{$uploadIconFile}'
+					WHERE id = $productID;
+					";
+			$this->pdo->execute( $sql );
+		}
+
 		// записываем изображения на сервер и в базу
 		foreach ( $product['images'] as $image ) {
 			if ( $image['error'] == 0 ) {
 				$src  = $image['tmp_name'];
 				$name = $image['name'];
-				$dest = "images/products/";
+				$dest = "images/products/$productID/";
 				$path = $this->uploadAndResizeImage( $src, $name, $dest );
 			}
 			$sql = "REPLACE INTO product_image
@@ -301,17 +310,7 @@ class Product extends Model {
 	 */
 	public function removeProduct( int $productId ) {
 		// Удаляем сам продукт
-		// сначала файл-иконку
-		$sql  = "
-			SELECT icon
-			FROM product
-			WHERE id = $productId
-		";
-		$icon = $this->pdo->query( $sql );
-		$icon = $icon[0];
-		unlink( WWW . $icon['icon'] );
-
-		// затем саму запись в БД
+		// саму запись из БД
 		$sql = "
 			DELETE
 			FROM product
@@ -326,19 +325,7 @@ class Product extends Model {
 		";
 		$this->pdo->execute( $sql );
 
-		// Удаляем связанные с ним изображения
-		// сначала сами файлы
-		$sql    = "
-			SELECT path
-			FROM product_image
-			WHERE product_id = '$productId'
-		";
-		$images = $this->pdo->query( $sql );
-		foreach ( $images as $image ) {
-			unlink( WWW . $image['path'] );
-		}
-
-		// Затем записи в БД
+		// Удаляем связанные с ним изображения (записи в БД)
 		$sql = "
 			DELETE
 			FROM product_image
@@ -353,6 +340,9 @@ class Product extends Model {
 			WHERE product_id = '$productId'
 		";
 		$this->pdo->execute( $sql );
+
+		// Удаляем папку с изображениями
+		$this->removeDirectory( "images/products/$productId/" );
 	}
 
 	/**
@@ -362,9 +352,10 @@ class Product extends Model {
 	 * @param array $updatedProduct массив с информацией о продукте
 	 */
 	public function updateMain( int $productId, array $updatedProduct = [] ) {
+		$updatedProduct = Venom::addSlashes( $updatedProduct ); //экранируем спецсимволы
+
 		// если имеем новую иконку, то удаляем старую и записываем новую
 		if ( ! $updatedProduct['icon']['error'] ) {
-
 			// удаляем текущий файл-иконку
 			$sql  = "
 			SELECT icon
@@ -381,7 +372,7 @@ class Product extends Model {
 			// записываем новый файл иконки на сервер
 			$src                       = $updatedProduct['icon']['tmp_name'];
 			$name                      = $updatedProduct['icon']['name'];
-			$dest                      = 'images/products/icons/';
+			$dest                      = "images/products/$productId/icons/";
 			$updatedProduct['newIcon'] = $this->uploadAndResizeImage( $src, $name, $dest, DEFAULT_ICON_WIDTH, DEFAULT_ICON_HEIGHT );
 
 			// пишем информацию в базу данных
@@ -447,7 +438,7 @@ class Product extends Model {
 		// Добавляем файл на сервер
 		$src          = $image['tmp_name'];
 		$name         = $image['name'];
-		$dest         = "images/products/";
+		$dest         = "images/products/$id";
 		$newImagePath = $this->uploadAndResizeImage( $src, $name, $dest, IMAGE_WIDTH, IMAGE_HEIGHT );
 
 		// Добавляем запись в БД

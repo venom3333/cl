@@ -33,7 +33,6 @@ abstract class Model {
 		if ( $sort ) {
 			$sql .= " ORDER BY {$sort} {$order}";
 		}
-
 		return $this->pdo->query( $sql );
 	}
 
@@ -122,6 +121,7 @@ abstract class Model {
 	/**
 	 * Преобразует кириллические символы в строке в транслитерацию (латиницей),
 	 * также удаляет все "неестественные" символы и приводит строку к нижнему регистру
+	 *
 	 * @param string $str входная строка
 	 *
 	 * @return string выходная строка
@@ -176,22 +176,51 @@ abstract class Model {
 	/**
 	 * Загружает изображение на сервер, переименовывает его до латинских символов и изменяет
 	 * размер изображения до заданного
-	 * @param string $src   путь до временного файла (источник)
-	 * @param string $name  имя будущего файла
-	 * @param string $dest  путь до будущего файла (куда сохранять)
-	 * @param int $width    ширина конечного изображения
-	 * @param int $height   высота конечного изображения
+	 *
+	 * @param string $src путь до временного файла (источник)
+	 * @param string $name имя будущего файла
+	 * @param string $dest путь до будущего файла (куда сохранять)
+	 * @param int $width ширина конечного изображения
+	 * @param int $height высота конечного изображения
 	 *
 	 * @return string   путь до конечного изображения
 	 */
 	protected function uploadAndResizeImage( string $src, string $name, string $dest = 'images/', int $width = 1024, int $height = 768 ) : string {
 		$this->resizeImage( $src, $width, $height );
 		$uploadedFile = $dest . $this->translit( basename( $name ) );
+
+		// если нет такой директории, то создаем ее
+		if ( ! is_dir( $dest ) ) {
+			mkdir( $dest, 0777, true );
+		}
+
 		move_uploaded_file( $src, $uploadedFile );
 		if ( ! is_file( $uploadedFile ) ) {
 			Error::common( "Файл не загрузился! (Из $src в $dest" );
 		}
 
 		return $uploadedFile;
+	}
+
+	/**
+	 * Удаляет директорию, предварительно удалив все файлы из нее (если есть)
+	 *
+	 * @param $dir
+	 */
+	protected function removeDirectory( $dir ) {
+		if ( is_dir( $dir ) ) {
+			$objects = scandir( $dir );
+			foreach ( $objects as $object ) {
+				if ( $object != "." && $object != ".." ) {
+					if ( filetype( $dir . "/" . $object ) == "dir" ) {
+						$this->removeDirectory( $dir . "/" . $object );
+					} else {
+						unlink( $dir . "/" . $object );
+					}
+				}
+			}
+			reset( $objects );
+			rmdir( $dir );
+		}
 	}
 }

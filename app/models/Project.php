@@ -4,6 +4,7 @@ namespace app\models;
 use core\base\Model;
 use core\Error;
 use core\Db;
+use core\Venom;
 
 /**
  * Модель для таблицы Проектов (project)
@@ -144,21 +145,14 @@ class Project extends Model {
 	 */
 	public function createProject( array $project ) {
 		//d( $project );
-		// записываем файл иконки на сервер
-		if ( $project['icon']['error'] == 0 ) {
-			$src            = $project['icon']['tmp_name'];
-			$name           = $project['icon']['name'];
-			$dest           = 'images/projects/icons/';
-			$uploadIconFile = $this->uploadAndResizeImage( $src, $name, $dest, PROJECT_ICON_WIDTH, PROJECT_ICON_HEIGHT );
-			//d($uploadIconFile);
-		}
 		// записываем в базу сам проект
-		$sql = "
+		$project = Venom::addSlashes( $project ); //экранируем спецсимволы
+		$sql     = "
 		REPLACE INTO project
 		SET name = '{$project['name']}',
     	short_description = '{$project['shortDescription']}',
     	description = '{$project['description']}',
-    	icon = '/{$uploadIconFile}'
+    	icon = ''
 		";
 		$this->pdo->execute( $sql );
 
@@ -172,12 +166,27 @@ class Project extends Model {
 		$projectID = $this->pdo->query( $sql );
 		$projectID = $projectID[0]['id'];
 
+		// записываем файл иконки на сервер
+		if ( $project['icon']['error'] == 0 ) {
+			$src            = $project['icon']['tmp_name'];
+			$name           = $project['icon']['name'];
+			$dest           = "images/projects/$projectID/icons/";
+			$uploadIconFile = $this->uploadAndResizeImage( $src, $name, $dest, PROJECT_ICON_WIDTH, PROJECT_ICON_HEIGHT );
+			// записываем в базу путь до сохраненной иконки
+			$sql = "
+					UPDATE product
+					SET icon = '/{$uploadIconFile}'
+					WHERE id = $projectID;
+					";
+			$this->pdo->execute( $sql );
+		}
+
 		// записываем изображения на сервер и в базу
 		foreach ( $project['images'] as $image ) {
 			if ( $image['error'] == 0 ) {
 				$src  = $image['tmp_name'];
 				$name = $image['name'];
-				$dest = "images/projects/";
+				$dest = "images/projects/$projectID/";
 				$path = $this->uploadAndResizeImage( $src, $name, $dest );
 			}
 			$sql = "REPLACE INTO project_image
@@ -209,17 +218,7 @@ class Project extends Model {
 	 */
 	public function removeProject( int $projectId ) {
 		// Удаляем сам продукт
-		// сначала файл-иконку
-		$sql  = "
-			SELECT icon
-			FROM project
-			WHERE id = $projectId
-		";
-		$icon = $this->pdo->query( $sql );
-		$icon = $icon[0];
-		unlink( WWW . $icon['icon'] );
-
-		// затем саму запись в БД
+		// саму запись в БД
 		$sql = "
 			DELETE
 			FROM project
@@ -234,25 +233,16 @@ class Project extends Model {
 		";
 		$this->pdo->execute( $sql );
 
-		// Удаляем связанные с ним изображения
-		// сначала сами файлы
-		$sql    = "
-			SELECT path
-			FROM project_image
-			WHERE project_id = '$projectId'
-		";
-		$images = $this->pdo->query( $sql );
-		foreach ( $images as $image ) {
-			unlink( WWW . $image['path'] );
-		}
-
-		// Затем записи в БД
+		// Удаляем связанные с ним изображения (записи в БД)
 		$sql = "
 			DELETE
 			FROM project_image
 			WHERE project_id = '$projectId'
 		";
 		$this->pdo->execute( $sql );
+
+		// Удаляем папку с изображениями
+		$this->removeDirectory( "images/products/$projectId/" );
 	}
 
 	/**
@@ -262,6 +252,8 @@ class Project extends Model {
 	 * @param array $updatedProject массив с информацией о проекте
 	 */
 	public function updateMain( int $projectId, array $updatedProject = [] ) {
+		$updatedProject = Venom::addSlashes( $updatedProject ); //экранируем спецсимволы
+
 		// если имеем новую иконку, то удаляем старую и записываем новую
 		if ( ! $updatedProject['icon']['error'] ) {
 
@@ -281,7 +273,7 @@ class Project extends Model {
 			// записываем новый файл иконки на сервер
 			$src                       = $updatedProject['icon']['tmp_name'];
 			$name                      = $updatedProject['icon']['name'];
-			$dest                      = 'images/projects/icons/';
+			$dest                      = "images/projects/$projectId/icons/";
 			$updatedProject['newIcon'] = $this->uploadAndResizeImage( $src, $name, $dest, PROJECT_ICON_WIDTH, PROJECT_ICON_HEIGHT );
 
 			// пишем информацию в базу данных
@@ -346,7 +338,7 @@ class Project extends Model {
 		// Добавляем файл на сервер
 		$src          = $image['tmp_name'];
 		$name         = $image['name'];
-		$dest         = "images/projects/";
+		$dest         = "images/projects/$id";
 		$newImagePath = $this->uploadAndResizeImage( $src, $name, $dest, IMAGE_WIDTH, IMAGE_HEIGHT );
 
 		// Добавляем запись в БД
