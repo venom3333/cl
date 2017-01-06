@@ -2,7 +2,6 @@
 namespace app\models;
 
 use core\base\Model;
-use core\Error;
 use core\Venom;
 
 /**

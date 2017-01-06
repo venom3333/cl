@@ -3,6 +3,7 @@
 namespace app\models;
 
 use core\base\Model;
+use core\Venom;
 
 class Page extends Model {
 
@@ -52,6 +53,7 @@ class Page extends Model {
 	 *
 	 */
 	public function createPage( array $page ) {
+		$page = Venom::addSlashes( $page ); //экранируем спецсимволы
 		// записываем в базу страницу
 		$sql = "
 		REPLACE INTO page
@@ -85,7 +87,7 @@ class Page extends Model {
 	 * @param array $updatedPage массив с информацией о категории
 	 */
 	public function updatePage( int $pageId, array $updatedPage = [] ) {
-
+		$updatedPage = Venom::addSlashes( $updatedPage ); //экранируем спецсимволы
 		// пишем страницу в базу данных
 		$sql = "
 			UPDATE page
