@@ -77,19 +77,23 @@ abstract class Controller {
 	 * @return bool авторизован или нет
 	 */
 	protected function is_auth() {
-		if ( isset ( $_POST[ $this->authCategory ] ) && md5( $_POST[ $this->authCategory ] ) === $this->pass ) {
-			$_SESSION [ $this->authCategory ] = md5( $_POST[ $this->authCategory ] );
+		if ( isset ( $_POST[ $this->authCategory ] ) && password_verify( $_POST [ $this->authCategory ], $this->pass ) ) {
+			$_SESSION [ $this->authCategory ] = true;
 		}
 
 		if ( $this->view == 'index' ) { // т.к. индексные страницы, как правило, являются страницами авторизации
 			return true;
 		}
-		if ( ! isset( $_SESSION [ $this->authCategory ] ) || $_SESSION [ $this->authCategory ] != $this->pass ) {
-			return false;
-		} else {
+
+		if ( isset( $_SESSION [ $this->authCategory ] ) && $_SESSION [ $this->authCategory ] ) {
 			$this->is_auth = true;
 
 			return true;
+		} else {
+			$this->is_auth                    = false;
+			$_SESSION [ $this->authCategory ] = false;
+
+			return false;
 		}
 	}
 
@@ -97,10 +101,10 @@ abstract class Controller {
 	 * Отменяет авторизацию определенного контроллера
 	 */
 	public function exitAuthAction() {
-		$this->is_auth                    = false;
-		$_SESSION [ $this->authCategory ] = '';
-		$this->view                       = "index";
-		$title                            = "Авторизация прекращена.";
+		unset( $_SESSION [ $this->authCategory ] );
+		$this->is_auth = false;
+		$this->view    = "index";
+		$title         = "Авторизация прекращена.";
 		$this->set( compact( 'title' ) );
 	}
 

@@ -38,16 +38,16 @@
 				<a class="navbar-brand" href="/">Custom Light</a>
 			</div>
 			<div class="adminTitle"><?= $title ?><br>
-				<? if ( ! isset ( $_SESSION ['authAdmin'] ) || ! $_SESSION ['authAdmin'] ): ?>
+				<? if ( isset ( $_SESSION ['authAdmin'] ) && $_SESSION ['authAdmin'] === true ) : ?>
+					Вы - Админ!
+					<form action="/admin/exit-auth" method="post">
+						<input type="submit" class="btn btn-primary" value="Выйти">
+					</form>
+				<? else: ?>
 					<form action="/admin" class="adminPass" method="post">
 						<label for="authAdmin"></label><input type="password" name="authAdmin"
 						                                      placeholder="Скажи пароль..."
 						                                      id="authAdmin">
-					</form>
-				<? else: ?>
-					Вы - Админ!
-					<form action="/admin/exit-auth" method="post">
-						<input type="submit" class="btn btn-primary" value="Выйти">
 					</form>
 				<? endif; ?>
 			</div>

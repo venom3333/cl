@@ -15,7 +15,7 @@ define( 'CONFIG', dirname( __DIR__ ) . '/app/config/config.php' );
 define( 'CORE', dirname( __DIR__ ) . '/core/core.php' );
 
 // Если не босс, то временная главная страница
-if ( isset ($_POST['boss']) && $_POST['boss'] == 'IamTheBOSS'){
+if ( isset ( $_POST['boss'] ) && $_POST['boss'] == 'IamTheBOSS' ) {
 	$_SESSION ['boss'] = $_POST['boss'];
 }
 if ( ! isset( $_SESSION ['boss'] ) || $_SESSION ['boss'] != 'IamTheBOSS' ) {

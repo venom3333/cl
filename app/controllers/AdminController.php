@@ -13,14 +13,6 @@ class AdminController extends AppController {
 	protected $auth = true;
 	protected $authCategory = 'authAdmin';
 
-	public function __construct( array $route ) {
-		// $this->pass = md5( "pass" ); // пример как задать пароль отличный от дефолтного
-		parent::__construct( $route );
-		if ( $this->is_auth ) {                     // если авторизован
-			$_SESSION ['authAdmin'] = true;         // для того чтобы во view удобно отображать авторизован или нет.
-		}
-	}
-
 	// обработаем неавторизованного пользователя по свОему
 	protected function is_auth() {
 		if ( ! parent::is_auth() ) {

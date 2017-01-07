@@ -42,8 +42,7 @@ define( 'ADMIN_EMAIL', 'v.kagsfey@mail.ru' );
 define( 'DEFAULT_EMAIL', 'info@customlight.ru' );
 
 // Админ pass
-define( 'ADMIN_PASS', '9ad84a366dc0559106d08ae9b46bffb8');
-
+define( 'ADMIN_PASS', '$2y$10$vQSBtryg6RE/3Xru7FPnluVg10GEZ0N3fTENuSymLUhU6eV1pMMCu');
 
 // Инициализация корзины
 include 'cart.php';
