@@ -82,20 +82,21 @@ class AdminController extends AppController {
 			'description'      => $_POST['productDescription'],
 			'icon'             => $_FILES['productIcon'],
 		];
+
 		// категории
 		foreach ( $_POST as $key => $value ) {
 			if ( preg_match( "~^category[1-9]+~", $key ) ) {
 				$product['categories'][] = $value;
 			}
 		}
-		// изображения
+// изображения
 		foreach ( $_FILES as $key => $value ) {
 			if ( preg_match( "~^productImage[1-9]+~", $key ) ) {
 				$product['images'][] = $value;
 			}
 		}
-		// варианты
-		// сколько вариантов пришло (т.к. price - обязательный параметр, считаем сколько их)
+// варианты
+// сколько вариантов пришло (т.к. price - обязательный параметр, считаем сколько их)
 		$specsCounter = 0;
 		foreach ( $_POST as $key => $value ) {
 			if ( preg_match( "~^productPrice[1-9]+~", $key ) ) {
@@ -128,7 +129,10 @@ class AdminController extends AppController {
 	 *
 	 * @param int $productId id продукта
 	 */
-	public function removeProductAction( int $productId ) {
+	public
+	function removeProductAction(
+		int $productId
+	) {
 
 		$productModel = new Product;
 		$productModel->removeProduct( $productId );
@@ -143,7 +147,10 @@ class AdminController extends AppController {
 	 *
 	 * @param int $productId id категории
 	 */
-	public function editProductAction( int $productId ) {
+	public
+	function editProductAction(
+		int $productId
+	) {
 
 		$productModel    = new Product;
 		$categoriesModel = new Category;
@@ -159,7 +166,10 @@ class AdminController extends AppController {
 	 *
 	 * @param int $productId id продукта
 	 */
-	public function updateProductAction( int $productId ) {
+	public
+	function updateProductAction(
+		int $productId
+	) {
 
 		$updatedProduct ['id']                = $_POST ['productId'];
 		$updatedProduct ['name']              = $_POST ['productName'];
@@ -183,7 +193,10 @@ class AdminController extends AppController {
 	 *
 	 * @param int $productId id продукта
 	 */
-	public function updateProductCategoriesAction( int $productId ) {
+	public
+	function updateProductCategoriesAction(
+		int $productId
+	) {
 
 		$categories = array();
 		if ( $_SERVER['REQUEST_METHOD'] == "POST" ) {
@@ -207,7 +220,10 @@ class AdminController extends AppController {
 	 *
 	 *     * @param int $productId id продукта
 	 */
-	public function addProductImageAction( int $productId ) {
+	public
+	function addProductImageAction(
+		int $productId
+	) {
 
 		if ( ! $_FILES['productImage']['error'] ) {
 			$image        = $_FILES['productImage'];
@@ -227,7 +243,10 @@ class AdminController extends AppController {
 	 *     * @param int $imageId id изображения
 	 *     * @param int $productId id продукта для определения страницу с каким продуктом затем открыть в "Location:"
 	 */
-	public function removeProductImageAction( int $imageId, $productId ) {
+	public
+	function removeProductImageAction(
+		int $imageId, $productId
+	) {
 
 		$productModel = new Product;
 		$productModel->removeImage( $imageId );
@@ -243,7 +262,10 @@ class AdminController extends AppController {
 	 *
 	 *     * @param int $productId id продукта
 	 */
-	public function addProductSpecificationAction( int $productId ) {
+	public
+	function addProductSpecificationAction(
+		int $productId
+	) {
 
 		$specification = array();
 		foreach ( $_POST as $key => $value ) {
@@ -368,7 +390,10 @@ class AdminController extends AppController {
 	 *
 	 * @param int $projectId id категории
 	 */
-	public function editProjectAction( int $projectId ) {
+	public
+	function editProjectAction(
+		int $projectId
+	) {
 
 		$projectModel    = new Project;
 		$categoriesModel = new Category;
@@ -384,7 +409,10 @@ class AdminController extends AppController {
 	 *
 	 * @param int $projectId id проекта
 	 */
-	public function updateProjectAction( int $projectId ) {
+	public
+	function updateProjectAction(
+		int $projectId
+	) {
 
 		$updatedProject ['id']                = $_POST ['projectId'];
 		$updatedProject ['name']              = $_POST ['projectName'];
@@ -408,7 +436,10 @@ class AdminController extends AppController {
 	 *
 	 * @param int $projectId id проекта
 	 */
-	public function updateProjectCategoriesAction( int $projectId ) {
+	public
+	function updateProjectCategoriesAction(
+		int $projectId
+	) {
 
 		$categories = array();
 		if ( $_SERVER['REQUEST_METHOD'] == "POST" ) {
@@ -432,7 +463,10 @@ class AdminController extends AppController {
 	 *
 	 *     * @param int $projectId id проекта
 	 */
-	public function addProjectImageAction( int $projectId ) {
+	public
+	function addProjectImageAction(
+		int $projectId
+	) {
 
 		if ( ! $_FILES['projectImage']['error'] ) {
 			$image        = $_FILES['projectImage'];
@@ -452,7 +486,10 @@ class AdminController extends AppController {
 	 *     * @param int $imageId id изображения
 	 *     * @param int $projectId id проекта для определения страницу с каким проектом затем открыть в "Location:"
 	 */
-	public function removeProjectImageAction( int $imageId, $projectId ) {
+	public
+	function removeProjectImageAction(
+		int $imageId, $projectId
+	) {
 
 		$projectModel = new Project;
 		$projectModel->removeImage( $imageId );

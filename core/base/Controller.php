@@ -61,11 +61,17 @@ abstract class Controller {
 	 * @param array $route массив с маршрутом
 	 */
 	public function __construct( $route ) {
+		//> защита от чужих скриптов
+		if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
+			$_POST = $this->htmlSpecialCharsUniversal( $_POST );
+		}
+		//< защита от чужих скриптов
+
 		$this->route = $route;
 		$this->view  = $route['action'];
 		//> блок функционала авторизации
 		if ( $this->auth ) {
-			$this->is_auth() or die( "Идите нахуй, АВТОРИЗАЦИЯ НЕ ПРОШЛА!!!" );
+			$this->is_auth() or die( "АВТОРИЗАЦИЯ НЕ ПРОШЛА!!!" );
 		}
 		//< блок функционала авторизации
 		$this->getLayoutEssentials();
@@ -77,7 +83,7 @@ abstract class Controller {
 	 * @return bool авторизован или нет
 	 */
 	protected function is_auth() {
-		if ( isset ( $_POST[ $this->authCategory ] ) && password_verify( $_POST [ $this->authCategory ], $this->pass ) ) {
+		if ( isset ( $_POST[ $this->authCategory ] ) && password_verify( htmlspecialchars( $_POST [ $this->authCategory ] ), $this->pass ) ) {
 			$_SESSION [ $this->authCategory ] = true;
 		}
 
@@ -108,7 +114,26 @@ abstract class Controller {
 		$this->set( compact( 'title' ) );
 	}
 
-	// Загружает необходимую информацию для определенного шаблона
+	/**
+	 * Обрабатывает строки или массивы строк функцией htmlspecialchars();
+	 *
+	 * @param array|string data
+	 *
+	 * @return array|string
+	 */
+	protected function htmlSpecialCharsUniversal( $data ) {
+		foreach ( $data as &$value ) {
+			if ( is_string( $value ) ) {
+				$value = htmlspecialchars( $value );
+			}
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Загружает необходимую информацию для определенного шаблона
+	 */
 	protected abstract function getLayoutEssentials();
 
 	/**
