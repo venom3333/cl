@@ -66,7 +66,6 @@ abstract class Controller {
 			$_POST = $this->htmlSpecialCharsUniversal( $_POST );
 		}
 		//< защита от чужих скриптов
-
 		$this->route = $route;
 		$this->view  = $route['action'];
 		//> блок функционала авторизации
@@ -111,7 +110,7 @@ abstract class Controller {
 		$this->is_auth = false;
 		$this->view    = "index";
 		$title         = "Авторизация прекращена.";
-		$this->set( compact( 'title' ) );
+		$this->setVars( compact( 'title' ) );
 	}
 
 	/**
@@ -149,7 +148,16 @@ abstract class Controller {
 	 *
 	 * @param array $vars
 	 */
-	public function set( $vars ) {
+	protected function setVars( $vars ) {
 		$this->vars = $vars;
+	}
+
+	/**
+	 * Присвоить пароль для доступа к контроллеру
+	 *
+	 * @param string $pass
+	 */
+	protected function setPass( string $pass ) {
+		$this->pass = $pass;
 	}
 }

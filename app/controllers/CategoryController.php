@@ -30,7 +30,7 @@ class CategoryController extends AppController {
 		$projects       = $projectModel->findByCategory( $categoryId );
 
 		$title = APP_NAME . ". {$categoryHeader['name']}";
-		$this->set( [
+		$this->setVars( [
 			'title'            => $title,
 			'products'         => $products,
 			'categoryHeader'   => $categoryHeader,

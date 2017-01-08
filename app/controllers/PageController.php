@@ -22,7 +22,7 @@ class PageController extends AppController {
 
 		$title = APP_NAME . '. ' . $page['name'];
 
-		$this->set( [ 'title' => $title, 'layoutEssentials' => $this->layoutEssentials, 'page' => $page ] );
+		$this->setVars( [ 'title' => $title, 'layoutEssentials' => $this->layoutEssentials, 'page' => $page ] );
 	}
 
 }

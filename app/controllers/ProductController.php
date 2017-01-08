@@ -21,7 +21,7 @@ class ProductController extends AppController {
 		$this->view = 'product';
 
 		$title = APP_NAME . ". {$product['name']}";
-		$this->set( [ 'title' => $title, 'layoutEssentials' => $this->layoutEssentials, 'product' => $product ] );
+		$this->setVars( [ 'title' => $title, 'layoutEssentials' => $this->layoutEssentials, 'product' => $product ] );
 	}
 
 }

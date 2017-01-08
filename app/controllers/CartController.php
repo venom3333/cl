@@ -13,7 +13,7 @@ class CartController extends AppController {
 		$this->view = 'cart';
 
 		$title = APP_NAME . ". Корзина. Оформление заказа.";
-		$this->set( [ 'title' => $title, 'layoutEssentials' => $this->layoutEssentials ] );
+		$this->setVars( [ 'title' => $title, 'layoutEssentials' => $this->layoutEssentials ] );
 	}
 
 	/**

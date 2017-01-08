@@ -17,7 +17,7 @@ class HomeController extends AppController {
 		$categories = $model->findAll();
 
 		$title = 'ТЕСТ ТАЙТЛ';
-		$this->set( compact( 'title', 'categories' ) );
+		$this->setVars( compact( 'title', 'categories' ) );
 	}
 
 	/**
@@ -29,6 +29,6 @@ class HomeController extends AppController {
 		$categories    = $categoryModel->findAll();
 
 		$title = APP_NAME . '. Нестандартное освещение';
-		$this->set( [ 'title' => $title, 'categories' => $categories, 'layoutEssentials' => $this->layoutEssentials ] );
+		$this->setVars( [ 'title' => $title, 'categories' => $categories, 'layoutEssentials' => $this->layoutEssentials ] );
 	}
 }

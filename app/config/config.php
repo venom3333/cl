@@ -4,7 +4,7 @@
  */
 
 //>Название приложения
-define( 'APP_NAME', 'CustomLight');
+define( 'APP_NAME', 'CustomLight' );
 
 //> Константы для обращения к контроллерам
 define( 'PathPrefix', '../controllers/' );
@@ -41,8 +41,8 @@ define( 'SUPER_ADMIN_EMAIL', 'v.kagsfey@mail.ru' );
 define( 'ADMIN_EMAIL', 'v.kagsfey@mail.ru' );
 define( 'DEFAULT_EMAIL', 'info@customlight.ru' );
 
-// Админ pass
-define( 'ADMIN_PASS', '$2y$10$vQSBtryg6RE/3Xru7FPnluVg10GEZ0N3fTENuSymLUhU6eV1pMMCu');
+// Пароли (хранятся в виде результата фукции password_hash())
+define( 'ADMIN_PASS', '$2y$10$vQSBtryg6RE/3Xru7FPnluVg10GEZ0N3fTENuSymLUhU6eV1pMMCu' );
 
 // Инициализация корзины
 include 'cart.php';

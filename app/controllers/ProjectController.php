@@ -20,6 +20,6 @@ class ProjectController extends AppController {
 		$this->view = 'project';
 
 		$title = APP_NAME . ". {$project['name']}";
-		$this->set( [ 'title' => $title, 'layoutEssentials' => $this->layoutEssentials, 'project' => $project ] );
+		$this->setVars( [ 'title' => $title, 'layoutEssentials' => $this->layoutEssentials, 'project' => $project ] );
 	}
 }

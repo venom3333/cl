@@ -13,6 +13,13 @@ class AdminController extends AppController {
 	protected $auth = true;
 	protected $authCategory = 'authAdmin';
 
+	// Пример установки отдельного пароля (пароли хранятся в виде результата фукции password_hash()):
+	/*
+	public function __construct( array $route ) {
+		$this->setPass( password_hash( "password", PASSWORD_BCRYPT ) );
+		parent::__construct( $route );
+	}*/
+
 	// обработаем неавторизованного пользователя по свОему
 	protected function is_auth() {
 		if ( ! parent::is_auth() ) {
@@ -28,7 +35,7 @@ class AdminController extends AppController {
 	 */
 	public function indexAction() {
 		$title = "Административная панель. Главная.";
-		$this->set( compact( 'title' ) );
+		$this->setVars( compact( 'title' ) );
 	}
 
 
@@ -41,7 +48,7 @@ class AdminController extends AppController {
 		$productModel = new Product;
 		$title        = "Работа с базой даннных. Продукты.";
 		$products     = $productModel->getProductsForAdmin();
-		$this->set( compact( 'title', 'products' ) );
+		$this->setVars( compact( 'title', 'products' ) );
 	}
 
 	/**
@@ -65,7 +72,7 @@ class AdminController extends AppController {
 		$categories    = $categoryModel->findAllNames();
 
 		$title = "Работа с базой даннных. Новый продукт.";
-		$this->set( compact( 'title', 'categories' ) );
+		$this->setVars( compact( 'title', 'categories' ) );
 	}
 
 	/**
@@ -157,7 +164,7 @@ class AdminController extends AppController {
 		$product         = $productModel->findById( $productId );
 		$categories      = $categoriesModel->findAllNames();
 		$title           = "Работа с базой даннных. Редактирование Продукта $productId.";
-		$this->set( compact( 'title', 'product', 'categories' ) );
+		$this->setVars( compact( 'title', 'product', 'categories' ) );
 	}
 
 	/**
@@ -316,7 +323,7 @@ class AdminController extends AppController {
 		$projects     = $projectModel->getProjectsForAdmin();
 
 		$title = "Работа с базой даннных. Проекты.";
-		$this->set( compact( 'title', 'projects' ) );
+		$this->setVars( compact( 'title', 'projects' ) );
 	}
 
 	/**
@@ -329,7 +336,7 @@ class AdminController extends AppController {
 		$categories    = $categoryModel->findAllNames();
 
 		$title = "Работа с базой даннных. Новый проект.";
-		$this->set( compact( 'title', 'categories' ) );
+		$this->setVars( compact( 'title', 'categories' ) );
 	}
 
 	/**
@@ -400,7 +407,7 @@ class AdminController extends AppController {
 		$project         = $projectModel->findById( $projectId );
 		$categories      = $categoriesModel->findAllNames();
 		$title           = "Работа с базой даннных. Редактирование Проекта $projectId.";
-		$this->set( compact( 'title', 'project', 'categories' ) );
+		$this->setVars( compact( 'title', 'project', 'categories' ) );
 	}
 
 	/**
@@ -508,7 +515,7 @@ class AdminController extends AppController {
 		$categoryModel = new Category;
 		$categories    = $categoryModel->findAll();
 		$title         = "Работа с базой даннных. Категории.";
-		$this->set( compact( 'title', 'categories' ) );
+		$this->setVars( compact( 'title', 'categories' ) );
 	}
 
 	/**
@@ -518,7 +525,7 @@ class AdminController extends AppController {
 	function newCategoryAction() {
 
 		$title = "Работа с базой даннных. Новая Категория.";
-		$this->set( compact( 'title' ) );
+		$this->setVars( compact( 'title' ) );
 
 	}
 
@@ -576,7 +583,7 @@ class AdminController extends AppController {
 		$categoryModel = new Category;
 		$category      = $categoryModel->findById( $categoryId );
 		$title         = "Работа с базой даннных. Редактирование Категории $categoryId.";
-		$this->set( compact( 'title', 'category' ) );
+		$this->setVars( compact( 'title', 'category' ) );
 	}
 
 	/**
@@ -615,7 +622,7 @@ class AdminController extends AppController {
 		$pageModel = new Page;
 		$pages     = $pageModel->findAll();
 		$title     = "Работа с базой даннных. Категории.";
-		$this->set( compact( 'title', 'pages' ) );
+		$this->setVars( compact( 'title', 'pages' ) );
 	}
 
 	/**
@@ -625,7 +632,7 @@ class AdminController extends AppController {
 	function newPageAction() {
 
 		$title = "Работа с базой даннных. Новая Страница.";
-		$this->set( compact( 'title' ) );
+		$this->setVars( compact( 'title' ) );
 
 	}
 
@@ -681,7 +688,7 @@ class AdminController extends AppController {
 		$pageModel = new Page;
 		$page      = $pageModel->findById( $pageId )[0];
 		$title     = "Работа с базой даннных. Редактирование страницы с ID = $pageId.";
-		$this->set( compact( 'title', 'page' ) );
+		$this->setVars( compact( 'title', 'page' ) );
 	}
 
 	/**
