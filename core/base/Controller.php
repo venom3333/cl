@@ -19,6 +19,7 @@ abstract class Controller
      * @var string
      */
     public $layout = 'default';
+
     /**
      * Пользовательские данные
      * @var array
