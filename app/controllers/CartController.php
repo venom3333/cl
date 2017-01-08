@@ -24,6 +24,10 @@ class CartController extends AppController {
 
 		$data = json_decode( $_POST['data'] );
 
+		foreach ( $data as &$value ) {
+			$value = htmlspecialchars( $value );
+		}
+
 		$cartItemId = $data->id .
 		              $data->diameter .
 		              $data->length .
