@@ -136,9 +136,7 @@ abstract class Controller {
 			if ( ! json_last_error() ) {
 				$data = json_decode( $data );
 				// Обрабатываем каждое поле объекта рекурсивно
-				foreach ( $data as &$item ) {
-					$item = $this->htmlSpecialCharsUniversal( $item );
-				}
+				$data = $this->htmlSpecialCharsUniversal( $data );
 				// Возвращаем первоначальный формат
 				$data = json_encode( $data );
 			} else {
