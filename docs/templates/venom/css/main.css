@@ -7,6 +7,11 @@
 /* Общие */
 
 * {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
     font-family: 'Roboto', sans-serif;
     transition: all .2s;
 }
