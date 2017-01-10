@@ -125,7 +125,11 @@ abstract class Controller {
 	protected function htmlSpecialCharsUniversal( $data ) {
 		// Если массив или объект то входим в рекурсию
 		if ( is_array( $data ) || is_object( $data ) ) {
-			foreach ( $data as &$item ) {
+			foreach ( $data as $key => &$item ) {
+				// Временный костыль (не обрабатывать поля с такими ключами)
+				if ( preg_match( '/(description)/', mb_strtolower( $key ) ) || preg_match( '/(content)/', mb_strtolower( $key ) ) ) {
+					continue;
+				}
 				$item = $this->htmlSpecialCharsUniversal( $item );
 			}
 		}
@@ -143,6 +147,10 @@ abstract class Controller {
 				// Обрабатываем тем за чем собственно эта функция
 				$data = htmlspecialchars( $data );
 			}
+		}
+
+		if ( is_numeric( $data ) ) {
+			$data = $data * 1;
 		}
 
 		return $data;
