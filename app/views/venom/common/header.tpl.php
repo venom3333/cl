@@ -5,12 +5,12 @@
 
 	<!-- Навбар -->
 	<div class="col-lg-8 nav-line">
-		<? include_once APP . "/views/" . TEMPLATE . "/common/navbar.php" ?>
+		<? include_once APP . "/views/" . TEMPLATE . "/common/navbar.tpl.php" ?>
 	</div>
 	<!-- /Навбар -->
 	<div class="col-md-2">
 		<!--Виджет корзины-->
-		<? include_once APP . "/views/" . TEMPLATE . "/common/carticon.php" ?>
+		<? include_once APP . "/views/" . TEMPLATE . "/common/carticon.tpl.php" ?>
 		<!--/Виджет корзины-->
 		<div class="h-line clearfix"></div>
 		<div class="phone-number">
@@ -22,7 +22,7 @@
 	<!--	Заказать звонок-->
 	<div class="line-block col-md-12">
 		<!-- Collect the nav links, forms, and other content for toggling -->
-		<? include_once APP . "/views/" . TEMPLATE . "/common/callback.php" ?>
+		<? include_once APP . "/views/" . TEMPLATE . "/common/callback.tpl.php" ?>
 	</div>
 	<!--	/Заказать звонок-->
 

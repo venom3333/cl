@@ -1,5 +1,5 @@
 <!-- Слайдер -->
-<? include_once APP . "/views/" . TEMPLATE . "/common/slider.php" ?>
+<? include_once APP . "/views/" . TEMPLATE . "/common/slider.tpl.php" ?>
 <!-- /Слайдер -->
 
 <!--Контент-->

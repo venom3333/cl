@@ -22,22 +22,30 @@
 
 	<!--	Общие функции JS-->
 	<script src="/templates/<?= TEMPLATE ?>/js/general.js"></script>
-
 </head>
 
 <body id="top">
 <header>
-	<? include_once APP . "/views/" . TEMPLATE . "/common/header.php" ?>
+	<? include_once APP . "/views/" . TEMPLATE . "/common/header.tpl.php" ?>
 </header>
 
 <section class="content">
-	<div id="content">
-		<?= $content ?>
+	<div class="container">
+		<!--Хлебные крошки-->
+<!--		--><?// include_once APP . "/views/" . TEMPLATE . "/common/breadcrumbs.tpl.php" ?>
+		<!--/Хлебные крошки-->
+
+		<!--Левое меню-->
+		<? include_once APP . "/views/" . TEMPLATE . "/common/nav_left.tpl.php" ?>
+		<!--/Левое меню-->
+		<div id="content">
+			<?= $content ?>
+		</div>
 	</div>
 </section>
 
 <footer>
-	<? include_once APP . "/views/" . TEMPLATE . "/common/footer.php" ?>
+	<? include_once APP . "/views/" . TEMPLATE . "/common/footer.tpl.php" ?>
 </footer>
 
 <? // d(\core\Db::$countSql,0);?>

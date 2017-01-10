@@ -22,7 +22,7 @@ define( 'LAYOUT', 'default' );
 
 // пути к файлам шаблонов
 define( 'TemplatePrefix', APP . "/views/" . TEMPLATE );
-define( 'TemplatePostfix', ".php" );
+define( 'TemplatePostfix', ".tpl.php" );
 
 // пути к файлам шаблонов в вебпространстве
 define( 'TemplateWebPath', "/templates/" . TEMPLATE );
