@@ -29,7 +29,11 @@
 				<p>Адрес: 141280, Московская область, г.Ивантеевка, Студенческий проезд, дом 12</p>
 			</div>
 			<div class="col-md-3 ftr-grid map">
-				<script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=2FrmHV8kBN1pZPuzbG5ZRza3lerBcGkL&amp;width=100%25&amp;height=250&amp;lang=ru_RU&amp;sourceType=constructor&amp;scroll=true"></script>
+									<script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=2FrmHV8kBN1pZPuzbG5ZRza3lerBcGkL&amp;width=100%25&amp;height=250&amp;lang=ru_RU&amp;sourceType=constructor&amp;scroll=true"></script>
+<!--					<a href="https://yandex.ru/maps/?um=constructor%3A2FrmHV8kBN1pZPuzbG5ZRza3lerBcGkL&amp;source=constructorStatic"-->
+<!--					   target="_blank"><img-->
+<!--							src="https://api-maps.yandex.ru/services/constructor/1.0/static/?sid=2FrmHV8kBN1pZPuzbG5ZRza3lerBcGkL&amp;width=350&amp;height=250&amp;lang=ru_RU&amp;sourceType=constructor"-->
+<!--							alt="" style="border: 0;"/></a>-->
 			</div>
 			<div class="clearfix"></div>
 		</div>
