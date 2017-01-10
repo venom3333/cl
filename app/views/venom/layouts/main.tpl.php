@@ -15,7 +15,7 @@
 	<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 	<!-- Custom styles for this template -->
-	<link href="/templates/venom/css/main.css" rel="stylesheet">
+	<link href="/templates/venom/css/base.css" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"
 	        integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY"
 	        crossorigin="anonymous"></script>
