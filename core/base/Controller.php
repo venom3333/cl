@@ -63,13 +63,14 @@ abstract class Controller {
 	 */
 	public function __construct( $route ) {
 		//> защита от чужих скриптов
-		if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
+		if ( $_SERVER['REQUEST_METHOD'] == 'POST' && $_POST ) {
 			$_POST = $this->htmlSpecialCharsUniversal( $_POST );
 		}
-
 		//< защита от чужих скриптов
+
 		$this->route = $route;
 		$this->view  = $route['action'];
+
 		//> блок функционала авторизации
 		if ( $this->auth ) {
 			$this->is_auth() or die( "АВТОРИЗАЦИЯ НЕ ПРОШЛА!!!" );
