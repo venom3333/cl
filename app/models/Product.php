@@ -53,6 +53,11 @@ class Product extends Model {
 		// добавляем спецификации
 		$specifications = self::getSpecifications( $id );
 		if ( $specifications ) {
+			foreach ($specifications as &$specification) {
+				foreach ($specification as &$field) {
+					if($field == '0') $field = '-';         // Меняем на черточки для удобства отображения
+				}
+			}
 			$product['specifications'] = $specifications;
 		}
 
