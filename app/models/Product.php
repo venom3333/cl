@@ -85,13 +85,17 @@ class Product extends Model {
 	 *
 	 * @param integer $productId ID продукта
 	 *
+	 * @param string $sort  критерий сортировки
+	 * @param string $order порядок сортировки
+	 *
 	 * @return array массив спецификаций определенного товара
 	 */
-	protected function getSpecifications( $productId ) {
+	protected function getSpecifications( $productId, $sort = 'diameter, price', $order = 'ASC' ) {
 		$sql = "
 		SELECT *
 		FROM specification
-		WHERE product_id = $productId";
+		WHERE product_id = $productId
+		ORDER BY $sort $order";
 
 		return $this->pdo->query( $sql );
 	}
