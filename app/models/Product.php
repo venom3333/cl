@@ -90,7 +90,7 @@ class Product extends Model {
 	 *
 	 * @return array массив спецификаций определенного товара
 	 */
-	protected function getSpecifications( $productId, $sort = 'diameter, price', $order = 'ASC' ) {
+	protected function getSpecifications( $productId, $sort = 'diameter, length, price', $order = 'ASC' ) {
 		$sql = "
 		SELECT *
 		FROM specification
