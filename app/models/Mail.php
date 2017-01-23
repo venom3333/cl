@@ -18,12 +18,12 @@ class Mail extends Model {
 		$to = DEFAULT_EMAIL . "," . ADMIN_EMAIL;
 
 		// Заголовки
-		$headers = array();
+		$headers   = array();
 		$headers[] = "MIME-Version: 1.0";
 		$headers[] = "Content-type: text/plain; charset=utf-8";
 		$headers[] = "From: customlight.ru";
-		$headers = implode( "\r\n", $headers);
+		$headers   = implode( "\r\n", $headers );
 
-		mail( $to, $subject, $message, $headers );
+		return mail( $to, $subject, $message, $headers ) ? true : false;
 	}
 }

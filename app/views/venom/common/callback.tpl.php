@@ -7,7 +7,7 @@
 					<form class="callback" id="callback">
 						<div class="form-group">
 							<label for="inputName"></label>
-							<input type="email" class="form-control" id="inputName" placeholder="Ваше имя"
+							<input type="text" class="form-control" id="inputName" placeholder="Ваше имя"
 							       required>
 						</div>
 						<div class="form-group">

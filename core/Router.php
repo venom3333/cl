@@ -146,6 +146,12 @@ class Router {
 		} else {
 			$controllerObject->$action( $this->params );
 		}
+
+		if (LOGGING) {
+			$log = Logger::getInstance();
+			$log->log("Загружаем $this->controllerName -> $this->actionName");
+		}
+
 		$controllerObject->getView();
 	}
 
