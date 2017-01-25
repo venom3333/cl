@@ -47,6 +47,10 @@ class MailController extends AppController {
 		$mailModel = new Mail;
 		$mailModel->sendArrayToDefaultMail( 'ЗАКАЗ!', $order );
 		$_SESSION['cart']['products'] = array(); // Чистим корзину
-		exit;
+
+		// для обновления самой таблицы корзины
+		$this->layout = false;
+		$content = APP . "/views/" . TEMPLATE . "/Cart/cart.tpl.php";
+		include $content; // обновляем виджет
 	}
 }

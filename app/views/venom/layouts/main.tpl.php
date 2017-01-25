@@ -48,6 +48,27 @@
 	<? include_once APP . "/views/" . TEMPLATE . "/common/footer.tpl.php" ?>
 </footer>
 
+<!--Для всплывающих сообщений-->
+<div id="error-notification" class="notif-box">
+	<span class="glyphicon glyphicon-bullhorn"></span>
+	<p>Ошибка! =(</p>
+	<a class="notification-close"><span class="icon-cross2"></span></a>
+</div>
+
+<div id="success-notification" class="notif-box">
+	<span class="glyphicon glyphicon-bullhorn"></span>
+	<p>Ок! =)</p>
+	<a class="notification-close"><span class="icon-cross2"></span></a>
+</div>
+
+<div id="default-notification" class="notif-box">
+	<span class="glyphicon glyphicon-bullhorn"></span>
+	<p>...</p>
+	<a class="notification-close"><span class="icon-cross2"></span></a>
+</div>
+<!--/Для всплывающих сообщений-->
+
+
 <? // d(\core\Db::$countSql,0);?>
 <? // d(\core\Db::$queries,0);?>
 

@@ -1,12 +1,11 @@
 <?php
-//TODO: Объединить изображения в одну таблицу (добавить в нее поле 'type')
+//TODO: Объединить изображения в одну таблицу (добавить в нее поле 'type') (под вопросом...)
 
 // 1. Общие настройки
 session_start();
 
-// ini_set( 'display_errors', 1 );
-// error_reporting( E_ALL );
-define( 'LOGGING', true );
+ini_set( 'display_errors', 1 );
+error_reporting( E_ALL );
 
 // 2. Константы
 define( 'WWW', __DIR__ );
@@ -14,6 +13,7 @@ define( 'ROOT', dirname( __DIR__ ) );
 define( 'APP', dirname( __DIR__ ) . '/app' );
 define( 'CONFIG', dirname( __DIR__ ) . '/app/config/config.php' );
 define( 'CORE', dirname( __DIR__ ) . '/core/core.php' );
+require_once ROOT . "/core/constants.php";
 
 // Если не босс, то временная главная страница
 if ( isset ( $_POST['boss'] ) && $_POST['boss'] == 'IamTheBOSS' ) {
@@ -41,6 +41,9 @@ spl_autoload_register( function ( $class ) {
 	}
 } );
 
-// 4. Запуск роутера
+// 4. Настройка логгирования.
+define( 'LOGGING', OFF );
+
+// 5. Запуск роутера
 $router = new core\Router();
 $router->run();

@@ -4,6 +4,7 @@ function callbackMail() {
     data.number = document.getElementById('inputPhoneNumber').value;
     data.text = document.getElementById('inputText').value;
 
+    Notify({status: true, def: true, message: 'Идет отправка...', timer: 32});
 
     // Ajax запрос
     var url = "/mail/callback";
@@ -12,8 +13,10 @@ function callbackMail() {
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function () {
         if (xhr.status === 200) {
-            alert('Ваша заявка отправлена, мы Вам перезвоним как можно скорее!');
-            location.reload();
+            Notify({status: true, message: 'Ваша заявка принята. Ожидайте звонка менеджера. Спасибо!', timer: 8});
+            document.getElementById('callback').reset(); // чистим форму
+        } else {
+            Notify({status: false, message: 'Упс! Произошла ошибка на сервере. Пожалуйста, позвоните нам!', timer: 16});
         }
     };
     xhr.send("data=" + JSON.stringify(data));
@@ -34,7 +37,9 @@ function makeOrderMail() {
     data.address = document.getElementById('cartAddress').value;
     data.text = document.getElementById('cartNotes').value;
 
-    console.log(data);
+    // console.log(data);
+
+    Notify({status: true, def: true, message: 'Идет отправка...', timer: 32});
 
     // Ajax запрос
     var url = "/mail/make-order";
@@ -43,14 +48,57 @@ function makeOrderMail() {
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function () {
         if (xhr.status === 200) {
-            alert('Ваша заказ отправлен в обработку, мы Вам перезвоним как можно скорее!');
-            location.reload();
+            Notify({status: true, message: 'Ваша заявка принята. Ожидайте звонка менеджера. Спасибо!', timer: 8});
+            document.getElementById('checkout').reset();
+            document.getElementById('content').innerHTML = xhr.responseText; // Перезагружаем корзину
+        } else {
+            Notify({status: false, message: 'Упс! Произошла ошибка на сервере. Пожалуйста, позвоните нам!', timer: 16});
         }
     };
     xhr.send("data=" + JSON.stringify(data));
 
 }
 
+/**
+ * Всплывающее окно уведомлений
+ */
+$('a.ontification-close').click(function () {
+    $(this).parent('div').removeClass('show-up');
+});
+var TimeOutNotify = null;
+function Notify(setup) {
+    var box_id = setup.status ? '#success-notification' : '#error-notification';
+    var def = setup.def || false;
+    if (def) box_id = '#default-notification';
+
+    var message = setup.message || null;
+    var timer = setup.timer || false;
+
+    if (message !== null) {
+        $('#success-notification').removeClass('show-up');
+        $('#default-notification').removeClass('show-up');
+        $('#error-notification').removeClass('show-up');
+
+        $(box_id).children('p').html(message);
+        $(box_id).addClass('show-up');
+
+        if (timer) {
+            clearTimeout(TimeOutNotify);
+            TimeOutNotify = setTimeout(function () {
+                Notify({status: setup.status})
+            }, 1000 * timer);
+        }
+    } else {
+        $(box_id).removeClass('show-up');
+    }
+}
+$('.notification-close').click(function () {
+    $('.notification-close').parent('div').removeClass('show-up');
+});
+
+
+
+// Лисенеры
 function addMailListeners() {
     addEventListenerByClass('callback-mail-button', 'click', callbackMail);
     addEventListenerByClass('make-order-button', 'click', makeOrderMail);

@@ -22,12 +22,10 @@ function addToCart() {
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function () {
         if (xhr.status === 200) {
-            document.getElementById('carticon').innerHTML = xhr.responseText; // обновляем виджет корзины
+            updateWidget();
         }
     };
     xhr.send("data=" + JSON.stringify(data));
-
-    updateWidget();
 }
 
 function deleteFromCart() {

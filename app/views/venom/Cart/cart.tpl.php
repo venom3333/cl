@@ -101,7 +101,7 @@
 		<input type="button" class="cart-wipe-button" value="Очистить корзину!">
 
 		<h3>Информация по заказу:</h3>
-		<form class="checkout">
+		<form class="checkout" id="checkout">
 			<fieldset class="form-group">
 				<legend class="h-line-reverse">Способ доставки:</legend>
 				<div class="form-check">
