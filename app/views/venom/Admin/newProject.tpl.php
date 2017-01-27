@@ -1,7 +1,7 @@
 <script src="/templates/<?= TEMPLATE ?>/js/preview.js"></script>
 
 <h1>Новый проект!</h1>
-<form action="/admin/create-project" enctype="multipart/form-data" method="post" novalidate>
+<form action="/admin/create-project" enctype="multipart/form-data" method="post">
 	<div class="form-group">
 		<label for="projectName">Наименование</label>
 		<input type="text" class="form-control" id="projectName" name="projectName" required>
@@ -38,7 +38,7 @@
 			<div class="form-group col-md-2">
 				<label for="projectImage<?= $i ?>">Изображение <?= $i ?></label>
 				<input type="file" class="form-control" id="projectImage<?= $i ?>" name="projectImage<?= $i ?>"
-				       accept="image/*" onchange="previewImage('projectImage<?= $i ?>','projectPreview<?= $i ?>')">
+				       accept="image/*" onchange="previewImage('projectImage<?= $i ?>','projectPreview<?= $i ?>')" <? if ($i == 1) echo 'required' ?>>
 				<img src="" alt="" id="projectPreview<?= $i ?>" class="preview">
 			</div>
 		<? endfor; ?>

@@ -1,7 +1,8 @@
+<!--TODO: ИСПРАВИТЬ! (продукты создаются с пустыми картинками если заполнены не все)-->
 <script src="/templates/<?= TEMPLATE ?>/js/preview.js"></script>
 
 <h1>Новый продукт!</h1>
-<form action="/admin/create-product" enctype="multipart/form-data" method="post" novalidate>
+<form action="/admin/create-product" enctype="multipart/form-data" method="post">
 	<div class="form-group">
 		<label for="productName">Наименование</label>
 		<input type="text" class="form-control" id="productName" name="productName" required>
@@ -38,13 +39,13 @@
 		</div>
 	<? endforeach; ?>
 
-	<h4>Добавьте от 2х до 5ти изображений (уменьшится до 1024*768):</h4>
+	<h4>Добавьте от 2х до 5ти изображений (размер установится в <?= IMAGE_WIDTH, "*", IMAGE_HEIGHT?>px):</h4>
 	<div class="row">
 		<? for ( $i = 1; $i <= 5; $i ++ ): ?>
 			<div class="form-group col-md-2">
 				<label for="productImage<?= $i ?>">Изображение <?= $i ?></label>
 				<input type="file" class="form-control" id="productImage<?= $i ?>" name="productImage<?= $i ?>"
-				       accept="image/*" onchange="previewImage('productImage<?= $i ?>','productPreview<?= $i ?>')">
+				       accept="image/*" onchange="previewImage('productImage<?= $i ?>','productPreview<?= $i ?>')" <? if ($i == 1) echo 'required' ?>>
 				<img src="" alt="" id="productPreview<?= $i ?>" class="preview">
 			</div>
 		<? endfor; ?>
