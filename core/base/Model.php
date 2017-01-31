@@ -2,10 +2,8 @@
 
 namespace core\base;
 
-
 use core\Db;
 use core\Error;
-use core\Venom;
 
 abstract class Model {
 
