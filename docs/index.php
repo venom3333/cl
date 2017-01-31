@@ -16,9 +16,9 @@ define( 'CONFIG', dirname( __DIR__ ) . '/app/config/config.php' );
 define( 'CORE', dirname( __DIR__ ) . '/core/core.php' );
 require_once ROOT . "/core/constants.php";
 
-// Если не босс, то временная главная страница
-if ( isset ( $_POST['boss'] ) && $_POST['boss'] == 'IamTheBOSS' ) {
-	$_SESSION ['boss'] = $_POST['boss'];
+// ЗАГЛУШКА! Если не босс, то временная главная страница
+if ( filter_input(INPUT_POST, 'boss' ) && filter_input(INPUT_POST, 'boss', FILTER_SANITIZE_SPECIAL_CHARS) === 'IamTheBOSS' ) {
+	$_SESSION ['boss'] = filter_input(INPUT_POST, 'boss', FILTER_SANITIZE_SPECIAL_CHARS);
 }
 if ( ! isset( $_SESSION ['boss'] ) || $_SESSION ['boss'] != 'IamTheBOSS' ) {
 	header( 'Location: placeholder/index.html' );
@@ -33,8 +33,8 @@ require_once CONFIG; // Инициализация настроек
 // 3. Функция автозагрузки классов
 // функция автозагрузки файлов классов
 spl_autoload_register( function ( $class ) {
-
-	if ( file_exists( $file = ROOT . '/' . str_replace( '\\', '/', $class ) . '.php' ) ) {
+        $file = ROOT . '/' . str_replace( '\\', '/', $class ) . '.php';
+	if ( file_exists( $file ) ) {
 		require_once $file;
 	} else {
 		echo "Не найден файл Класса: $class.php";
