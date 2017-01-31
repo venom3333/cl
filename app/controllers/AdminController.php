@@ -21,9 +21,9 @@ class AdminController extends AppController {
 	}*/
 
 	// обработаем неавторизованного пользователя по свОему
-	protected function is_auth() {
-		if ( ! parent::is_auth() ) {
-			header( 'Location: /admin' );
+	protected function is_auth(){
+		if(!parent::is_auth()){
+			header('Location: /admin');
 			exit();
 		}
 
@@ -33,9 +33,9 @@ class AdminController extends AppController {
 	/**
 	 * Формирование главной страницы админки
 	 */
-	public function indexAction() {
+	public function indexAction(){
 		$title = "Административная панель. Главная.";
-		$this->setVars( compact( 'title' ) );
+		$this->setVars(compact('title'));
 	}
 
 
@@ -43,12 +43,12 @@ class AdminController extends AppController {
 	/**
 	 * Формирование страницы админки с манипуляциями над продуктами
 	 */
-	public function productsAction() {
+	public function productsAction(){
 		$this->view   = "products";
 		$productModel = new Product;
 		$title        = "Работа с базой даннных. Продукты.";
 		$products     = $productModel->getProductsForAdmin();
-		$this->setVars( compact( 'title', 'products' ) );
+		$this->setVars(compact('title', 'products'));
 	}
 
 	/**
@@ -57,29 +57,29 @@ class AdminController extends AppController {
 	 *
 	 * @param int $productId id продукта
 	 */
-	public function toggleProductStatusAction( int $productId ) {
+	public function toggleProductStatusAction(int $productId){
 		$productModel = new Product;
-		$productModel->toggleStatus( $productId );
+		$productModel->toggleStatus($productId);
 		$this->productsAction();
 	}
 
 	/**
 	 * Формирование страницы админки с формой создания нового продукта
 	 */
-	public function newProductAction() {
+	public function newProductAction(){
 
 		$categoryModel = new Category;
 		$categories    = $categoryModel->findAllNames();
 
 		$title = "Работа с базой даннных. Новый продукт.";
-		$this->setVars( compact( 'title', 'categories' ) );
+		$this->setVars(compact('title', 'categories'));
 	}
 
 	/**
 	 * Создает новый продукт и затем
 	 * формирует страницу админки с манипуляциями над продуктами
 	 */
-	public function createProductAction() {
+	public function createProductAction(){
 		// принимаем всю переданную информацию и удобно складываем в массив
 		// основное
 		$product = [
@@ -91,28 +91,28 @@ class AdminController extends AppController {
 		];
 
 		// категории
-		foreach ( $_POST as $key => $value ) {
-			if ( preg_match( "~^category[1-9]+~", $key ) ) {
+		foreach($_POST as $key => $value){
+			if(preg_match("~^category[1-9]+~", $key)){
 				$product['categories'][] = $value;
 			}
 		}
 // изображения
-		foreach ( $_FILES as $key => $value ) {
-			if ( preg_match( "~^productImage[1-9]+~", $key ) ) {
+		foreach($_FILES as $key => $value){
+			if(preg_match("~^productImage[1-9]+~", $key)){
 				$product['images'][] = $value;
 			}
 		}
 // варианты
 // сколько вариантов пришло (т.к. price - обязательный параметр, считаем сколько их)
 		$specsCounter = 0;
-		foreach ( $_POST as $key => $value ) {
-			if ( preg_match( "~^productPrice[1-9]+~", $key ) ) {
+		foreach($_POST as $key => $value){
+			if(preg_match("~^productPrice[1-9]+~", $key)){
 				$specsCounter ++;
 			}
 		}
 
-		for ( $i = 1; $i <= $specsCounter; $i ++ ) {
-			if ( ! $_POST["productPrice$i"] ) {
+		for($i = 1; $i <= $specsCounter; $i ++){
+			if(!$_POST["productPrice$i"]){
 				continue;
 			}
 			$product['specifications'][ $i ]['price']        = $_POST["productPrice$i"];
@@ -125,7 +125,7 @@ class AdminController extends AppController {
 		}
 
 		$productModel = new Product;
-		$productModel->createProduct( $product );
+		$productModel->createProduct($product);
 
 		$this->productsAction();
 	}
@@ -139,13 +139,13 @@ class AdminController extends AppController {
 	public
 	function removeProductAction(
 		int $productId
-	) {
+	){
 
 		$productModel = new Product;
-		$productModel->removeProduct( $productId );
+		$productModel->removeProduct($productId);
 
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
-		header( 'Location: /admin/products' );
+		header('Location: /admin/products');
 		exit();
 	}
 
@@ -157,14 +157,14 @@ class AdminController extends AppController {
 	public
 	function editProductAction(
 		int $productId
-	) {
+	){
 
 		$productModel    = new Product;
 		$categoriesModel = new Category;
-		$product         = $productModel->findById( $productId );
+		$product         = $productModel->findById($productId);
 		$categories      = $categoriesModel->findAllNames();
 		$title           = "Работа с базой даннных. Редактирование Продукта $productId.";
-		$this->setVars( compact( 'title', 'product', 'categories' ) );
+		$this->setVars(compact('title', 'product', 'categories'));
 	}
 
 	/**
@@ -176,7 +176,7 @@ class AdminController extends AppController {
 	public
 	function updateProductAction(
 		int $productId
-	) {
+	){
 
 		$updatedProduct ['id']                = $_POST ['productId'];
 		$updatedProduct ['name']              = $_POST ['productName'];
@@ -187,10 +187,10 @@ class AdminController extends AppController {
 
 		$projectModel = new Product;
 
-		$projectModel->updateMain( $productId, $updatedProduct );
+		$projectModel->updateMain($productId, $updatedProduct);
 
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
-		header( "Location: /admin/edit-product/$productId" );
+		header("Location: /admin/edit-product/$productId");
 		exit();
 	}
 
@@ -203,21 +203,21 @@ class AdminController extends AppController {
 	public
 	function updateProductCategoriesAction(
 		int $productId
-	) {
+	){
 
 		$categories = array();
-		if ( $_SERVER['REQUEST_METHOD'] == "POST" ) {
-			foreach ( $_POST as $category ) {
+		if($_SERVER['REQUEST_METHOD'] == "POST"){
+			foreach($_POST as $category){
 				$categories[] = $category;
 			}
 		}
 
 		$productModel = new Product;
 
-		$productModel->updateCategories( $productId, $categories );
+		$productModel->updateCategories($productId, $categories);
 
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
-		header( "Location: /admin/edit-product/$productId" );
+		header("Location: /admin/edit-product/$productId");
 		exit();
 	}
 
@@ -230,16 +230,16 @@ class AdminController extends AppController {
 	public
 	function addProductImageAction(
 		int $productId
-	) {
+	){
 
-		if ( ! $_FILES['productImage']['error'] ) {
+		if(!$_FILES['productImage']['error']){
 			$image        = $_FILES['productImage'];
 			$productModel = new Product;
 
-			$productModel->addImage( $productId, $image );
+			$productModel->addImage($productId, $image);
 		}
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
-		header( "Location: /admin/edit-product/$productId" );
+		header("Location: /admin/edit-product/$productId");
 		exit();
 	}
 
@@ -253,13 +253,12 @@ class AdminController extends AppController {
 	public
 	function removeProductImageAction(
 		int $imageId, $productId
-	) {
-
+	){
 		$productModel = new Product;
-		$productModel->removeImage( $imageId );
+		$productModel->removeImage($imageId);
 
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
-		header( "Location: /admin/edit-product/$productId" );
+		header("Location: /admin/edit-product/$productId");
 		exit();
 	}
 
@@ -272,22 +271,22 @@ class AdminController extends AppController {
 	public
 	function addProductSpecificationAction(
 		int $productId
-	) {
+	){
 
 		$specification = array();
-		foreach ( $_POST as $key => $value ) {
-			if ( $value ) {
+		foreach($_POST as $key => $value){
+			if($value){
 				$specification [ $key ] = $value;
-			} else {
+			}else{
 				$specification [ $key ] = 0;
 			}
 		}
 
 		$productModel = new Product;
-		$productModel->addSpecification( $productId, $specification );
+		$productModel->addSpecification($productId, $specification);
 
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
-		header( "Location: /admin/edit-product/$productId" );
+		header("Location: /admin/edit-product/$productId");
 		exit();
 	}
 
@@ -301,13 +300,13 @@ class AdminController extends AppController {
 	public
 	function removeProductSpecificationAction(
 		int $specificationId, $productId
-	) {
+	){
 
 		$productModel = new Product;
-		$productModel->removeSpecification( $specificationId );
+		$productModel->removeSpecification($specificationId);
 
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
-		header( "Location: /admin/edit-product/$productId" );
+		header("Location: /admin/edit-product/$productId");
 		exit();
 	}
 
@@ -317,26 +316,26 @@ class AdminController extends AppController {
 	 * Формирование страницы админки с манипуляциями над проектами
 	 */
 	public
-	function projectsAction() {
+	function projectsAction(){
 		$this->view   = "projects";
 		$projectModel = new Project;
 		$projects     = $projectModel->getProjectsForAdmin();
 
 		$title = "Работа с базой даннных. Проекты.";
-		$this->setVars( compact( 'title', 'projects' ) );
+		$this->setVars(compact('title', 'projects'));
 	}
 
 	/**
 	 * Формирование страницы админки с формой создания нового проекта
 	 */
 	public
-	function newProjectAction() {
+	function newProjectAction(){
 
 		$categoryModel = new Category;
 		$categories    = $categoryModel->findAllNames();
 
 		$title = "Работа с базой даннных. Новый проект.";
-		$this->setVars( compact( 'title', 'categories' ) );
+		$this->setVars(compact('title', 'categories'));
 	}
 
 	/**
@@ -344,7 +343,7 @@ class AdminController extends AppController {
 	 * формирует страницу админки с манипуляциями над проектами
 	 */
 	public
-	function createProjectAction() {
+	function createProjectAction(){
 		// принимаем всю переданную информацию и удобно складываем в массив
 		// основное
 		$project = [
@@ -354,22 +353,22 @@ class AdminController extends AppController {
 			'icon'             => $_FILES['projectIcon'],
 		];
 		// категории
-		foreach ( $_POST as $key => $value ) {
-			if ( preg_match( "~^category[1-9]+~", $key ) ) {
+		foreach($_POST as $key => $value){
+			if(preg_match("~^category[1-9]+~", $key)){
 				$project['categories'][] = $value;
 			}
 		}
 		// изображения
-		foreach ( $_FILES as $key => $value ) {
-			if ( preg_match( "~^projectImage[1-9]+~", $key ) ) {
+		foreach($_FILES as $key => $value){
+			if(preg_match("~^projectImage[1-9]+~", $key)){
 				$project['images'][] = $value;
 			}
 		}
 		$projectModel = new Project;
-		$projectModel->createProject( $project );
+		$projectModel->createProject($project);
 
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
-		header( 'Location: /admin/projects' );
+		header('Location: /admin/projects');
 		exit();
 	}
 
@@ -382,13 +381,13 @@ class AdminController extends AppController {
 	public
 	function removeProjectAction(
 		int $projectId
-	) {
+	){
 
 		$projectModel = new Project;
-		$projectModel->removeProject( $projectId );
+		$projectModel->removeProject($projectId);
 
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
-		header( 'Location: /admin/projects' );
+		header('Location: /admin/projects');
 		exit();
 	}
 
@@ -400,14 +399,14 @@ class AdminController extends AppController {
 	public
 	function editProjectAction(
 		int $projectId
-	) {
+	){
 
 		$projectModel    = new Project;
 		$categoriesModel = new Category;
-		$project         = $projectModel->findById( $projectId );
+		$project         = $projectModel->findById($projectId);
 		$categories      = $categoriesModel->findAllNames();
 		$title           = "Работа с базой даннных. Редактирование Проекта $projectId.";
-		$this->setVars( compact( 'title', 'project', 'categories' ) );
+		$this->setVars(compact('title', 'project', 'categories'));
 	}
 
 	/**
@@ -419,7 +418,7 @@ class AdminController extends AppController {
 	public
 	function updateProjectAction(
 		int $projectId
-	) {
+	){
 
 		$updatedProject ['id']                = $_POST ['projectId'];
 		$updatedProject ['name']              = $_POST ['projectName'];
@@ -430,10 +429,10 @@ class AdminController extends AppController {
 
 		$projectModel = new Project;
 
-		$projectModel->updateMain( $projectId, $updatedProject );
+		$projectModel->updateMain($projectId, $updatedProject);
 
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
-		header( "Location: /admin/edit-project/$projectId" );
+		header("Location: /admin/edit-project/$projectId");
 		exit();
 	}
 
@@ -446,21 +445,21 @@ class AdminController extends AppController {
 	public
 	function updateProjectCategoriesAction(
 		int $projectId
-	) {
+	){
 
 		$categories = array();
-		if ( $_SERVER['REQUEST_METHOD'] == "POST" ) {
-			foreach ( $_POST as $category ) {
+		if($_SERVER['REQUEST_METHOD'] == "POST"){
+			foreach($_POST as $category){
 				$categories[] = $category;
 			}
 		}
 
 		$projectModel = new Project;
 
-		$projectModel->updateCategories( $projectId, $categories );
+		$projectModel->updateCategories($projectId, $categories);
 
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
-		header( "Location: /admin/edit-project/$projectId" );
+		header("Location: /admin/edit-project/$projectId");
 		exit();
 	}
 
@@ -473,16 +472,16 @@ class AdminController extends AppController {
 	public
 	function addProjectImageAction(
 		int $projectId
-	) {
+	){
 
-		if ( ! $_FILES['projectImage']['error'] ) {
+		if(!$_FILES['projectImage']['error']){
 			$image        = $_FILES['projectImage'];
 			$projectModel = new Project;
 
-			$projectModel->addImage( $projectId, $image );
+			$projectModel->addImage($projectId, $image);
 		}
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
-		header( "Location: /admin/edit-project/$projectId" );
+		header("Location: /admin/edit-project/$projectId");
 		exit();
 	}
 
@@ -496,13 +495,13 @@ class AdminController extends AppController {
 	public
 	function removeProjectImageAction(
 		int $imageId, $projectId
-	) {
+	){
 
 		$projectModel = new Project;
-		$projectModel->removeImage( $imageId );
+		$projectModel->removeImage($imageId);
 
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
-		header( "Location: /admin/edit-project/$projectId" );
+		header("Location: /admin/edit-project/$projectId");
 		exit();
 	}
 
@@ -511,21 +510,21 @@ class AdminController extends AppController {
 	 * Формирование страницы админки с манипуляциями над категориями
 	 */
 	public
-	function categoriesAction() {
+	function categoriesAction(){
 		$categoryModel = new Category;
 		$categories    = $categoryModel->findAll();
 		$title         = "Работа с базой даннных. Категории.";
-		$this->setVars( compact( 'title', 'categories' ) );
+		$this->setVars(compact('title', 'categories'));
 	}
 
 	/**
 	 * Формирование страницы админки с формой создания новой категории
 	 */
 	public
-	function newCategoryAction() {
+	function newCategoryAction(){
 
 		$title = "Работа с базой даннных. Новая Категория.";
-		$this->setVars( compact( 'title' ) );
+		$this->setVars(compact('title'));
 
 	}
 
@@ -534,7 +533,7 @@ class AdminController extends AppController {
 	 * формирует страницу админки с манипуляциями над категориями
 	 */
 	public
-	function createCategoryAction() {
+	function createCategoryAction(){
 		// принимаем всю переданную информацию и удобно складываем в массив
 		// основное
 		$category = [
@@ -545,10 +544,10 @@ class AdminController extends AppController {
 		];
 
 		$projectModel = new Category;
-		$projectModel->createCategory( $category );
+		$projectModel->createCategory($category);
 
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
-		header( 'Location: /admin/categories/' );
+		header('Location: /admin/categories/');
 		exit();
 	}
 
@@ -561,12 +560,12 @@ class AdminController extends AppController {
 	public
 	function removeCategoryAction(
 		int $categoryId
-	) {
+	){
 		$projectModel = new Category;
-		$projectModel->removeCategory( $categoryId );
+		$projectModel->removeCategory($categoryId);
 
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
-		header( 'Location: /admin/categories' );
+		header('Location: /admin/categories');
 		exit();
 	}
 
@@ -578,12 +577,12 @@ class AdminController extends AppController {
 	public
 	function editCategoryAction(
 		int $categoryId
-	) {
+	){
 
 		$categoryModel = new Category;
-		$category      = $categoryModel->findById( $categoryId );
+		$category      = $categoryModel->findById($categoryId);
 		$title         = "Работа с базой даннных. Редактирование Категории $categoryId.";
-		$this->setVars( compact( 'title', 'category' ) );
+		$this->setVars(compact('title', 'category'));
 	}
 
 	/**
@@ -595,7 +594,7 @@ class AdminController extends AppController {
 	public
 	function updateCategoryAction(
 		int $categoryId
-	) {
+	){
 
 		$updatedCategory ['id']                = $_POST ['categoryId'];
 		$updatedCategory ['name']              = $_POST ['categoryName'];
@@ -606,10 +605,10 @@ class AdminController extends AppController {
 
 		$projectModel = new Category;
 
-		$projectModel->updateCategory( $categoryId, $updatedCategory );
+		$projectModel->updateCategory($categoryId, $updatedCategory);
 
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
-		header( 'Location: /admin/categories' );
+		header('Location: /admin/categories');
 		exit();
 	}
 
@@ -618,21 +617,21 @@ class AdminController extends AppController {
 	 * Формирование страницы админки с манипуляциями над страницами
 	 */
 	public
-	function pagesAction() {
+	function pagesAction(){
 		$pageModel = new Page;
 		$pages     = $pageModel->findAll();
 		$title     = "Работа с базой даннных. Категории.";
-		$this->setVars( compact( 'title', 'pages' ) );
+		$this->setVars(compact('title', 'pages'));
 	}
 
 	/**
 	 * Формирование страницы админки с формой создания новой страницы
 	 */
 	public
-	function newPageAction() {
+	function newPageAction(){
 
 		$title = "Работа с базой даннных. Новая Страница.";
-		$this->setVars( compact( 'title' ) );
+		$this->setVars(compact('title'));
 
 	}
 
@@ -641,7 +640,7 @@ class AdminController extends AppController {
 	 * формирует страницу админки с манипуляциями над страницами
 	 */
 	public
-	function createPageAction() {
+	function createPageAction(){
 		// принимаем всю переданную информацию и удобно складываем в массив
 		// основное
 		$page = [
@@ -651,10 +650,10 @@ class AdminController extends AppController {
 		];
 
 		$pageModel = new Page;
-		$pageModel->createPage( $page );
+		$pageModel->createPage($page);
 
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
-		header( 'Location: /admin/pages/' );
+		header('Location: /admin/pages/');
 		exit();
 	}
 
@@ -667,12 +666,12 @@ class AdminController extends AppController {
 	public
 	function removePageAction(
 		int $pageId
-	) {
+	){
 		$pageModel = new Page;
-		$pageModel->removePage( $pageId );
+		$pageModel->removePage($pageId);
 
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
-		header( 'Location: /admin/pages' );
+		header('Location: /admin/pages');
 		exit();
 	}
 
@@ -684,11 +683,11 @@ class AdminController extends AppController {
 	public
 	function editPageAction(
 		int $pageId
-	) {
+	){
 		$pageModel = new Page;
-		$page      = $pageModel->findById( $pageId )[0];
+		$page      = $pageModel->findById($pageId)[0];
 		$title     = "Работа с базой даннных. Редактирование страницы с ID = $pageId.";
-		$this->setVars( compact( 'title', 'page' ) );
+		$this->setVars(compact('title', 'page'));
 	}
 
 	/**
@@ -700,17 +699,17 @@ class AdminController extends AppController {
 	public
 	function updatePageAction(
 		int $pageId
-	) {
+	){
 		$updatedPage ['name']    = $_POST ['pageName'];
 		$updatedPage ['alias']   = $_POST ['pageAlias'];
 		$updatedPage ['content'] = $_POST ['pageContent'];
 
 		$pageModel = new Page;
 
-		$pageModel->updatePage( $pageId, $updatedPage );
+		$pageModel->updatePage($pageId, $updatedPage);
 
 		// для тех кто без параметров (чтобы не было ошибок с обновлением страницы т.п. вещами)
-		header( 'Location: /admin/pages' );
+		header('Location: /admin/pages');
 		exit();
 	}
 }

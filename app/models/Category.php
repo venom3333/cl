@@ -163,7 +163,10 @@ class Category extends Model {
 		";
 		$icon = $this->pdo->query( $sql );
 		$icon = $icon[0];
-		unlink( WWW . $icon['icon'] );
+		$file = WWW . $icon['icon'];
+		if ( is_file( $file ) ) {
+			unlink( $file );
+		}
 
 		// затем саму запись в БД
 		$sql = "
@@ -193,7 +196,7 @@ class Category extends Model {
 			$icon = $this->pdo->query( $sql );
 			$icon = $icon[0];
 			$file = WWW . $icon['icon'];
-			if ( file_exists( $file ) ) {
+			if ( is_file( $file ) ) {
 				unlink( $file );
 			}
 

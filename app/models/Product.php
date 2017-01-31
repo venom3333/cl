@@ -373,7 +373,7 @@ class Product extends Model {
 			$icon = $this->pdo->query( $sql );
 			$icon = $icon[0];
 			$file = WWW . $icon['icon'];
-			if ( file_exists( $file ) ) {
+			if ( is_file( $file ) ) {
 				unlink( $file );
 			}
 
@@ -465,15 +465,17 @@ class Product extends Model {
 	 * @param int $imageId ID изображения
 	 */
 	public function removeImage( int $imageId ) {
-		// сначала файл-иконку
+		// сначала файл
 		$sql  = "
 			SELECT path
 			FROM product_image
 			WHERE id = $imageId
 		";
 		$path = $this->pdo->query( $sql )[0];
-		unlink( WWW . $path['path'] );
-
+		$file = WWW . $path['path'];
+		if (is_file($file)){
+			unlink($file);
+		}
 		// затем саму запись в БД
 		$sql = "
 			DELETE
