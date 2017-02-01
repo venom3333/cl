@@ -121,11 +121,11 @@
 			</fieldset>
 			<div class="form-group">
 				<label for="cartName">ФИО</label>
-				<input type="email" class="form-control" id="cartName" name="cartName" placeholder="Ваше имя">
+                                <input type="email" class="form-control" id="cartName" name="cartName" placeholder="Ваше имя" required>
 			</div>
 			<div class="form-group">
 				<label for="cartPhoneNumber">Телефон</label>
-				<input type="tel" class="form-control" id="cartPhoneNumber" placeholder="Ваш телефон">
+				<input type="tel" class="form-control" id="cartPhoneNumber" placeholder="Ваш телефон" required>
 			</div>
 			<div class="form-group">
 				<label for="cartEmail">E-mail</label>
@@ -133,11 +133,11 @@
 			</div>
 			<div class="form-group">
 				<label for="cartAddress">Адрес доставки</label>
-				<textarea class="form-control" id="cartAddress" placeholder="Адрес доставки"></textarea>
+				<textarea class="form-control" id="cartAddress" placeholder="Адрес доставки (кроме варианта 'Самовывоз')"></textarea>
 			</div>
 			<div class="form-group">
 				<label for="cartNotes">Примечание</label>
-				<textarea class="form-control" id="cartNotes" placeholder="Примечания"></textarea>
+				<textarea class="form-control" id="cartNotes" placeholder="Примечания к заказу"></textarea>
 			</div>
 			<button type="button" class="btn btn-primary make-order-button">Заказать</button>
 		</form>

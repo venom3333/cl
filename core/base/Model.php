@@ -1,4 +1,5 @@
 <?php
+//TODO: Нужен ORM (скорее всего ActiveRecord) + кэширование.
 
 namespace core\base;
 
@@ -11,7 +12,7 @@ abstract class Model {
 	protected $table;   // используемая моделью таблица
 
 	public function __construct() {
-		$this->pdo = Db::instance(); // создает (присваивает) объект PDO
+		$this->pdo = Db::getInstance(); // создает (присваивает) объект PDO
 	}
 
 //	public function query( $sql ) {
@@ -20,7 +21,7 @@ abstract class Model {
 
 
 	/**
-	 * Делает выборку всех данный из определенной таблицы
+	 * Делает выборку всех данных из определенной таблицы
 	 *
 	 * @param string $sort индекс сортировки
 	 * @param string $order порядок сортировки
@@ -76,7 +77,7 @@ abstract class Model {
 	 *
 	 * @return bool
 	 */
-	protected function resizeImage( $image, $w_o = 1280, $h_o = 1024 ) {
+	protected function resizeImage( $image, $w_o = IMAGE_WIDTH, $h_o = IMAGE_HEIGHT ) {
 		if ( ( $w_o < 0 ) || ( $h_o < 0 ) ) {
 			echo "Некорректные входные параметры";
 
@@ -169,7 +170,7 @@ abstract class Model {
 		) );
 		$str = preg_replace( "/[^0-9a-z-_.]/i", "", $str ); // очищаем строку от недопустимых символов
 		$str = str_replace( " ", "-", $str ); // заменяем пробелы знаком минус
-		return $str; // возвращаем результат
+		return $str;
 	}
 
 	/**
