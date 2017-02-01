@@ -23,7 +23,7 @@ class Db {
 	 * Проверяет не запущен ли уже экземпляр класса Db и если нет создает его
 	 * @return Db Возвращает экземпляр класса Db
 	 */
-	public static function instance() {
+	public static function getInstance() {
 		if ( self::$instance === null ) {
 			self::$instance = new self;
 		}

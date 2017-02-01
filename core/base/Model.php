@@ -11,7 +11,7 @@ abstract class Model {
 	protected $table;   // используемая моделью таблица
 
 	public function __construct() {
-		$this->pdo = Db::instance(); // создает (присваивает) объект PDO
+		$this->pdo = Db::getInstance(); // создает (присваивает) объект PDO
 	}
 
 //	public function query( $sql ) {
@@ -20,7 +20,7 @@ abstract class Model {
 
 
 	/**
-	 * Делает выборку всех данный из определенной таблицы
+	 * Делает выборку всех данных из определенной таблицы
 	 *
 	 * @param string $sort индекс сортировки
 	 * @param string $order порядок сортировки
