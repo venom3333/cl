@@ -1,6 +1,7 @@
 <?php
 /**
  * Class Logger производит логгирование.
+ * TODO: доделать этот зачаток.
  * TODO: Сделать возможность логгирование не только в файл.
  */
 
@@ -10,7 +11,7 @@ namespace core;
 
 class Logger {
 
-	static private $_instance;
+	static private $instance;
 	private $path = ROOT."/logs/";
 	private $file = "general.log";
 
@@ -46,11 +47,11 @@ class Logger {
 	 * @return mixed
 	 */
 	public static function getInstance() {
-		if ( ! self::$_instance ) {
-			self::$_instance = new Logger();
+		if ( ! self::$instance ) {
+			self::$instance = new self;
 		}
 
-		return self::$_instance;
+		return self::$instance;
 	}
 
 	public function log( $msg ) {

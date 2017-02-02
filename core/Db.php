@@ -29,6 +29,9 @@ class Db {
 		}
 		return self::$instance;
 	}
+        
+        private function __clone() {
+	}
 
 	/**
 	 * Выполняет запрос SQL

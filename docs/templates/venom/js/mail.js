@@ -1,8 +1,22 @@
+/*
+ * Отправка формы "перезвоните нам"
+ * @returns {undefined}
+ */
 function callbackMail() {
     var data = {};
     data.name = document.getElementById('inputName').value;
     data.number = document.getElementById('inputPhoneNumber').value;
     data.text = document.getElementById('inputText').value;
+    
+    // валидация
+    if (!data.name){
+        Notify({status: false, message: 'Вы не указали имя!', timer: 5});
+        return;
+    }
+    if (!data.number){
+        Notify({status: false, message: 'Вы не указали номер телефона!', timer: 5});
+        return;
+    }
 
     Notify({status: true, def: true, message: 'Идет отправка...', timer: 32});
 
@@ -23,6 +37,10 @@ function callbackMail() {
 
 }
 
+/*
+ * Отправка формы заказа из корзины
+ * @returns {undefined}
+ */
 function makeOrderMail() {
 
     var data = {};
@@ -36,6 +54,16 @@ function makeOrderMail() {
     data.email = document.getElementById('cartEmail').value;
     data.address = document.getElementById('cartAddress').value;
     data.text = document.getElementById('cartNotes').value;
+    
+    // валидация
+    if (!data.name){
+        Notify({status: false, message: 'Вы не указали имя!', timer: 5});
+        return;
+    }
+    if (!data.number){
+        Notify({status: false, message: 'Вы не указали номер телефона!', timer: 5});
+        return;
+    }
 
     // console.log(data);
 
@@ -85,7 +113,7 @@ function Notify(setup) {
         if (timer) {
             clearTimeout(TimeOutNotify);
             TimeOutNotify = setTimeout(function () {
-                Notify({status: setup.status})
+                Notify({status: setup.status});
             }, 1000 * timer);
         }
     } else {
@@ -104,4 +132,4 @@ function addMailListeners() {
     addEventListenerByClass('make-order-button', 'click', makeOrderMail);
 }
 
-setTimeout(addMailListeners, 500);
+window.onload(addMailListeners());
